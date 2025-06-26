@@ -10,11 +10,12 @@ class SignupManager
     QString email;
     QString username;
     QString password;
+
+
 public:
     SignupManager(QString ReceivedData);
     void Messagehandeler();
     void WriteDatasToFile();
-
 };
 
 #endif // SIGNUPMANAGER_H

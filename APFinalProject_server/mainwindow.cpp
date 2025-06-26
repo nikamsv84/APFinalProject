@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "signupmanager.h"
 
 QList<QTcpSocket*> MainWindow::clients;
 
@@ -36,6 +37,11 @@ void MainWindow::socket_readyRead(QTcpSocket *_socket)
 {
     QByteArray data = _socket->readAll();
     ui->output->append("" + _socket->objectName() + ": " + data);
+    ManagingData((const char *)data);
+    // QString message_back_to_client = "Got your message!" + _socket->readAll() + "";
+    // _socket->write(message_back_to_client.toUtf8());
+    // _socket->flush();
+    // _socket->waitForBytesWritten(3000);
 }
 
 void MainWindow::socket_bytesWritten(QTcpSocket *_socket)
@@ -124,13 +130,19 @@ void MainWindow::ManagingData(const char* data)
     qDebug()<<data;
     char* specifier_SIGNUP = strstr(data, "\\SIGNUP\\");
     char* specifier_SIGNIN = strstr(data, "\\SIGNIN\\");
+
     if (specifier_SIGNUP)
     {
-        qDebug()<<"the datas are related to signupinfo.";
+        sendDatatoAll("the datas are related to signin info.");
+        QString stringData = QString::fromUtf8(data);
+        SignupManager signupproccess(stringData);
+        signupproccess.Messagehandeler();
+        signupproccess.WriteDatasToFile();
+        ui->output->append("the datas are related to signupinfo.");
     }
     else if (specifier_SIGNIN)
     {
-        qDebug()<<"the datas are related to signininfo.";
+        ui->output->append("the datas are related to signupinfo.");
     }
 }
 
