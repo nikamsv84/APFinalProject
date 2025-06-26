@@ -1,6 +1,6 @@
 #include "signin.h"
 #include "ui_signin.h"
-#include "game_menu.h"
+// #include "game_menu.h"
 #include "mainwindow.h"
 
 
@@ -25,6 +25,6 @@ void signin::on_signin_2_clicked()
     // QString receivedData = MainWindow::socket_readyRead();
     // ui->signupStatus->setText(receivedData);
 
-    game_menu* game_menu_pg = new game_menu();
-    game_menu_pg->show();
+    // game_menu* game_menu_pg = new game_menu();
+    // game_menu_pg->show();
 }

@@ -232,8 +232,8 @@ color: rgb(0, 0, 0);
   <widget class="QLabel" name="status">
    <property name="geometry">
     <rect>
-     <x>1320</x>
-     <y>380</y>
+     <x>100</x>
+     <y>120</y>
      <width>261</width>
      <height>71</height>
     </rect>
