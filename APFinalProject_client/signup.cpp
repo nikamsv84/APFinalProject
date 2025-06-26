@@ -1,7 +1,7 @@
 #include "signup.h"
 #include "ui_signup.h"
 #include "mainwindow.h"
-// #include "game_menu.h"
+#include "game_menu.h"
 
 
 signup::signup(QWidget *parent)
@@ -29,9 +29,9 @@ void signup::on_signup_2_clicked()
                          + ",password:" + hashed_password);
 
     QString receivedData = MainWindow::socket_readyRead();
-    // ui->status->setText(receivedData);
     qDebug()<< receivedData;
-        // game_menu* game_menu_pg = new game_menu();
-        // game_menu_pg->show();
+
+        game_menu* game_menu_pg = new game_menu();
+        game_menu_pg->show();
 
 }

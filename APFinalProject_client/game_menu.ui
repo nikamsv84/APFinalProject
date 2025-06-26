@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>game_menu</class>
+ <widget class="QWidget" name="game_menu">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1687</width>
+    <height>927</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>610</x>
+     <y>60</y>
+     <width>431</width>
+     <height>141</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel{
+	font: 700 48pt &quot;Script MT&quot;;
+	color: rgb(170, 85, 255);
+}</string>
+   </property>
+   <property name="text">
+    <string>Game  Menu</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="start_game">
+   <property name="geometry">
+    <rect>
+     <x>650</x>
+     <y>260</y>
+     <width>331</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+	color: rgb(255, 255, 255);
+	font: 700 30pt &quot;Script MT&quot;;
+	background-color: rgb(57, 4, 80);
+}</string>
+   </property>
+   <property name="text">
+    <string>start game</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="edit_info">
+   <property name="geometry">
+    <rect>
+     <x>650</x>
+     <y>400</y>
+     <width>331</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+	background-color: rgb(57, 4, 80);
+	color: rgb(255, 255, 255);
+	font: 700 30pt &quot;Script MT&quot;;
+}</string>
+   </property>
+   <property name="text">
+    <string>edit information</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="recent_games">
+   <property name="geometry">
+    <rect>
+     <x>650</x>
+     <y>530</y>
+     <width>331</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+	background-color: rgb(57, 4, 80);
+	color: rgb(255, 255, 255);
+	font: 700 30pt &quot;Script MT&quot;;
+}</string>
+   </property>
+   <property name="text">
+    <string>recent games</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="exit">
+   <property name="geometry">
+    <rect>
+     <x>650</x>
+     <y>640</y>
+     <width>331</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+	background-color: rgb(57, 4, 80);
+	color: rgb(255, 255, 255);
+	font: 700 30pt &quot;Script MT&quot;;
+}</string>
+   </property>
+   <property name="text">
+    <string>exit</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

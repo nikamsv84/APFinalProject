@@ -1,7 +1,8 @@
 #include "signin.h"
 #include "ui_signin.h"
-// #include "game_menu.h"
+#include "game_menu.h"
 #include "mainwindow.h"
+#include "forgot_password.h"
 
 
 signin::signin(QWidget *parent)
@@ -25,6 +26,16 @@ void signin::on_signin_2_clicked()
     // QString receivedData = MainWindow::socket_readyRead();
     // ui->signupStatus->setText(receivedData);
 
-    // game_menu* game_menu_pg = new game_menu();
-    // game_menu_pg->show();
+    QString receivedData = MainWindow::socket_readyRead();
+    qDebug()<< receivedData;
+
+    game_menu* game_menu_pg = new game_menu();
+    game_menu_pg->show();
 }
+
+void signin::on_forgot_password_clicked()
+{
+    forgot_password* forgot_password_pg = new forgot_password();
+    forgot_password_pg->show();
+}
+
