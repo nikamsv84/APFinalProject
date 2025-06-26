@@ -10,12 +10,14 @@ CONFIG += c++17
 
 SOURCES += \
     editinfo.cpp \
+    forgotpassword.cpp \
     main.cpp \
     mainwindow.cpp \
     signupmanager.cpp
 
 HEADERS += \
     editinfo.h \
+    forgotpassword.h \
     mainwindow.h \
     signupmanager.h
 

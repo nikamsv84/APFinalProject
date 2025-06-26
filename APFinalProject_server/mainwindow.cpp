@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include "signupmanager.h"
 #include "editinfo.h"
-
+#include "forgotpassword.h"
 QList<QTcpSocket*> MainWindow::clients;
 
 MainWindow::MainWindow(QWidget *parent)
@@ -132,6 +132,8 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
     char* specifier_SIGNUP = strstr(data, "\\SIGNUP\\");
     char* specifier_STARTGAME = strstr(data, "\\STARTGAME\\");
     char* specifier_EDITINFO = strstr(data, "\\EDITINFO\\");
+    char* specifier_FORGOTPASSWORD = strstr(data, "\\FORGOTPASSWORD\\");
+
 
     if (specifier_SIGNUP)
     {
@@ -164,6 +166,14 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
         EditInfo editprocess(stringData);
         editprocess.Messagehandeler();
         editprocess.EditSpecificField();
+    }
+    else if (specifier_FORGOTPASSWORD)
+    {
+        qDebug()<<"the datas are related to ForgotPassword";
+        QString stringData = QString::fromUtf8(data);
+        ForgotPassword forgotpasswordprocess(stringData);
+        forgotpasswordprocess.Messagehandeler();
+        forgotpasswordprocess.EditForgetPassword();
     }
 
 }
