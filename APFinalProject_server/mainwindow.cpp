@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "signupmanager.h"
+#include "editinfo.h"
 
 QList<QTcpSocket*> MainWindow::clients;
 
@@ -158,7 +159,11 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
     }
     else if (specifier_EDITINFO)
     {
-
+        qDebug()<<"the datas are related to editinfo";
+        QString stringData = QString::fromUtf8(data);
+        EditInfo editprocess(stringData);
+        editprocess.Messagehandeler();
+        editprocess.EditSpecificField();
     }
 
 }

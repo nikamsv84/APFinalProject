@@ -55,3 +55,4 @@ void SignupManager::WriteDatasToFile()
         qDebug() << "Failed to open binary file!";
     }
 }
+

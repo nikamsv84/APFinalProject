@@ -4,6 +4,7 @@
 class EditInfo
 {
     QString ReceivedData;
+    QString DataType;
     QString PreviousData;
     QString NewData;
 public:
