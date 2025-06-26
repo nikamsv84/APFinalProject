@@ -13,7 +13,158 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>50</y>
+      <width>311</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+	font: 100000 32pt &quot;Script MT&quot;;
+    color: rgb(248, 149, 255);
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Poffer Game</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="gridLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>140</y>
+      <width>361</width>
+      <height>196</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="3" column="1">
+      <widget class="QPushButton" name="connect">
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    /* Normal state gradient background */
+    background: qlineargradient(spread:pad, x1: 0.5, y1: 0, x2: 0.5, y2: 1, 
+                                stop: 0 #6a82fb, stop: 1 #fc5c7d);
+	font: 700 9pt &quot;Script MT&quot;;
+	color:rgb(81, 0, 255);
+}</string>
+       </property>
+       <property name="text">
+        <string>Connect</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="port">
+       <property name="styleSheet">
+        <string notr="true">QLineEdit{
+    background: rgb(170, 170, 255);
+	font: 700 9pt &quot;Script MT&quot;;
+}</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_4">
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+	font: 100000 12pt &quot;Script MT&quot;;
+    color: rgb(255, 163, 120);
+}</string>
+       </property>
+       <property name="text">
+        <string>ip:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="ip">
+       <property name="styleSheet">
+        <string notr="true">QLineEdit{
+    background: rgb(170, 170, 255);
+	font: 700 9pt &quot;Script MT&quot;;
+}</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="label_3">
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+	font: 100000 18pt &quot;Script MT&quot;;
+    color: rgb(120, 244, 255);
+}
+</string>
+       </property>
+       <property name="text">
+        <string>enter the port to connect the server:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label">
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+	font: 100000 12pt &quot;Script MT&quot;;
+    color: rgb(255, 163, 120);
+}</string>
+       </property>
+       <property name="text">
+        <string>Port:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QLabel" name="connecting_status">
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+	font: 100000 12pt &quot;Script MT&quot;;
+    color: rgb(255, 163, 120);
+}</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QPushButton" name="disconnect">
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    /* Normal state gradient background */
+    background: qlineargradient(spread:pad, x1: 0.5, y1: 0, x2: 0.5, y2: 1, 
+                                stop: 0 #6a82fb, stop: 1 #fc5c7d);
+	font: 700 9pt &quot;Script MT&quot;;
+	color:rgb(81, 0, 255);
+}</string>
+       </property>
+       <property name="text">
+        <string>Disconnect</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1">
+      <widget class="QLabel" name="data">
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+	font: 100000 12pt &quot;Script MT&quot;;
+    color: rgb(255, 163, 120);
+}</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
