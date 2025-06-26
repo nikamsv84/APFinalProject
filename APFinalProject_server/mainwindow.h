@@ -2,6 +2,12 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTcpSocket>
+#include <QTcpServer>
+#include <QMessageBox>
+#include <QList>
+#include <QFile>
+#include <QString>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -16,8 +22,26 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void ManagingData(const char* data);
+    static void sendDatatoAll(QString input);
+    static QList<QTcpSocket*> clients;
+
+
+public slots:
+    void server_newConnection();
+    void socket_connected();
+    void socket_readyRead(QTcpSocket *_socket);
+    void socket_bytesWritten(QTcpSocket *_socket);
+    void socket_disconnected(QTcpSocket *_socket);
+
+private slots:
+    void on_connect_clicked();
+
+    void on_disconnect_clicked();
 
 private:
     Ui::MainWindow *ui;
+    QTcpServer *server = nullptr;
+    int server_port;
 };
 #endif // MAINWINDOW_H
