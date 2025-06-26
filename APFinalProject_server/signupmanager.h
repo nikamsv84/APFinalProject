@@ -1,6 +1,7 @@
 #ifndef SIGNUPMANAGER_H
 #define SIGNUPMANAGER_H
 #include <QString>
+#include <QTcpSocket>
 class SignupManager
 {
     QString ReceivedData;

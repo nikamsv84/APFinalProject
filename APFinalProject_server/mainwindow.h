@@ -22,7 +22,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    void ManagingData(const char* data);
+    void ManagingData(QTcpSocket *_socket, const char* data);
     static void sendDatatoAll(QString input);
     static QList<QTcpSocket*> clients;
 

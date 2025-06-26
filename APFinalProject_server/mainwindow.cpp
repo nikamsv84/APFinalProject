@@ -37,7 +37,7 @@ void MainWindow::socket_readyRead(QTcpSocket *_socket)
 {
     QByteArray data = _socket->readAll();
     ui->output->append("" + _socket->objectName() + ": " + data);
-    ManagingData((const char *)data);
+    ManagingData(_socket, (const char *)data);
     // QString message_back_to_client = "Got your message!" + _socket->readAll() + "";
     // _socket->write(message_back_to_client.toUtf8());
     // _socket->flush();
@@ -125,11 +125,12 @@ void MainWindow::sendDatatoAll(QString input)
 
 }
 
-void MainWindow::ManagingData(const char* data)
+void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
 {
     qDebug()<<data;
     char* specifier_SIGNUP = strstr(data, "\\SIGNUP\\");
     char* specifier_SIGNIN = strstr(data, "\\SIGNIN\\");
+    char* specifier_STARTGAME = strstr(data, "\\STARTGAME\\");
 
     if (specifier_SIGNUP)
     {
@@ -140,10 +141,22 @@ void MainWindow::ManagingData(const char* data)
         signupproccess.WriteDatasToFile();
         ui->output->append("the datas are related to signupinfo.");
     }
-    else if (specifier_SIGNIN)
+    else if (specifier_STARTGAME)
     {
-        ui->output->append("the datas are related to signupinfo.");
+        qDebug()<<"the datas are related to startgame";
+        if (clients.size() == 2)
+        {
+            qDebug() <<"starting the game";
+            _socket->write("\\OK\\");
+            _socket->flush();
+            _socket->waitForBytesWritten();
+            qDebug()<<"Data was sent";
+
+        }else{
+            qDebug()<<"the number of clients are not valid";
+        }
     }
+
 }
 
 
