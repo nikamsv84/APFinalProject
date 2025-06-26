@@ -119,6 +119,19 @@ void MainWindow::sendDatatoAll(QString input)
 
 }
 
-
+void MainWindow::ManagingData(const char* data)
+{
+    qDebug()<<data;
+    char* specifier_SIGNUP = strstr(data, "\\SIGNUP\\");
+    char* specifier_SIGNIN = strstr(data, "\\SIGNIN\\");
+    if (specifier_SIGNUP)
+    {
+        qDebug()<<"the datas are related to signupinfo.";
+    }
+    else if (specifier_SIGNIN)
+    {
+        qDebug()<<"the datas are related to signininfo.";
+    }
+}
 
 
