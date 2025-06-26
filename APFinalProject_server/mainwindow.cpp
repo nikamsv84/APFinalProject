@@ -129,8 +129,8 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
 {
     qDebug()<<data;
     char* specifier_SIGNUP = strstr(data, "\\SIGNUP\\");
-    char* specifier_SIGNIN = strstr(data, "\\SIGNIN\\");
     char* specifier_STARTGAME = strstr(data, "\\STARTGAME\\");
+    char* specifier_EDITINFO = strstr(data, "\\EDITINFO\\");
 
     if (specifier_SIGNUP)
     {
@@ -155,6 +155,10 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
         }else{
             qDebug()<<"the number of clients are not valid";
         }
+    }
+    else if (specifier_EDITINFO)
+    {
+
     }
 
 }
