@@ -1,16 +1,17 @@
 #ifndef EDITINFO_H
 #define EDITINFO_H
 #include <QString>
-class EditInfo
+#include "databasemanager.h"
+class EditInfo:public DatabaseManager
 {
-    QString ReceivedData;
     QString DataType;
     QString PreviousData;
     QString NewData;
 public:
     EditInfo(QString ReceivedData);
-    void Messagehandeler();
     void EditSpecificField();
+    void InPlacingToLocalAttributes() override;
+
 };
 
 #endif // EDITINFO_H

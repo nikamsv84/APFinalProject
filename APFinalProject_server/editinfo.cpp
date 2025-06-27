@@ -1,29 +1,16 @@
 #include "editinfo.h"
 #include <QList>
 #include <QMap>
-#include<QDebug>
 #include <QFile>
-EditInfo::EditInfo(QString ReceivedData):ReceivedData(ReceivedData){}
-void EditInfo::Messagehandeler()
-{
-    ReceivedData.remove("\\EDITINFO\\,");
-    QStringList fields = ReceivedData.split(',');
-    QMap<QString, QString> editInfo;
-    for (const QString& field : fields) {
-        QStringList keyValue = field.split(':');
-        if (keyValue.size() == 2) {
-            editInfo[keyValue[0]] = keyValue[1];
-        }
-    }
+EditInfo::EditInfo(QString ReceivedData):DatabaseManager(ReceivedData){}
+void EditInfo::InPlacingToLocalAttributes(){
+    DataType = userInfo["DataType"];
+    PreviousData= userInfo["PreviousData"];
+    NewData = userInfo["NewData"];
 
-    DataType = editInfo["DataType"];
-    PreviousData = editInfo["PreviousData"];
-    NewData = editInfo["NewData"];
-
-    qDebug()<<"Datatype:>>"+DataType;
-    qDebug()<<"PreviousData:>>"+PreviousData;
-    qDebug()<<"NewData:>>"+NewData;
-
+    qDebug()<<"DataType:"+DataType;
+    qDebug()<<"PreviousData: "+PreviousData;
+    qDebug()<<"NewData: "+NewData;
 }
 void EditInfo::EditSpecificField()
 {

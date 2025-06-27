@@ -3,6 +3,7 @@
 #include "signupmanager.h"
 #include "editinfo.h"
 #include "forgotpassword.h"
+#include "loginmanager.h"
 #include <QTime>
 #include <QRandomGenerator>
 
@@ -143,6 +144,8 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
     char* specifier_EDITINFO = strstr(data, "\\EDITINFO\\");
     char* specifier_FORGOTPASSWORD = strstr(data, "\\FORGOTPASSWORD\\");
     char* specifier_STARTER = strstr(data, "\\STARTER\\");
+    char* specifier_LOGIN = strstr(data, "\\LOGIN\\");
+
 
 
 
@@ -151,7 +154,8 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
         sendDatatoAll("the datas are related to signin info.");
         QString stringData = QString::fromUtf8(data);
         SignupManager signupproccess(stringData);
-        signupproccess.Messagehandeler();
+        signupproccess.Messagehandeler("\\SIGNUP\\");
+        signupproccess.InPlacingToLocalAttributes();
         signupproccess.WriteDatasToFile();
         ui->output->append("the datas are related to signupinfo.");
     }
@@ -173,7 +177,8 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
         qDebug()<<"the datas are related to editinfo";
         QString stringData = QString::fromUtf8(data);
         EditInfo editprocess(stringData);
-        editprocess.Messagehandeler();
+        editprocess.Messagehandeler("\\EDITINFO\\");
+        editprocess.InPlacingToLocalAttributes();
         editprocess.EditSpecificField();
     }
     else if (specifier_FORGOTPASSWORD)
@@ -181,7 +186,8 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
         qDebug()<<"the datas are related to ForgotPassword";
         QString stringData = QString::fromUtf8(data);
         ForgotPassword forgotpasswordprocess(stringData);
-        forgotpasswordprocess.Messagehandeler();
+        forgotpasswordprocess.Messagehandeler("\\FORGOTPASSWORD\\");
+        forgotpasswordprocess.InPlacingToLocalAttributes();
         forgotpasswordprocess.EditForgetPassword();
     }else if (specifier_STARTER)
     {
@@ -197,6 +203,14 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
             clients[1]->flush();
             clients[1]->waitForBytesWritten();
         }
+    }else if(specifier_LOGIN)
+    {
+        qDebug()<<"the datas are related to login";
+
+        QString stringData = QString::fromUtf8(data);
+        LogInManager loginprocess(stringData);
+        loginprocess.Messagehandeler("\\LOGIN\\");
+        loginprocess.InPlacingToLocalAttributes();
     }
 }
 

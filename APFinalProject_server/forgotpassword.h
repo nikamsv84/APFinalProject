@@ -1,15 +1,15 @@
 #ifndef FORGOTPASSWORD_H
 #define FORGOTPASSWORD_H
+#include "databasemanager.h"
 #include <QString>
-class ForgotPassword
+class ForgotPassword:public DatabaseManager
 {
-    QString ReceivedData;
     QString PhoneNumber;
     QString NewPassword;
 public:
     ForgotPassword(QString ReceivedData);
-    void Messagehandeler();
     void EditForgetPassword();
+    void InPlacingToLocalAttributes() override;
 };
 
 #endif // FORGOTPASSWORD_H

@@ -6,28 +6,17 @@
 #include <QFile>
 #include <QTextStream>
 
-SignupManager::SignupManager(QString ReceivedData):ReceivedData(ReceivedData) {}
-void SignupManager::Messagehandeler()
+SignupManager::SignupManager(QString ReceivedData):DatabaseManager(ReceivedData) {}
+void SignupManager::InPlacingToLocalAttributes()
 {
-    ReceivedData.remove("\\SIGNUP\\,");
-    QStringList fields = ReceivedData.split(',');
-    QMap<QString, QString> signupInfo;
-    for (const QString& field : fields) {
-        QStringList keyValue = field.split(':');
-        if (keyValue.size() == 2) {
-            signupInfo[keyValue[0]] = keyValue[1];
-        }
-    }
-
-    name = signupInfo["name"];
-    lastname = signupInfo["lastname"];
-    email = signupInfo["email"];
-    phonenumber = signupInfo["phonenumber"];
-    username = signupInfo["username"];
-    password = signupInfo["password"];
+    name = userInfo["name"];
+    lastname = userInfo["lastname"];
+    email = userInfo["email"];
+    phonenumber = userInfo["phonenumber"];
+    username = userInfo["username"];
+    password = userInfo["password"];
 
     qDebug()<<"name:>>"+name;
-
 }
 
 void SignupManager::WriteDatasToFile()

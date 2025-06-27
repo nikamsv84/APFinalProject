@@ -2,9 +2,9 @@
 #define SIGNUPMANAGER_H
 #include <QString>
 #include <QTcpSocket>
-class SignupManager
+#include "databasemanager.h"
+class SignupManager:public DatabaseManager
 {
-    QString ReceivedData;
     QString name;
     QString lastname;
     QString phonenumber;
@@ -15,8 +15,8 @@ class SignupManager
 
 public:
     SignupManager(QString ReceivedData);
-    void Messagehandeler();
     void WriteDatasToFile();
+    void InPlacingToLocalAttributes() override;
 };
 
 #endif // SIGNUPMANAGER_H

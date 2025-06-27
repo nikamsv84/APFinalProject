@@ -3,26 +3,13 @@
 #include <QMap>
 #include<QDebug>
 #include <QFile>
-ForgotPassword::ForgotPassword(QString ReceivedData):ReceivedData(ReceivedData) {}
-
-void ForgotPassword::Messagehandeler()
+ForgotPassword::ForgotPassword(QString ReceivedData):DatabaseManager(ReceivedData) {}
+void ForgotPassword::InPlacingToLocalAttributes()
 {
-    ReceivedData.remove("\\FORGOTPASSWORD\\,");
-    QStringList fields = ReceivedData.split(',');
-    QMap<QString, QString> forgotpassword;
-    for (const QString& field : fields) {
-        QStringList keyValue = field.split(':');
-        if (keyValue.size() == 2) {
-            forgotpassword[keyValue[0]] = keyValue[1];
-        }
-    }
-
-    PhoneNumber = forgotpassword["PhoneNumber"];
-    NewPassword = forgotpassword["NewPassword"];
-
-    qDebug()<<"Phonenumber:"+PhoneNumber;
-    qDebug()<<"NewPassword:"+NewPassword;
-
+    PhoneNumber = userInfo["PhoneNumber"];
+    NewPassword = userInfo["NewPassword"];
+    qDebug()<<"PhoneNumber: "<<PhoneNumber;
+    qDebug()<<"NewPassword: "<<NewPassword;
 }
 
 void ForgotPassword::EditForgetPassword()
