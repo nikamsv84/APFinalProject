@@ -28,8 +28,8 @@ void LogInManager::LoginMainPage(QTcpSocket* _socket)
 
         if (username == this->Username && password == this->Password)
         {
-            qDebug() << "OK";
-            _socket->write("\\OK\\");
+            qDebug() << "OKLOGIN";
+            _socket->write("\\OKLOGIN\\");
             file.close();
         }
     }

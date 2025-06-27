@@ -4,8 +4,8 @@
 #include "editinfo.h"
 #include "forgotpassword.h"
 #include "loginmanager.h"
+#include "gamemanagement.h"
 #include <QTime>
-#include <QRandomGenerator>
 
 QList<QTcpSocket*> MainWindow::clients;
 
@@ -145,6 +145,8 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
     char* specifier_FORGOTPASSWORD = strstr(data, "\\FORGOTPASSWORD\\");
     char* specifier_STARTER = strstr(data, "\\STARTER\\");
     char* specifier_LOGIN = strstr(data, "\\LOGIN\\");
+    char* specifier_COMMUNICATE = strstr(data, "\\COMMUNICATE\\");
+
 
 
 
@@ -156,7 +158,7 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
         SignupManager signupproccess(stringData);
         signupproccess.Messagehandeler("\\SIGNUP\\");
         signupproccess.InPlacingToLocalAttributes();
-        signupproccess.WriteDatasToFile();
+        signupproccess.WriteDatasToFile(_socket);
         ui->output->append("the datas are related to signupinfo.");
     }
     else if (specifier_STARTGAME)//allows the client to start and chooses the starter socket.
@@ -165,7 +167,7 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
         if (clients.size() == 2)
         {
             qDebug() <<"starting the game";
-            sendDatatoAll("\\OK\\");
+            sendDatatoAll("\\OKSTARTGAME\\");
             qDebug()<<"Data was sent";
 
         }else{
@@ -191,18 +193,10 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
         forgotpasswordprocess.EditForgetPassword();
     }else if (specifier_STARTER)
     {
-        int cardValue_1 = QRandomGenerator::global()->bounded(1, 14);//related to socket1
-        int cardValue_2 = QRandomGenerator::global()->bounded(1, 14);//related to socket2
-        if (cardValue_1>cardValue_2)
-        {
-            clients[0]->write("\\START\\");
-            clients[0]->flush();
-            clients[0]->waitForBytesWritten();
-        }else{
-            clients[1]->write("\\START\\");
-            clients[1]->flush();
-            clients[1]->waitForBytesWritten();
-        }
+        qDebug()<<"the datas are related to starter";
+        GameManagement gameprocess_starter;
+        gameprocess_starter.choosingStarter(clients);
+
     }else if(specifier_LOGIN)
     {
         qDebug()<<"the datas are related to login";
@@ -212,6 +206,13 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
         loginprocess.Messagehandeler("\\LOGIN\\");
         loginprocess.InPlacingToLocalAttributes();
         loginprocess.LoginMainPage(_socket);
+
+    }else if(specifier_COMMUNICATE)
+    {
+        QString stringData = QString::fromUtf8(data);
+        GameManagement gameprocess_communicate(stringData);
+        gameprocess_communicate.Messagehandeler("\\COMMUNICATE\\");
+        gameprocess_communicate.Communicate(_socket, clients);
     }
 }
 

@@ -15,7 +15,7 @@ class SignupManager:public DatabaseManager
 
 public:
     SignupManager(QString ReceivedData);
-    void WriteDatasToFile();
+    void WriteDatasToFile(QTcpSocket* _socket);
     void InPlacingToLocalAttributes() override;
 };
 

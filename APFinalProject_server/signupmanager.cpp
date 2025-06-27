@@ -19,29 +19,46 @@ void SignupManager::InPlacingToLocalAttributes()
     qDebug()<<"name:>>"+name;
 }
 
-void SignupManager::WriteDatasToFile()
+void SignupManager::WriteDatasToFile(QTcpSocket* _socket)
 {
-    QFile file("signup_data.bin");
-    if (file.open(QIODevice::Append))
-    {
-        QDataStream out(&file);
-        out.setVersion(QDataStream::Qt_5_15);
+        QFile file("signup_data.bin");
+        if (!file.open(QIODevice::ReadOnly | QIODevice::ExistingOnly)) {
+            qDebug() << "Could not open file for reading.";
+            return;
+        }
 
-        out << name;
-        out << lastname;
-        out << email;
-        out << phonenumber;
-        out << username;
-        out << password;
+        //checking if the username is unique or not:
+        QDataStream in(&file);
+        in.setVersion(QDataStream::Qt_5_15);
+
+        while (!in.atEnd()) {
+            QString existingName, existingLast, existingEmail, existingPhone, existingUser, existingPass;
+            in >> existingName >> existingLast >> existingEmail >> existingPhone >> existingUser >> existingPass;
+
+            if (existingUser == username) {
+                qDebug() << "this username is already exists.";
+                _socket->write("this username is already exists.");
+                file.close();
+                return;
+            }
+        }
 
         file.close();
-        MainWindow::sendDatatoAll("User saved in binary file.");
 
-        qDebug() << "User saved in binary file.";
-    }
-    else
-    {
-        qDebug() << "Failed to open binary file!";
-    }
+
+        if (file.open(QIODevice::Append)) {
+            QDataStream out(&file);
+            out.setVersion(QDataStream::Qt_5_15);
+
+            out << name << lastname << email << phonenumber << username << password;
+
+            file.close();
+            MainWindow::sendDatatoAll("User saved in binary file.");
+            qDebug() << "User saved in binary file.";
+        } else {
+            qDebug() << "Failed to open binary file for writing!";
+        }
 }
+
+
 

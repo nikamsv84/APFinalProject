@@ -12,6 +12,7 @@ SOURCES += \
     databasemanager.cpp \
     editinfo.cpp \
     forgotpassword.cpp \
+    gamemanagement.cpp \
     loginmanager.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -21,6 +22,7 @@ HEADERS += \
     databasemanager.h \
     editinfo.h \
     forgotpassword.h \
+    gamemanagement.h \
     loginmanager.h \
     mainwindow.h \
     signupmanager.h
