@@ -1,5 +1,5 @@
 #include "loginmanager.h"
-
+#include <QFile>
 LogInManager::LogInManager(QString ReceivedData):DatabaseManager(ReceivedData) {}
 void LogInManager::InPlacingToLocalAttributes()
 {
@@ -9,4 +9,30 @@ void LogInManager::InPlacingToLocalAttributes()
     qDebug()<<"password: "<<Password;
 }
 
+void LogInManager::LoginMainPage(QTcpSocket* _socket)
+{
+    QFile file("signup_data.bin");
+    if (!file.open(QIODevice::ReadOnly))
+    {
+        qDebug() << "Could not open the file!";
+    }
 
+    QDataStream in(&file);
+    in.setVersion(QDataStream::Qt_5_15);
+
+    while (!in.atEnd())
+    {
+        QString name, lastname, email, phonenumber, username, password;
+
+        in >> name >> lastname >> email >> phonenumber >> username >> password;
+
+        if (username == this->Username && password == this->Password)
+        {
+            qDebug() << "OK";
+            _socket->write("\\OK\\");
+            file.close();
+        }
+    }
+
+    file.close();
+}

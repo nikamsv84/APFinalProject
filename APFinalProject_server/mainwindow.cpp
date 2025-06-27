@@ -151,7 +151,7 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
 
     if (specifier_SIGNUP)
     {
-        sendDatatoAll("the datas are related to signin info.");
+        sendDatatoAll("the datas are related to signup info.");
         QString stringData = QString::fromUtf8(data);
         SignupManager signupproccess(stringData);
         signupproccess.Messagehandeler("\\SIGNUP\\");
@@ -211,6 +211,7 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
         LogInManager loginprocess(stringData);
         loginprocess.Messagehandeler("\\LOGIN\\");
         loginprocess.InPlacingToLocalAttributes();
+        loginprocess.LoginMainPage(_socket);
     }
 }
 
