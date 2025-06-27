@@ -17,7 +17,7 @@
    <widget class="QPushButton" name="connect">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>170</x>
       <y>50</y>
       <width>80</width>
       <height>24</height>
@@ -30,7 +30,7 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>302</x>
+      <x>342</x>
       <y>50</y>
       <width>25</width>
       <height>24</height>
@@ -43,7 +43,7 @@
    <widget class="QPushButton" name="send">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>170</x>
       <y>185</y>
       <width>80</width>
       <height>24</height>
@@ -56,7 +56,7 @@
    <widget class="QPushButton" name="disconnect">
     <property name="geometry">
      <rect>
-      <x>216</x>
+      <x>256</x>
       <y>50</y>
       <width>80</width>
       <height>24</height>
@@ -69,7 +69,7 @@
    <widget class="QTextEdit" name="input">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>170</x>
       <y>215</y>
       <width>316</width>
       <height>100</height>
@@ -79,7 +79,7 @@
    <widget class="QLineEdit" name="port">
     <property name="geometry">
      <rect>
-      <x>333</x>
+      <x>373</x>
       <y>50</y>
       <width>113</width>
       <height>24</height>
@@ -89,11 +89,24 @@
    <widget class="QTextBrowser" name="output">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>170</x>
       <y>80</y>
       <width>316</width>
       <height>99</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="showIp">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>320</y>
+      <width>311</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>ip:</string>
     </property>
    </widget>
   </widget>

@@ -3,6 +3,9 @@
 #include "signupmanager.h"
 #include "editinfo.h"
 #include "forgotpassword.h"
+#include <QTime>
+#include <QRandomGenerator>
+
 QList<QTcpSocket*> MainWindow::clients;
 
 MainWindow::MainWindow(QWidget *parent)
@@ -11,6 +14,12 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     ui->port->setText("1500");
+    const QList<QHostAddress> &list = QNetworkInterface::allAddresses();
+    for (const QHostAddress &address : list) {
+        if (address.protocol() == QAbstractSocket::IPv4Protocol && !address.isLoopback()) {
+            ui->showIp->setText("ip: "+address.toString());
+        }
+    }
 }
 
 MainWindow::~MainWindow()
@@ -133,6 +142,8 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
     char* specifier_STARTGAME = strstr(data, "\\STARTGAME\\");
     char* specifier_EDITINFO = strstr(data, "\\EDITINFO\\");
     char* specifier_FORGOTPASSWORD = strstr(data, "\\FORGOTPASSWORD\\");
+    char* specifier_STARTER = strstr(data, "\\STARTER\\");
+
 
 
     if (specifier_SIGNUP)
@@ -175,7 +186,10 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
         forgotpasswordprocess.Messagehandeler();
         forgotpasswordprocess.EditForgetPassword();
     }
-
+    else if (specifier_STARTER)//:which player should start first?
+    {
+        qDebug()<<"the datas are related to starter";
+    }
 }
 
 

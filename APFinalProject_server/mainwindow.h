@@ -8,6 +8,9 @@
 #include <QList>
 #include <QFile>
 #include <QString>
+#include <QNetworkInterface>
+#include <QList>
+#include <QHostAddress>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
