@@ -3,13 +3,21 @@
 #include "game_menu.h"
 #include "mainwindow.h"
 #include "forgot_password.h"
-
+#include <QDebug>
 
 signin::signin(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::signin)
 {
     ui->setupUi(this);
+
+    if (MainWindow::instance) {
+        connect(MainWindow::instance,
+                &MainWindow::messageReceived,
+                this,
+                &signin::onServerMessage,
+                Qt::UniqueConnection);
+    }
 }
 
 signin::~signin()
@@ -20,22 +28,30 @@ signin::~signin()
 void signin::on_signin_2_clicked()
 {
     QString hashed_password = MainWindow::hashPassword(ui->password->text());
-    //verifing the datas with functions written in client project...after that->
-    MainWindow::sendData("\\SIGNIN\\,username:"+ui->username->text()
-                         +",password:"+hashed_password);//this should be sent hashed.
-    // QString receivedData = MainWindow::socket_readyRead();
-    // ui->signupStatus->setText(receivedData);
 
-    QString receivedData = MainWindow::socket_readyRead();
-    qDebug()<< receivedData;
+    QString payload = QString("\\LOGIN\\,Username:%1,Password:%2")
+                          .arg(ui->username->text())
+                          .arg(hashed_password);
+    MainWindow::sendData(payload);
 
-    game_menu* game_menu_pg = new game_menu();
-    game_menu_pg->show();
 }
 
 void signin::on_forgot_password_clicked()
 {
-    forgot_password* forgot_password_pg = new forgot_password();
-    forgot_password_pg->show();
+    forgot_password* forgot_page = new forgot_password();
+    forgot_page->show();
 }
 
+void signin::onServerMessage(const QString& msg)
+{
+    qDebug() << "Received in signin:" << msg;
+    if(msg == "\\OKLOGIN\\")
+    {
+        game_menu* menu = new game_menu();
+        menu->show();
+    }
+    else if (msg == "\\ERRORLOGIN\\"){
+        ui->status->setText("incorrect username or password");
+    }
+
+}

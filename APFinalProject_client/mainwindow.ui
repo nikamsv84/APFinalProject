@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1682</width>
-    <height>874</height>
+    <width>697</width>
+    <height>436</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,67 +20,13 @@ background-color: rgb(0, 0, 0);
 </string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLineEdit" name="ip">
-    <property name="geometry">
-     <rect>
-      <x>570</x>
-      <y>300</y>
-      <width>431</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Script MT</family>
-      <pointsize>20</pointsize>
-      <italic>false</italic>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QLineEdit{
-	color: rgb(255, 255, 255);
-	background-color: rgb(113, 0, 211);
-}</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>410</x>
-      <y>260</y>
-      <width>71</width>
-      <height>123</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Script MT</family>
-      <pointsize>25</pointsize>
-      <italic>false</italic>
-      <fontweight>Thin</fontweight>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QLabel {
-	color: rgb(255, 0, 221);
-}
-</string>
-    </property>
-    <property name="text">
-     <string>ip :</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>640</x>
-      <y>100</y>
-      <width>441</width>
-      <height>101</height>
+      <x>190</x>
+      <y>10</y>
+      <width>331</width>
+      <height>81</height>
      </rect>
     </property>
     <property name="font">
@@ -100,114 +46,6 @@ background-color: rgb(0, 0, 0);
     </property>
     <property name="text">
      <string>Poffer Game</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_5">
-    <property name="geometry">
-     <rect>
-      <x>390</x>
-      <y>400</y>
-      <width>121</width>
-      <height>91</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Script MT</family>
-      <pointsize>25</pointsize>
-      <italic>false</italic>
-      <fontweight>Thin</fontweight>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QLabel {
-	color: rgb(255, 0, 221);
-}
-</string>
-    </property>
-    <property name="text">
-     <string>port :</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="port">
-    <property name="geometry">
-     <rect>
-      <x>570</x>
-      <y>420</y>
-      <width>431</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Script MT</family>
-      <pointsize>20</pointsize>
-      <italic>false</italic>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QLineEdit{
-	background-color: rgb(113, 0, 211);
-	color: rgb(255, 255, 255);
-}</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="connect">
-    <property name="geometry">
-     <rect>
-      <x>1160</x>
-      <y>300</y>
-      <width>161</width>
-      <height>71</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Script MT</family>
-      <pointsize>20</pointsize>
-      <italic>false</italic>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton {
-    /* Normal state gradient background */
-    background: qlineargradient(spread:pad, x1: 0.5, y1: 0, x2: 0.5, y2: 1, 
-                                stop: 0 #6a82fb, stop: 1 #fc5c7d);
-	color:rgb(81, 0, 255);
-}</string>
-    </property>
-    <property name="text">
-     <string>Connect</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="disconnect">
-    <property name="geometry">
-     <rect>
-      <x>1160</x>
-      <y>430</y>
-      <width>161</width>
-      <height>71</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Script MT</family>
-      <pointsize>20</pointsize>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton {
-    /* Normal state gradient background */
-    background: qlineargradient(spread:pad, x1: 0.5, y1: 0, x2: 0.5, y2: 1, 
-                                stop: 0 #6a82fb, stop: 1 #fc5c7d);
-	color:rgb(81, 0, 255);
-}</string>
-    </property>
-    <property name="text">
-     <string>Disconnect</string>
     </property>
    </widget>
    <widget class="QLabel" name="connecting_status">
@@ -230,14 +68,152 @@ background-color: rgb(0, 0, 0);
      <string/>
     </property>
    </widget>
+   <widget class="QWidget" name="gridLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>120</y>
+      <width>631</width>
+      <height>191</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="1" column="2">
+      <widget class="QPushButton" name="disconnect">
+       <property name="font">
+        <font>
+         <family>Script MT</family>
+         <pointsize>20</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    /* Normal state gradient background */
+    background: qlineargradient(spread:pad, x1: 0.5, y1: 0, x2: 0.5, y2: 1, 
+                                stop: 0 #6a82fb, stop: 1 #fc5c7d);
+	color:rgb(81, 0, 255);
+}</string>
+       </property>
+       <property name="text">
+        <string>Disconnect</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="ip">
+       <property name="font">
+        <font>
+         <family>Script MT</family>
+         <pointsize>20</pointsize>
+         <italic>false</italic>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLineEdit{
+	color: rgb(255, 255, 255);
+	background-color: rgb(113, 0, 211);
+}</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QPushButton" name="connect">
+       <property name="font">
+        <font>
+         <family>Script MT</family>
+         <pointsize>20</pointsize>
+         <italic>false</italic>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    /* Normal state gradient background */
+    background: qlineargradient(spread:pad, x1: 0.5, y1: 0, x2: 0.5, y2: 1, 
+                                stop: 0 #6a82fb, stop: 1 #fc5c7d);
+	color:rgb(81, 0, 255);
+}</string>
+       </property>
+       <property name="text">
+        <string>Connect</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="port">
+       <property name="font">
+        <font>
+         <family>Script MT</family>
+         <pointsize>20</pointsize>
+         <italic>false</italic>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLineEdit{
+	background-color: rgb(113, 0, 211);
+	color: rgb(255, 255, 255);
+}</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="font">
+        <font>
+         <family>Script MT</family>
+         <pointsize>25</pointsize>
+         <italic>false</italic>
+         <fontweight>Thin</fontweight>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+	color: rgb(255, 0, 221);
+}
+</string>
+       </property>
+       <property name="text">
+        <string>ip :</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_5">
+       <property name="font">
+        <font>
+         <family>Script MT</family>
+         <pointsize>25</pointsize>
+         <italic>false</italic>
+         <fontweight>Thin</fontweight>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+	color: rgb(255, 0, 221);
+}
+</string>
+       </property>
+       <property name="text">
+        <string>port :</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1682</width>
-     <height>25</height>
+     <width>697</width>
+     <height>21</height>
     </rect>
    </property>
   </widget>

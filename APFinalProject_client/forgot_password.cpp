@@ -23,7 +23,7 @@ void forgot_password::on_pushButton_clicked()
                          + ",phonenumber:" + ui->phone_number->text());
 
 
-    QString receivedData = MainWindow::socket_readyRead();
+    QString receivedData = MainWindow::lastReceivedMessage;
     qDebug()<< receivedData;
 
 }

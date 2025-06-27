@@ -39,7 +39,7 @@ void edit_info::on_edit_clicked()
                      +",PreviousData:"+ui->PreviousData->text()+",NewData:"+ui->NewData->text());
 
 
-  QString receivedData = MainWindow::socket_readyRead();
+  QString receivedData = MainWindow::lastReceivedMessage;
   qDebug()<< receivedData;
 
 }

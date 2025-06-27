@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1687</width>
-    <height>927</height>
+    <width>576</width>
+    <height>452</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>610</x>
-     <y>60</y>
+     <x>110</x>
+     <y>0</y>
      <width>431</width>
      <height>141</height>
     </rect>
@@ -32,85 +32,73 @@
     <string>Game  Menu</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="start_game">
+  <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>650</x>
-     <y>260</y>
-     <width>331</width>
-     <height>91</height>
+     <x>150</x>
+     <y>140</y>
+     <width>261</width>
+     <height>248</height>
     </rect>
    </property>
-   <property name="styleSheet">
-    <string notr="true">QPushButton{
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QPushButton" name="start_game">
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
 	color: rgb(255, 255, 255);
 	font: 700 30pt &quot;Script MT&quot;;
 	background-color: rgb(57, 4, 80);
 }</string>
-   </property>
-   <property name="text">
-    <string>start game</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="edit_info">
-   <property name="geometry">
-    <rect>
-     <x>650</x>
-     <y>400</y>
-     <width>331</width>
-     <height>91</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QPushButton{
+      </property>
+      <property name="text">
+       <string>start game</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="edit_info">
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
 	background-color: rgb(57, 4, 80);
 	color: rgb(255, 255, 255);
 	font: 700 30pt &quot;Script MT&quot;;
 }</string>
-   </property>
-   <property name="text">
-    <string>edit information</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="recent_games">
-   <property name="geometry">
-    <rect>
-     <x>650</x>
-     <y>530</y>
-     <width>331</width>
-     <height>81</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QPushButton{
+      </property>
+      <property name="text">
+       <string>edit information</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="recent_games">
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
 	background-color: rgb(57, 4, 80);
 	color: rgb(255, 255, 255);
 	font: 700 30pt &quot;Script MT&quot;;
 }</string>
-   </property>
-   <property name="text">
-    <string>recent games</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="exit">
-   <property name="geometry">
-    <rect>
-     <x>650</x>
-     <y>640</y>
-     <width>331</width>
-     <height>81</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QPushButton{
+      </property>
+      <property name="text">
+       <string>recent games</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="exit">
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
 	background-color: rgb(57, 4, 80);
 	color: rgb(255, 255, 255);
 	font: 700 30pt &quot;Script MT&quot;;
 }</string>
-   </property>
-   <property name="text">
-    <string>exit</string>
-   </property>
+      </property>
+      <property name="text">
+       <string>exit</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>

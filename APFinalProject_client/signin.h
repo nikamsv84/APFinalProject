@@ -17,8 +17,9 @@ public:
 
 private slots:
     void on_signin_2_clicked();
-
     void on_forgot_password_clicked();
+
+    void onServerMessage(const QString& msg);
 
 private:
     Ui::signin *ui;
