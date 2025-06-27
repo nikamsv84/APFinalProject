@@ -20,6 +20,7 @@ void LogInManager::LoginMainPage(QTcpSocket* _socket)
     QDataStream in(&file);
     in.setVersion(QDataStream::Qt_5_15);
 
+    int find = 0;
     while (!in.atEnd())
     {
         QString name, lastname, email, phonenumber, username, password;
@@ -29,10 +30,15 @@ void LogInManager::LoginMainPage(QTcpSocket* _socket)
         if (username == this->Username && password == this->Password)
         {
             qDebug() << "OKLOGIN";
-            _socket->write("\\OKLOGIN\\");
+            find = 1;
             file.close();
         }
     }
-
+    if (find)
+    {
+        _socket->write("\\OKLOGIN\\");
+    }else{
+        _socket->write("\\ERRORLOGIN\\");
+    }
     file.close();
 }
