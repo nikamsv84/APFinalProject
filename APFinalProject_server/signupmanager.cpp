@@ -37,7 +37,7 @@ void SignupManager::WriteDatasToFile(QTcpSocket* _socket)
 
             if (existingUser == username) {
                 qDebug() << "this username is already exists.";
-                _socket->write("this username is already exists.");
+                _socket->write("\\EXISTS\\");
                 file.close();
                 return;
             }
@@ -53,6 +53,7 @@ void SignupManager::WriteDatasToFile(QTcpSocket* _socket)
             out << name << lastname << email << phonenumber << username << password;
 
             file.close();
+            _socket->write("\\OKSIGNUP\\");
             MainWindow::sendDatatoAll("User saved in binary file.");
             qDebug() << "User saved in binary file.";
         } else {

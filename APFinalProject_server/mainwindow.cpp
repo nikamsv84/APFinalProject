@@ -153,7 +153,6 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
 
     if (specifier_SIGNUP)
     {
-        sendDatatoAll("the datas are related to signup info.");
         QString stringData = QString::fromUtf8(data);
         SignupManager signupproccess(stringData);
         signupproccess.Messagehandeler("\\SIGNUP\\");
