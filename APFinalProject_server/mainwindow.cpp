@@ -155,15 +155,13 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
         signupproccess.WriteDatasToFile();
         ui->output->append("the datas are related to signupinfo.");
     }
-    else if (specifier_STARTGAME)
+    else if (specifier_STARTGAME)//allows the client to start and chooses the starter socket.
     {
         qDebug()<<"the datas are related to startgame";
         if (clients.size() == 2)
         {
             qDebug() <<"starting the game";
-            _socket->write("\\OK\\");
-            _socket->flush();
-            _socket->waitForBytesWritten();
+            sendDatatoAll("\\OK\\");
             qDebug()<<"Data was sent";
 
         }else{
@@ -185,10 +183,20 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
         ForgotPassword forgotpasswordprocess(stringData);
         forgotpasswordprocess.Messagehandeler();
         forgotpasswordprocess.EditForgetPassword();
-    }
-    else if (specifier_STARTER)//:which player should start first?
+    }else if (specifier_STARTER)
     {
-        qDebug()<<"the datas are related to starter";
+        int cardValue_1 = QRandomGenerator::global()->bounded(1, 14);//related to socket1
+        int cardValue_2 = QRandomGenerator::global()->bounded(1, 14);//related to socket2
+        if (cardValue_1>cardValue_2)
+        {
+            clients[0]->write("\\START\\");
+            clients[0]->flush();
+            clients[0]->waitForBytesWritten();
+        }else{
+            clients[1]->write("\\START\\");
+            clients[1]->flush();
+            clients[1]->waitForBytesWritten();
+        }
     }
 }
 
