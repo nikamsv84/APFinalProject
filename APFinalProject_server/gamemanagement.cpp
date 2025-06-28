@@ -55,6 +55,20 @@ void GameManagement::EndOfTimeOut(QTcpSocket* _socket, QList<QTcpSocket*> allsoc
     }
 }
 
+void GameManagement::ShowOpponent(QList<QTcpSocket*> allsockets)
+{
+    //it sends the username of the players for each other.
+    if (allsockets.size() == 2)
+    {
+        allsockets[0]->write("\\OPPONENT\\,Name:"+allsockets[1]->objectName().toUtf8());
+        allsockets[1]->write("\\OPPONENT\\,Name:"+allsockets[0]->objectName().toUtf8());
+    }else{
+        MainWindow::sendDatatoAll("\\ERROROPPONENT\\");
+    }
+
+
+}
+
 void GameManagement::ChooseAndRankMatching(QTcpSocket* _socket, QList<QTcpSocket*> allsockets)
 {
     GamerHands[allsockets[0]->objectName()].append(qMakePair(1, 13));

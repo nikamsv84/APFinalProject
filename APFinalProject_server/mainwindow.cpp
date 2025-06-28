@@ -148,6 +148,8 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
     char* specifier_COMMUNICATE = strstr(data, "\\COMMUNICATE\\");
     char* specifier_ENDOFTIMEOUT = strstr(data, "\\ENDOFTIMEOUT\\");
     char* specifier_CHOOSE = strstr(data, "\\CHOOSE\\");
+    char* specifier_SHOWOPPONENT = strstr(data, "\\SHOWOPPONENT\\");
+
 
 
 
@@ -227,6 +229,10 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
         GameManagement choosecardprocess(stringData);
         choosecardprocess.Messagehandeler("\\CHOOSE\\");
         choosecardprocess.ChooseAndRankMatching(_socket, clients);
+    }else if (specifier_SHOWOPPONENT)
+    {
+        GameManagement showopponentprocess;
+        showopponentprocess.ShowOpponent(clients);
     }
 }
 

@@ -27,6 +27,7 @@ public:
     void EndOfTimeOut(QTcpSocket* _socket, QList<QTcpSocket*> allsockets);
     void ChooseAndRankMatching(QTcpSocket* _socket, QList<QTcpSocket*> allsockets);
     void RankMatching(QMap<QString, QVector<QPair<int, int>>> hands, QTcpSocket* _socket, QList<QTcpSocket*> allsockets);
+    void ShowOpponent(QList<QTcpSocket*> allsockets);
 
     //we assigned a number to every hand , the below methodes return the number of hand if the hand is golden or ... otherwise they return 0.
     static int IsGoldenHand(QVector<QPair<int, int>> hand);     // 10
