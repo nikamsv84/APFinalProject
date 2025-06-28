@@ -54,6 +54,18 @@ void GameManagement::EndOfTimeOut(QTcpSocket* _socket, QList<QTcpSocket*> allsoc
 
 void GameManagement::ChooseAndRankMatching(QTcpSocket* _socket, QList<QTcpSocket*> allsockets)
 {
+    GamerHands[allsockets[0]->objectName()].append(qMakePair(1, 13));
+    GamerHands[allsockets[0]->objectName()].append(qMakePair(2, 12));
+    GamerHands[allsockets[0]->objectName()].append(qMakePair(1, 11));
+    GamerHands[allsockets[0]->objectName()].append(qMakePair(1, 10));
+    GamerHands[allsockets[0]->objectName()].append(qMakePair(1, 9));
+
+    GamerHands[allsockets[1]->objectName()].append(qMakePair(1, 13));
+    GamerHands[allsockets[1]->objectName()].append(qMakePair(1, 12));
+    GamerHands[allsockets[1]->objectName()].append(qMakePair(1, 11));
+    GamerHands[allsockets[1]->objectName()].append(qMakePair(1, 10));
+    // GamerHands[allsockets[1]->objectName()].append(qMakePair(1, 9));
+
 
     if (_socket->objectName() == allsockets[0]->objectName())
     {
@@ -62,23 +74,156 @@ void GameManagement::ChooseAndRankMatching(QTcpSocket* _socket, QList<QTcpSocket
             GamerHands[allsockets[0]->objectName()].append(qMakePair(userInfo["Degree"].toInt(),userInfo["Name"].toInt()));
             qDebug()<<"the degree ::"+QString::number(GamerHands[allsockets[0]->objectName()][0].first);
             qDebug()<<"the Name ::"+QString::number(GamerHands[allsockets[0]->objectName()][0].second);
+            if (GamerHands[allsockets[1]->objectName()].size() ==5 && GamerHands[allsockets[0]->objectName()].size() ==5)
+            {
+                qDebug()<<"rankmaching should be called";
+                RankMatching(GamerHands, _socket,allsockets);
+            }
 
 
         }
-        else
-            if (GamerHands[allsockets[1]->objectName()].size() ==5)
-            {
-            qDebug()<<"rankmaching should be called";
-            }
+        else{
+
+            qDebug()<<"hand are full";
+
+        }
 
 
     }else{
-        if (GamerHands[allsockets[1]->objectName()].size() <5)
+        if (GamerHands[allsockets[1]->objectName()].size() <5){
+
             GamerHands[allsockets[1]->objectName()].append(qMakePair(userInfo["Degree"].toInt(),userInfo["Name"].toInt()));
-        else
-            if (GamerHands[allsockets[0]->objectName()].size() ==5)
+            qDebug()<<"the degree ::"+QString::number(GamerHands[allsockets[0]->objectName()][0].first);
+            qDebug()<<"the Name ::"+QString::number(GamerHands[allsockets[0]->objectName()][0].second);
+            if (GamerHands[allsockets[0]->objectName()].size() ==5 && GamerHands[allsockets[1]->objectName()].size() ==5)
             {
                 qDebug()<<"rankmaching should be called";
+                RankMatching(GamerHands, _socket,allsockets);
             }
+
+
+        }
+        else{
+
+            qDebug()<<"hand are full";
+
+        }
     }
 }
+
+void GameManagement::RankMatching(QMap<QString, QVector<QPair<int, int>>> hands, QTcpSocket* _socket, QList<QTcpSocket*> allsockets)
+{
+    QList<int (*)(QVector<QPair<int, int>>)> rankCheckers = {
+        IsGoldenHand,     // 10
+        IsOrderHand,      // 9
+        Is4Plus1Hand,     // 8
+        IsPenthouseHand,  // 7
+        IsMSCHand,        // 6
+        IsSeries,         // 5
+        Is3Plus2Hand,     // 4
+        DoublePairHand,   // 3
+        IsSinglePairHand  // 2
+    };
+
+
+    QVector<QPair<int, int>> hand1 = hands[allsockets[0]->objectName()];
+    QVector<QPair<int, int>> hand2 = hands[allsockets[1]->objectName()];
+
+    int ranknumber_gamer1 = 0;
+    int ranknumber_gamer2 = 0;
+
+    for (int i = 0; i < rankCheckers.size(); ++i) {
+        int result = rankCheckers[i](hand1);
+        if (result > 0) {
+            ranknumber_gamer1 = result;
+            break;
+        }
+    }
+
+    for (int i = 0; i < rankCheckers.size(); ++i) {
+        int result = rankCheckers[i](hand2);
+        if (result > 0) {
+            ranknumber_gamer2 = result;
+            break;
+        }
+    }
+
+    qDebug()<<ranknumber_gamer1;
+    qDebug()<<ranknumber_gamer2;
+
+    if (ranknumber_gamer1>ranknumber_gamer2)
+    {
+        qDebug()<<"gamer 1 with username: "+allsockets[0]->objectName()+"won";
+    }else{
+        qDebug()<<"gamer 2 with username: "+allsockets[1]->objectName()+"won";
+
+    }
+
+}
+
+
+
+int GameManagement::IsGoldenHand(QVector<QPair<int, int>> hand) //10
+{
+
+    int firstValue = hand[0].first;
+    for (const auto& pair : hand) {
+        if (pair.first != firstValue) {
+            return 0;
+        }
+    }
+
+    if (hand[0].second == 13 &&
+        hand[1].second == 12 &&
+        hand[2].second == 11 &&
+        hand[3].second == 10 &&
+        hand[4].second == 9)
+    {
+        return 10;
+    }
+
+    return 0;
+}
+
+
+int GameManagement::IsOrderHand(QVector<QPair<int, int>> hand)      // 9
+{
+    return 0;
+}
+int GameManagement::Is4Plus1Hand(QVector<QPair<int, int>> hand)     // 8
+{
+    return 0;
+
+}
+int GameManagement::IsPenthouseHand(QVector<QPair<int, int>> hand)  // 7
+{
+    return 0;
+
+}
+int GameManagement::IsMSCHand(QVector<QPair<int, int>> hand)        // 6
+{
+    return 0;
+
+}
+int GameManagement::IsSeries(QVector<QPair<int, int>> hand)         // 5
+{
+    return 0;
+
+}
+int GameManagement::Is3Plus2Hand(QVector<QPair<int, int>> hand)     // 4
+{
+    return 0;
+
+}
+int GameManagement::DoublePairHand(QVector<QPair<int, int>> hand)    // 3
+{
+    return 0;
+
+}
+int GameManagement::IsSinglePairHand(QVector<QPair<int, int>> hand) // 2
+{
+    return 0;
+
+}
+
+
