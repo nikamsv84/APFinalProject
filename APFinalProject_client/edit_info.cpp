@@ -61,6 +61,7 @@ void edit_info::onServerMessage(const QString& msg){
         ui->status->setText("The information changed successfully!");
         game_menu* game_menu_pg = new game_menu();
         game_menu_pg->show();
+        this->close();
 
     }else{
         ui->status->setText("The process went wrong!");

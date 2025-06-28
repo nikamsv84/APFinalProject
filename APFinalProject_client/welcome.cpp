@@ -19,6 +19,7 @@ void welcome::on_signin_clicked()
 {
     signin* signinpage = new signin();
     signinpage->show();
+    this->close();
 }
 
 
@@ -26,4 +27,5 @@ void welcome::on_signup_clicked()
 {
     signup* signuppage = new signup();
     signuppage->show();
+    this->close();
 }

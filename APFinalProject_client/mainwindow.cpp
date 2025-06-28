@@ -51,6 +51,7 @@ void MainWindow::socket_connected()
     welcome* welcomePage = new welcome();
     sendData("client added");
     welcomePage->show();
+    this->close();
 }
 
 void MainWindow::socket_readyRead()

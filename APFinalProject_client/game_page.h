@@ -15,6 +15,9 @@ public:
     explicit game_page(QWidget *parent = nullptr);
     ~game_page();
 
+private slots:
+    void onServerMessage(const QString& msg);
+
 private:
     Ui::game_page *ui;
 };

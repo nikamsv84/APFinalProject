@@ -51,6 +51,7 @@ void signup::onServerMessage(const QString& msg)
     }else{
         game_menu* game_menu_pg = new game_menu();
         game_menu_pg->show();
+        this->close();
     }
     // this->close();
 }

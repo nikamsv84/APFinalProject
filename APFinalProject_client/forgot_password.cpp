@@ -46,6 +46,7 @@ void forgot_password::onServerMessage(const QString& msg){
         ui->status->setText("The password changed successfully!");
         signin* signin_pg = new signin();
         signin_pg->show();
+        this->close();
 
     }else{
         ui->status->setText("The username and phone_number are not related together!");

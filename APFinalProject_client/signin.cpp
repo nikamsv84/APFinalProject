@@ -49,6 +49,7 @@ void signin::onServerMessage(const QString& msg)
     {
         game_menu* menu = new game_menu();
         menu->show();
+        this->close();
     }
     else if (msg == "\\ERRORLOGIN\\"){
         ui->status->setText("incorrect username or password");
