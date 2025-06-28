@@ -192,7 +192,7 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
         ForgotPassword forgotpasswordprocess(stringData);
         forgotpasswordprocess.Messagehandeler("\\FORGOTPASSWORD\\");
         forgotpasswordprocess.InPlacingToLocalAttributes();
-        forgotpasswordprocess.EditForgetPassword();
+        forgotpasswordprocess.EditForgetPassword(_socket);
     }else if (specifier_STARTER)
     {
         qDebug()<<"the datas are related to starter";

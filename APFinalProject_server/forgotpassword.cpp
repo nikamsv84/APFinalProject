@@ -12,7 +12,7 @@ void ForgotPassword::InPlacingToLocalAttributes()
     qDebug()<<"NewPassword: "<<NewPassword;
 }
 
-void ForgotPassword::EditForgetPassword()
+void ForgotPassword::EditForgetPassword( QTcpSocket* _socket)
 {
     QFile file("signup_data.bin");
 
@@ -50,11 +50,15 @@ void ForgotPassword::EditForgetPassword()
 
     if (!userFound) {
         qDebug() << "No user found with this phone number.";
+        _socket->write("\\ERRORFORGOTPASSWORD\\");
+
         return;
     }
     //rewrite
     if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
         qDebug() << "Failed to open file for writing!";
+        _socket->write("\\ERRORFORGOTPASSWORD\\");
+
         return;
     }
 
@@ -66,5 +70,7 @@ void ForgotPassword::EditForgetPassword()
     }
 
     file.close();
+    _socket->write("\\OKFORGOTPASSWORD\\");
+
     qDebug() << "Password updated successfully.";
 }

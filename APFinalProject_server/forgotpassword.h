@@ -1,6 +1,7 @@
 #ifndef FORGOTPASSWORD_H
 #define FORGOTPASSWORD_H
 #include "databasemanager.h"
+#include "QTcpSocket"
 #include <QString>
 class ForgotPassword:public DatabaseManager
 {
@@ -8,7 +9,7 @@ class ForgotPassword:public DatabaseManager
     QString NewPassword;
 public:
     ForgotPassword(QString ReceivedData);
-    void EditForgetPassword();
+    void EditForgetPassword(QTcpSocket* _socket);
     void InPlacingToLocalAttributes() override;
 };
 

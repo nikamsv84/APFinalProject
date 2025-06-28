@@ -1,6 +1,9 @@
 #include "gamemanagement.h"
 #include <QRandomGenerator>
+#include <algorithm>
 #include "mainwindow.h"
+
+using namespace std;
 
 GameManagement::GameManagement():DatabaseManager(""){}
 GameManagement::GameManagement(QString ReceivedData):DatabaseManager(ReceivedData)
@@ -154,9 +157,14 @@ void GameManagement::RankMatching(QMap<QString, QVector<QPair<int, int>>> hands,
     if (ranknumber_gamer1>ranknumber_gamer2)
     {
         qDebug()<<"gamer 1 with username: "+allsockets[0]->objectName()+"won";
-    }else{
-        qDebug()<<"gamer 2 with username: "+allsockets[1]->objectName()+"won";
+        MainWindow::sendDatatoAll("\\WINNER\\,Winner:"+allsockets[0]->objectName());
 
+    }else if (ranknumber_gamer1<ranknumber_gamer2){
+        qDebug()<<"gamer 2 with username: "+allsockets[1]->objectName()+"won";
+        MainWindow::sendDatatoAll("\\WINNER\\,Winner:"+allsockets[1]->objectName());
+
+    }else if(ranknumber_gamer1==ranknumber_gamer2){
+        qDebug()<<"function RanksAreTheSame() should be called";
     }
 
 }
@@ -186,14 +194,57 @@ int GameManagement::IsGoldenHand(QVector<QPair<int, int>> hand) //10
 }
 
 
-int GameManagement::IsOrderHand(QVector<QPair<int, int>> hand)      // 9
+int GameManagement::IsOrderHand(QVector<QPair<int, int>> hand) // 9
 {
+
+    int firstValue = hand[0].first;
+    for (const auto& pair : hand) {
+        if (pair.first != firstValue) {
+            return 0;
+        }
+    }
+
+    QVector<int> seconds;
+    for (const auto& pair : hand) {
+        seconds.append(pair.second);
+    }
+
+    bool isAscending = is_sorted(seconds.begin(), seconds.end());
+
+    bool isDescending = is_sorted(seconds.begin(), seconds.end(), std::greater<int>());
+
+    if (isAscending || isDescending) {
+        return 9;
+    }
+
     return 0;
 }
+
 int GameManagement::Is4Plus1Hand(QVector<QPair<int, int>> hand)     // 8
 {
-    return 0;
+    //Degreeses should be different from each other.
 
+    QSet<int> seen;
+    for (const auto& pair : hand) {
+        if (seen.contains(pair.first)) {
+            return 0;
+        }
+        seen.insert(pair.first);
+    }
+
+    QVector<int> seconds;
+    for (const auto& pair : hand) {
+        seconds.append(pair.second);
+    }
+
+    QMap<int, int> frequency;
+    for (int val : seconds) {
+        frequency[val]++;
+        if (frequency[val] == 4) {
+            return 8;
+        }
+    }
+    return 0;
 }
 int GameManagement::IsPenthouseHand(QVector<QPair<int, int>> hand)  // 7
 {
