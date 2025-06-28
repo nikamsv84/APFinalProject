@@ -12,6 +12,7 @@ SOURCES += \
     edit_info.cpp \
     forgot_password.cpp \
     game_menu.cpp \
+    game_page.cpp \
     main.cpp \
     mainwindow.cpp \
     signin.cpp \
@@ -22,6 +23,7 @@ HEADERS += \
     edit_info.h \
     forgot_password.h \
     game_menu.h \
+    game_page.h \
     mainwindow.h \
     signin.h \
     signup.h \
@@ -31,6 +33,7 @@ FORMS += \
     edit_info.ui \
     forgot_password.ui \
     game_menu.ui \
+    game_page.ui \
     mainwindow.ui \
     signin.ui \
     signup.ui \

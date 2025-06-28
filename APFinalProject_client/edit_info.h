@@ -17,6 +17,7 @@ public:
 
 private slots:
     void on_edit_clicked();
+    void onServerMessage(const QString& msg);
 
 private:
     Ui::edit_info *ui;

@@ -17,6 +17,7 @@ public:
 
 private slots:
     void on_pushButton_clicked();
+    void onServerMessage(const QString& msg);
 
 private:
     Ui::forgot_password *ui;

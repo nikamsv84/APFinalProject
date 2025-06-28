@@ -54,3 +54,6 @@ void signup::onServerMessage(const QString& msg)
     }
     // this->close();
 }
+
+
+

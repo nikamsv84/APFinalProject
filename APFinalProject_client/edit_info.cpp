@@ -1,12 +1,22 @@
 #include "edit_info.h"
 #include "ui_edit_info.h"
 #include "mainwindow.h"
+#include "game_menu.h"
 
 edit_info::edit_info(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::edit_info)
 {
     ui->setupUi(this);
+
+    // وصل می‌شویم به سیگنال messageReceived
+    if (MainWindow::instance) {
+        connect(MainWindow::instance,
+                &MainWindow::messageReceived,
+                this,
+                &edit_info::onServerMessage,
+                Qt::UniqueConnection);
+    }
 }
 
 edit_info::~edit_info()
@@ -43,3 +53,18 @@ void edit_info::on_edit_clicked()
   qDebug()<< receivedData;
 
 }
+
+void edit_info::onServerMessage(const QString& msg){
+    qDebug() << "Received in edit_info:" << msg;
+    if (msg == "\\OK_EDITED\\")
+    {
+        ui->status->setText("The information changed successfully!");
+        game_menu* game_menu_pg = new game_menu();
+        game_menu_pg->show();
+
+    }else{
+        ui->status->setText("The process went wrong!");
+    }
+    // this->close();
+}
+

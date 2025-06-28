@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>576</width>
-    <height>452</height>
+    <width>1101</width>
+    <height>705</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,8 +37,8 @@
     <rect>
      <x>150</x>
      <y>140</y>
-     <width>261</width>
-     <height>248</height>
+     <width>325</width>
+     <height>303</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -99,6 +99,26 @@
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QLabel" name="status">
+   <property name="geometry">
+    <rect>
+     <x>580</x>
+     <y>240</y>
+     <width>401</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel{
+	background-color: rgb(85, 0, 127);
+	color: rgb(255, 255, 255);
+	font: 700 20pt &quot;Script MT&quot;;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
   </widget>
  </widget>
  <resources/>

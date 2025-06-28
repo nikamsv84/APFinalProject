@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>863</width>
+    <width>1366</width>
     <height>795</height>
    </rect>
   </property>
@@ -246,6 +246,26 @@ font: 700 25pt &quot;Script MT&quot;;
      </layout>
     </item>
    </layout>
+  </widget>
+  <widget class="QLabel" name="status">
+   <property name="geometry">
+    <rect>
+     <x>890</x>
+     <y>300</y>
+     <width>381</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel{
+	color: rgb(255, 255, 255);
+	font: 700 25pt &quot;Script MT&quot;;
+	background-color: rgb(170, 0, 255);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
   </widget>
  </widget>
  <resources/>

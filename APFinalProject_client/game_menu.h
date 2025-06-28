@@ -17,6 +17,9 @@ public:
 
 private slots:
     void on_edit_info_clicked();
+    void on_start_game_clicked();
+    void onServerMessage(const QString& msg);
+
 
 private:
     Ui::game_menu *ui;
