@@ -1,5 +1,6 @@
 #include "gamemanagement.h"
 #include <QRandomGenerator>
+#include "mainwindow.h"
 
 GameManagement::GameManagement():DatabaseManager(""){}
 GameManagement::GameManagement(QString ReceivedData):DatabaseManager(ReceivedData)
@@ -36,5 +37,18 @@ void GameManagement::choosingStarter(QList<QTcpSocket*> allsockets)
         allsockets[1]->write("\\START\\");
         allsockets[1]->flush();
         allsockets[1]->waitForBytesWritten();
+    }
+}
+
+void GameManagement::EndOfTimeOut(QTcpSocket* _socket, QList<QTcpSocket*> allsockets)
+{
+    //it should be used after messagehandling function.
+    if(_socket->objectName() == allsockets[0]->objectName())
+    {
+        MainWindow::sendDatatoAll("\\WINNER\\,Winner: "+allsockets[1]->objectName());
+
+    }else{
+        MainWindow::sendDatatoAll("\\WINNER\\,Winner:"+allsockets[0]->objectName());
+
     }
 }

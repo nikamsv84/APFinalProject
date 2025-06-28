@@ -37,6 +37,7 @@ void LogInManager::LoginMainPage(QTcpSocket* _socket)
     if (find)
     {
         _socket->write("\\OKLOGIN\\");
+        _socket->setObjectName(Username);
     }else{
         _socket->write("\\ERRORLOGIN\\");
     }

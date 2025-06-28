@@ -146,6 +146,7 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
     char* specifier_STARTER = strstr(data, "\\STARTER\\");
     char* specifier_LOGIN = strstr(data, "\\LOGIN\\");
     char* specifier_COMMUNICATE = strstr(data, "\\COMMUNICATE\\");
+    char* specifier_ENDOFTIMEOUT = strstr(data, "\\ENDOFTIMEOUT\\");
 
 
 
@@ -212,6 +213,12 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
         GameManagement gameprocess_communicate(stringData);
         gameprocess_communicate.Messagehandeler("\\COMMUNICATE\\");
         gameprocess_communicate.Communicate(_socket, clients);
+    }else if(specifier_ENDOFTIMEOUT)
+    {
+        QString stringData = QString::fromUtf8(data);
+        GameManagement endoftimeoutpprocess(stringData);
+        endoftimeoutpprocess.Messagehandeler("\\ENDOFTIMEOUT\\");
+        endoftimeoutpprocess.EndOfTimeOut(_socket,clients);
     }
 }
 
