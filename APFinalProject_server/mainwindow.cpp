@@ -149,6 +149,7 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
     char* specifier_ENDOFTIMEOUT = strstr(data, "\\ENDOFTIMEOUT\\");
     char* specifier_CHOOSE = strstr(data, "\\CHOOSE\\");
     char* specifier_SHOWOPPONENT = strstr(data, "\\SHOWOPPONENT\\");
+    char* specifier_CARDREQUEST = strstr(data, "\\CARDREQUEST\\");
 
 
 
@@ -233,6 +234,11 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
     {
         GameManagement showopponentprocess;
         showopponentprocess.ShowOpponent(clients);
+    }else if (specifier_CARDREQUEST)
+    {
+        GameManagement cardrequesthandling;
+        cardrequesthandling.ChargingCards();
+        cardrequesthandling.ShuffelingAndSendCard(_socket, clients);
     }
 }
 

@@ -15,13 +15,22 @@ struct UserHistory
 class GameManagement:public DatabaseManager
 {
     QString Message;
+    int GameRound = 0;
+    QVector<QPair<int, int>> AllCards;
+    QVector<QPair<int, int>> CardsInARound;
+    QVector<QPair<int, int>> CardsInOneHand;
+
     QMap<QString,UserHistory> GameResults;
     QMap<QString, QVector<QPair<int, int>>> GamerHands;
+
+
 
 public:
     GameManagement();
     GameManagement(QString ReceivedData);
     void InPlacingToLocalAttributes() override;
+    void ChargingCards();
+    void ShuffelingAndSendCard(QTcpSocket* _socket, QList<QTcpSocket*> allsockets);
     void Communicate(QTcpSocket* _socket, QList<QTcpSocket*> allsockets);
     void choosingStarter(QList<QTcpSocket*> allsockets);
     void EndOfTimeOut(QTcpSocket* _socket, QList<QTcpSocket*> allsockets);

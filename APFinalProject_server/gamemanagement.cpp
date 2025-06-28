@@ -2,17 +2,91 @@
 #include <QRandomGenerator>
 #include <algorithm>
 #include "mainwindow.h"
+#include <random>
+#include <chrono>
 
 using namespace std;
 
-GameManagement::GameManagement():DatabaseManager(""){}
+GameManagement::GameManagement():DatabaseManager(""){
+    for (int degree = 1; degree<=4; degree++)
+    {
+        for(int name = 1; name<=14; name++)
+        {
+            AllCards.append(qMakePair(degree, name));
+        }
+    }
+}
 GameManagement::GameManagement(QString ReceivedData):DatabaseManager(ReceivedData)
 {
+    for (int degree = 1; degree<=4; degree++)
+    {
+        for(int name = 1; name<=14; name++)
+        {
+            AllCards.append(qMakePair(degree, name));
+        }
+    }
 }
 void GameManagement::InPlacingToLocalAttributes()
 {
     Message = userInfo["Message"];
 }
+
+void GameManagement::ChargingCards()
+{
+    if (CardsInARound.size() == 17)//52-35 35 cards are used in every round.
+    {
+        CardsInARound = AllCards;
+        ++GameRound;
+    }
+}
+
+void GameManagement::ShuffelingAndSendCard(QTcpSocket* _socket, QList<QTcpSocket*> allsockets)
+{
+    int handCounter = 1;
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::mt19937 rng(seed);
+    std::shuffle(CardsInARound.begin(), CardsInARound.end(), rng);
+    if (handCounter%2 == 1)
+    {
+        CardsInOneHand = CardsInARound.mid(0, 7);
+        CardsInARound.erase(CardsInARound.begin(), CardsInARound.begin() + 7);
+        QString sentCard = "\\CHOOSENCARD\\";
+        for (int i=0; i<7; i++)
+        {
+            sentCard += "/"+ QString::number(CardsInOneHand[i].first)+":"+QString::number(CardsInOneHand[i].second);
+        }
+
+        _socket->write(sentCard.toUtf8());
+
+    }else if(handCounter%2 == 0)
+    {
+        QPair<int, int> LastOpponentChose;
+
+        if (_socket->objectName() == allsockets[0]->objectName()) {
+            LastOpponentChose = GamerHands[allsockets[1]->objectName()].back();
+        } else {
+            LastOpponentChose = GamerHands[allsockets[0]->objectName()].back();
+        }
+
+        QString sentCard = "\\CHOOSENCARD\\";
+        for (const auto& card : CardsInOneHand) {
+            if (card != LastOpponentChose) {
+                sentCard += "/" + QString::number(card.first) + ":" + QString::number(card.second);
+            }
+        }
+
+        _socket->write(sentCard.toUtf8());
+
+        CardsInOneHand.clear();
+    }
+
+    ++handCounter;
+    if (handCounter>10)
+    {
+        handCounter = 1;
+    }
+}
+
 
 void GameManagement::Communicate(QTcpSocket* _socket, QList<QTcpSocket*> allsockets)
 {
@@ -172,13 +246,21 @@ void GameManagement::RankMatching(QMap<QString, QVector<QPair<int, int>>> hands,
     {
         qDebug()<<"gamer 1 with username: "+allsockets[0]->objectName()+"won";
         MainWindow::sendDatatoAll("\\WINNER\\,Winner:"+allsockets[0]->objectName());
+        GamerHands[allsockets[0]->objectName()].clear();
+        GamerHands[allsockets[1]->objectName()].clear();
+        qDebug()<<GamerHands[allsockets[0]->objectName()].size();
 
     }else if (ranknumber_gamer1<ranknumber_gamer2){
         qDebug()<<"gamer 2 with username: "+allsockets[1]->objectName()+"won";
         MainWindow::sendDatatoAll("\\WINNER\\,Winner:"+allsockets[1]->objectName());
+        GamerHands[allsockets[0]->objectName()].clear();
+        GamerHands[allsockets[1]->objectName()].clear();
 
     }else if(ranknumber_gamer1==ranknumber_gamer2){
         qDebug()<<"function RanksAreTheSame() should be called";
+        //after that these two lines should be called:
+        // GamerHands[allsockets[0]->objectName()].clear();
+        // GamerHands[allsockets[1]->objectName()].clear();
     }
 
 }
