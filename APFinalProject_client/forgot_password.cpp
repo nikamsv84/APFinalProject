@@ -10,7 +10,6 @@ forgot_password::forgot_password(QWidget *parent)
 {
     ui->setupUi(this);
 
-    // وصل می‌شویم به سیگنال messageReceived
     if (MainWindow::instance) {
         connect(MainWindow::instance,
                 &MainWindow::messageReceived,

@@ -10,7 +10,6 @@ game_menu::game_menu(QWidget *parent)
 {
     ui->setupUi(this);
 
-    // وصل می‌شویم به سیگنال messageReceived
     if (MainWindow::instance) {
         connect(MainWindow::instance,
                 &MainWindow::messageReceived,
@@ -32,11 +31,27 @@ void game_menu::on_start_game_clicked()
     ui->status->setText("Waiting for another player...");
 }
 
+// void game_menu::onServerMessage(const QString& msg)
+// {
+//     qDebug() << "Received in start_game :" << msg;
+
+//     if (msg == "\\OKSTARTGAME\\")
+//     {
+//         game_page* game_page_main = new game_page();
+//         game_page_main->show();
+//         this->close();
+//     }
+//     else
+//     {
+//         ui->status->setText("There isn't another user to join game!");
+//     }
+// }
+
 void game_menu::onServerMessage(const QString& msg)
 {
     qDebug() << "Received in start_game :" << msg;
 
-    if (msg == "\\OKSTARTGAME\\")
+    if (msg == "\\START\\")
     {
         game_page* game_page_main = new game_page();
         game_page_main->show();
@@ -47,6 +62,7 @@ void game_menu::onServerMessage(const QString& msg)
         ui->status->setText("There isn't another user to join game!");
     }
 }
+
 
 
 void game_menu::on_edit_info_clicked()
