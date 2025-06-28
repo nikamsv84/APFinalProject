@@ -147,6 +147,8 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
     char* specifier_LOGIN = strstr(data, "\\LOGIN\\");
     char* specifier_COMMUNICATE = strstr(data, "\\COMMUNICATE\\");
     char* specifier_ENDOFTIMEOUT = strstr(data, "\\ENDOFTIMEOUT\\");
+    char* specifier_CHOOSE = strstr(data, "\\CHOOSE\\");
+
 
 
 
@@ -219,6 +221,12 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
         GameManagement endoftimeoutpprocess(stringData);
         endoftimeoutpprocess.Messagehandeler("\\ENDOFTIMEOUT\\");
         endoftimeoutpprocess.EndOfTimeOut(_socket,clients);
+    }else if (specifier_CHOOSE)
+    {
+        QString stringData = QString::fromUtf8(data);
+        GameManagement choosecardprocess(stringData);
+        choosecardprocess.Messagehandeler("\\CHOOSE\\");
+        choosecardprocess.ChooseAndRankMatching(_socket, clients);
     }
 }
 

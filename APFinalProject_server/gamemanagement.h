@@ -16,6 +16,7 @@ class GameManagement:public DatabaseManager
 {
     QString Message;
     QMap<QString,UserHistory> GameResults;
+    QMap<QString, QVector<QPair<int, int>>> GamerHands;
 
 public:
     GameManagement();
@@ -24,6 +25,7 @@ public:
     void Communicate(QTcpSocket* _socket, QList<QTcpSocket*> allsockets);
     void choosingStarter(QList<QTcpSocket*> allsockets);
     void EndOfTimeOut(QTcpSocket* _socket, QList<QTcpSocket*> allsockets);
+    void ChooseAndRankMatching(QTcpSocket* _socket, QList<QTcpSocket*> allsockets);
 };
 
 #endif // GAMEMANAGEMENT_H

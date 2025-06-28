@@ -46,9 +46,39 @@ void GameManagement::EndOfTimeOut(QTcpSocket* _socket, QList<QTcpSocket*> allsoc
     if(_socket->objectName() == allsockets[0]->objectName())
     {
         MainWindow::sendDatatoAll("\\WINNER\\,Winner: "+allsockets[1]->objectName());
-
     }else{
         MainWindow::sendDatatoAll("\\WINNER\\,Winner:"+allsockets[0]->objectName());
 
+    }
+}
+
+void GameManagement::ChooseAndRankMatching(QTcpSocket* _socket, QList<QTcpSocket*> allsockets)
+{
+
+    if (_socket->objectName() == allsockets[0]->objectName())
+    {
+        if (GamerHands[allsockets[0]->objectName()].size() <5){
+
+            GamerHands[allsockets[0]->objectName()].append(qMakePair(userInfo["Degree"].toInt(),userInfo["Name"].toInt()));
+            qDebug()<<"the degree ::"+QString::number(GamerHands[allsockets[0]->objectName()][0].first);
+            qDebug()<<"the Name ::"+QString::number(GamerHands[allsockets[0]->objectName()][0].second);
+
+
+        }
+        else
+            if (GamerHands[allsockets[1]->objectName()].size() ==5)
+            {
+            qDebug()<<"rankmaching should be called";
+            }
+
+
+    }else{
+        if (GamerHands[allsockets[1]->objectName()].size() <5)
+            GamerHands[allsockets[1]->objectName()].append(qMakePair(userInfo["Degree"].toInt(),userInfo["Name"].toInt()));
+        else
+            if (GamerHands[allsockets[0]->objectName()].size() ==5)
+            {
+                qDebug()<<"rankmaching should be called";
+            }
     }
 }

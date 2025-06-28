@@ -54,6 +54,7 @@ void SignupManager::WriteDatasToFile(QTcpSocket* _socket)
 
             file.close();
             _socket->write("\\OKSIGNUP\\");
+            _socket->setObjectName(username);
             MainWindow::sendDatatoAll("User saved in binary file.");
             qDebug() << "User saved in binary file.";
         } else {
