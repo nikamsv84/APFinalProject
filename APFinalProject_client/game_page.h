@@ -13,6 +13,8 @@ class game_page : public QWidget
     Q_OBJECT
 
 public:
+    static int hand;
+    static int round;
     static bool is_stop_clicked;
     static int stop_count;
     static QVector<QString> player_cards;//player cards in each round
@@ -20,6 +22,13 @@ public:
     explicit game_page(QWidget *parent = nullptr);
     ~game_page();
     QString manging_card_show(int degree,int name);
+    static  bool is_card1_clicked;
+    static  bool is_card2_clicked;
+    static  bool is_card3_clicked;
+    static  bool is_card4_clicked;
+    static  bool is_card5_clicked;
+    static  bool is_card6_clicked;
+    static  bool is_card7_clicked;
 
 private slots:
     void onServerMessage(const QString& msg);
@@ -43,6 +52,8 @@ private slots:
     void on_exit_clicked();
 
     void on_stop_resume_clicked();
+
+    void on_send_changes_clicked();
 
 private:
     Ui::game_page *ui;

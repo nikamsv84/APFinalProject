@@ -24,7 +24,7 @@
   <widget class="QLabel" name="mine_status">
    <property name="geometry">
     <rect>
-     <x>190</x>
+     <x>170</x>
      <y>50</y>
      <width>241</width>
      <height>51</height>
@@ -66,7 +66,7 @@
     <rect>
      <x>20</x>
      <y>50</y>
-     <width>161</width>
+     <width>141</width>
      <height>51</height>
     </rect>
    </property>
@@ -78,15 +78,15 @@ font: 700 15pt &quot;Script MT&quot;;
 }</string>
    </property>
    <property name="text">
-    <string>player status :</string>
+    <string>your status :</string>
    </property>
   </widget>
   <widget class="QLabel" name="player_status_2">
    <property name="geometry">
     <rect>
-     <x>960</x>
+     <x>940</x>
      <y>70</y>
-     <width>161</width>
+     <width>181</width>
      <height>51</height>
     </rect>
    </property>
@@ -98,7 +98,7 @@ font: 700 15pt &quot;Script MT&quot;;
 }</string>
    </property>
    <property name="text">
-    <string>player status :</string>
+    <string>competitor status :</string>
    </property>
   </widget>
   <widget class="QPushButton" name="Card_request">
@@ -141,7 +141,7 @@ font: 700 15pt &quot;Script MT&quot;;
 }</string>
    </property>
    <property name="text">
-    <string>PushButton</string>
+    <string/>
    </property>
   </widget>
   <widget class="QPushButton" name="card_1">
@@ -164,7 +164,7 @@ font: 700 15pt &quot;Script MT&quot;;
 }</string>
    </property>
    <property name="text">
-    <string>PushButton</string>
+    <string/>
    </property>
   </widget>
   <widget class="QPushButton" name="card_2">
@@ -187,7 +187,7 @@ font: 700 15pt &quot;Script MT&quot;;
 }</string>
    </property>
    <property name="text">
-    <string>PushButton</string>
+    <string/>
    </property>
   </widget>
   <widget class="QPushButton" name="change_cards">
@@ -282,7 +282,7 @@ font: 700 15pt &quot;Script MT&quot;;
 }</string>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="mine_card2">
@@ -305,7 +305,7 @@ font: 700 15pt &quot;Script MT&quot;;
 }</string>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="mine_card3">
@@ -328,7 +328,7 @@ font: 700 15pt &quot;Script MT&quot;;
 }</string>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="mine_card4">
@@ -351,7 +351,7 @@ font: 700 15pt &quot;Script MT&quot;;
 }</string>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="mine_card5">
@@ -374,7 +374,47 @@ font: 700 15pt &quot;Script MT&quot;;
 }</string>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>580</y>
+      <width>121</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+	background-color: rgb(80, 0, 60);
+	color: rgb(255, 255, 255);
+font: 700 15pt &quot;Script MT&quot;;
+}</string>
+    </property>
+    <property name="text">
+     <string>your wins :</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="your_wins">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>580</y>
+      <width>63</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+	background-color: rgb(80, 0, 60);
+	color: rgb(255, 255, 255);
+font: 700 15pt &quot;Script MT&quot;;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>
@@ -420,7 +460,7 @@ font: 700 15pt &quot;Script MT&quot;;
 }</string>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="competitor_card2">
@@ -443,7 +483,7 @@ font: 700 15pt &quot;Script MT&quot;;
 }</string>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="competitor_card3">
@@ -456,7 +496,7 @@ font: 700 15pt &quot;Script MT&quot;;
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="competitor_card5">
@@ -469,7 +509,7 @@ font: 700 15pt &quot;Script MT&quot;;
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="competitor_card4">
@@ -492,7 +532,47 @@ font: 700 15pt &quot;Script MT&quot;;
 }</string>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>570</y>
+      <width>171</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+	background-color: rgb(80, 0, 60);
+	color: rgb(255, 255, 255);
+font: 700 15pt &quot;Script MT&quot;;
+}</string>
+    </property>
+    <property name="text">
+     <string>competitor wins :</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="competitor_wins">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>570</y>
+      <width>71</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+	background-color: rgb(80, 0, 60);
+	color: rgb(255, 255, 255);
+font: 700 15pt &quot;Script MT&quot;;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>
@@ -516,7 +596,7 @@ font: 700 15pt &quot;Script MT&quot;;
 }</string>
    </property>
    <property name="text">
-    <string>PushButton</string>
+    <string/>
    </property>
   </widget>
   <widget class="QPushButton" name="card_5">
@@ -539,7 +619,7 @@ font: 700 15pt &quot;Script MT&quot;;
 }</string>
    </property>
    <property name="text">
-    <string>PushButton</string>
+    <string/>
    </property>
   </widget>
   <widget class="QPushButton" name="card_6">
@@ -562,7 +642,7 @@ font: 700 15pt &quot;Script MT&quot;;
 }</string>
    </property>
    <property name="text">
-    <string>PushButton</string>
+    <string/>
    </property>
   </widget>
   <widget class="QPushButton" name="card_7">
@@ -585,7 +665,7 @@ font: 700 15pt &quot;Script MT&quot;;
 }</string>
    </property>
    <property name="text">
-    <string>PushButton</string>
+    <string/>
    </property>
   </widget>
   <widget class="QPushButton" name="exit">
@@ -627,6 +707,26 @@ font: 700 15pt &quot;Script MT&quot;;
    </property>
    <property name="text">
     <string>stop &amp; resume</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="send_changes">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>140</y>
+     <width>171</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+	background-color: rgb(170, 0, 127);
+	color: rgb(0, 0, 0);
+	font: 700 18pt &quot;Script MT&quot;;
+}</string>
+   </property>
+   <property name="text">
+    <string>send changes</string>
    </property>
   </widget>
  </widget>
