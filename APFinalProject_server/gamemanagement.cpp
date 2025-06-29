@@ -43,11 +43,11 @@ void GameManagement::ChargingCards()
 
 void GameManagement::ShuffelingAndSendCard(QTcpSocket* _socket, QList<QTcpSocket*> allsockets)//has errors.
 {
-    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-    std::mt19937 rng(seed);
-    std::shuffle(CardsInARound.begin(), CardsInARound.end(), rng);
     if (handCounter%2 == 1)
     {
+        unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+        std::mt19937 rng(seed);
+        std::shuffle(CardsInARound.begin(), CardsInARound.end(), rng);
         CardsInOneHand = CardsInARound.mid(0, 7);
         CardsInARound.erase(CardsInARound.begin(), CardsInARound.begin() + 7);
         QString sentCard = "\\CHOOSENCARD\\";
@@ -83,6 +83,7 @@ void GameManagement::ShuffelingAndSendCard(QTcpSocket* _socket, QList<QTcpSocket
         CardsInOneHand.clear();
     }
 
+    qDebug()<<"handCounter"+QString::number(handCounter);
     ++handCounter;
     if (handCounter>10)
     {
@@ -153,17 +154,17 @@ void GameManagement::ShowOpponent(QList<QTcpSocket*> allsockets)
 
 void GameManagement::ChooseAndRankMatching(QTcpSocket* _socket, QList<QTcpSocket*> allsockets)
 {
-    GamerHands[allsockets[0]->objectName()].append(qMakePair(1, 13));//these lines are for debug
-    GamerHands[allsockets[0]->objectName()].append(qMakePair(1, 12));
-    GamerHands[allsockets[0]->objectName()].append(qMakePair(1, 3));
-    GamerHands[allsockets[0]->objectName()].append(qMakePair(1, 10));
-    GamerHands[allsockets[0]->objectName()].append(qMakePair(1, 9));
+    // GamerHands[allsockets[0]->objectName()].append(qMakePair(1, 13));//these lines are for debug
+    // GamerHands[allsockets[0]->objectName()].append(qMakePair(1, 12));
+    // GamerHands[allsockets[0]->objectName()].append(qMakePair(1, 3));
+    // GamerHands[allsockets[0]->objectName()].append(qMakePair(1, 10));
+    // GamerHands[allsockets[0]->objectName()].append(qMakePair(1, 9));
 
-    GamerHands[allsockets[1]->objectName()].append(qMakePair(1, 1));
-    GamerHands[allsockets[1]->objectName()].append(qMakePair(1, 2));
-    GamerHands[allsockets[1]->objectName()].append(qMakePair(1, 3));
-    GamerHands[allsockets[1]->objectName()].append(qMakePair(1, 4));
-    // GamerHands[allsockets[1]->objectName()].append(qMakePair(1, 9));
+    // GamerHands[allsockets[1]->objectName()].append(qMakePair(1, 1));
+    // GamerHands[allsockets[1]->objectName()].append(qMakePair(1, 2));
+    // GamerHands[allsockets[1]->objectName()].append(qMakePair(1, 3));
+    // GamerHands[allsockets[1]->objectName()].append(qMakePair(1, 4));
+    // // GamerHands[allsockets[1]->objectName()].append(qMakePair(1, 9));
 
 
     if (_socket->objectName() == allsockets[0]->objectName())
@@ -171,9 +172,10 @@ void GameManagement::ChooseAndRankMatching(QTcpSocket* _socket, QList<QTcpSocket
         if (GamerHands[allsockets[0]->objectName()].size() <5){
 
             GamerHands[allsockets[0]->objectName()].append(qMakePair(userInfo["Degree"].toInt(),userInfo["Name"].toInt()));
-            qDebug()<<"the degree ::"+QString::number(GamerHands[allsockets[0]->objectName()][0].first);
-            qDebug()<<"the Name ::"+QString::number(GamerHands[allsockets[0]->objectName()][0].second);
-            if (GamerHands[allsockets[1]->objectName()].size() ==5 && GamerHands[allsockets[0]->objectName()].size() ==5)
+            // qDebug()<<"the degree of another client::"+QString::number(GamerHands[allsockets[1]->objectName()][0].first);
+            // qDebug()<<"the Name of another client::"+QString::number(GamerHands[allsockets[1]->objectName()][0].second);
+
+            if (handCounter == 10)
             {
                 qDebug()<<"rankmaching should be called";
                 RankMatching(GamerHands, _socket,allsockets);
@@ -192,9 +194,9 @@ void GameManagement::ChooseAndRankMatching(QTcpSocket* _socket, QList<QTcpSocket
         if (GamerHands[allsockets[1]->objectName()].size() <5){
 
             GamerHands[allsockets[1]->objectName()].append(qMakePair(userInfo["Degree"].toInt(),userInfo["Name"].toInt()));
-            // qDebug()<<"the degree ::"+QString::number(GamerHands[allsockets[0]->objectName()][0].first);
-            // qDebug()<<"the Name ::"+QString::number(GamerHands[allsockets[0]->objectName()][0].second);
-            if (GamerHands[allsockets[0]->objectName()].size() ==5 && GamerHands[allsockets[1]->objectName()].size() ==5)
+            // qDebug()<<"the degree of other client::"+QString::number(GamerHands[allsockets[0]->objectName()][0].first);
+            // qDebug()<<"the Name of other client::"+QString::number(GamerHands[allsockets[0]->objectName()][0].second);
+            if (handCounter == 10)
             {
                 qDebug()<<"rankmaching should be called";
                 RankMatching(GamerHands, _socket,allsockets);

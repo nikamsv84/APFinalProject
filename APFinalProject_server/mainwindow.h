@@ -11,6 +11,7 @@
 #include <QNetworkInterface>
 #include <QList>
 #include <QHostAddress>
+#include "gamemanagement.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -21,6 +22,7 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
+    GameManagement gameManager;
 
 public:
     MainWindow(QWidget *parent = nullptr);

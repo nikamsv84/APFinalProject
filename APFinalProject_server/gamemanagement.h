@@ -5,6 +5,7 @@
 #include "databasemanager.h"
 struct UserHistory
 {
+    QString OpponentName;
     QString Date;
     QString result1;
     QString result2;

@@ -232,9 +232,8 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
         showopponentprocess.ShowOpponent(clients);
     }else if (specifier_CARDREQUEST)
     {
-        GameManagement cardrequesthandling;
-        cardrequesthandling.ChargingCards();
-        cardrequesthandling.ShuffelingAndSendCard(_socket, clients);
+        gameManager.ChargingCards();
+        gameManager.ShuffelingAndSendCard(_socket, clients);
     }
 }
 
