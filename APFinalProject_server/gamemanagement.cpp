@@ -11,7 +11,7 @@ using namespace std;
 GameManagement::GameManagement():DatabaseManager(""){
     for (int degree = 1; degree<=4; degree++)
     {
-        for(int name = 1; name<=14; name++)
+        for(int name = 2; name<=14; name++)
         {
             AllCards.append(qMakePair(degree, name));
         }
@@ -21,7 +21,7 @@ GameManagement::GameManagement(QString ReceivedData):DatabaseManager(ReceivedDat
 {
     for (int degree = 1; degree<=4; degree++)
     {
-        for(int name = 1; name<=14; name++)
+        for(int name = 2; name<=14; name++)
         {
             AllCards.append(qMakePair(degree, name));
         }
@@ -41,86 +41,121 @@ void GameManagement::ChargingCards()
     }
 }
 
-void GameManagement::ShuffelingAndSendCard(QTcpSocket* _socket, QList<QTcpSocket*> allsockets)//has errors.
+// void GameManagement::ShuffelingAndSendCard(QTcpSocket* _socket, QList<QTcpSocket*> allsockets)//has errors.
+// {
+//     if (handCounter%2 == 1)
+//     {
+//         unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+//         std::mt19937 rng(seed);
+//         std::shuffle(CardsInARound.begin(), CardsInARound.end(), rng);
+//         CardsInOneHand = CardsInARound.mid(0, 7);
+//         CardsInARound.erase(CardsInARound.begin(), CardsInARound.begin() + 7);
+//         QString sentCard = "\\CHOOSENCARD\\";
+//         for (int i=0; i<7; i++)
+//         {
+//             sentCard += "/"+ QString::number(CardsInOneHand[i].first)+":"+QString::number(CardsInOneHand[i].second);
+//         }
+
+//         _socket->write(sentCard.toUtf8());
+//         _socket->flush();
+//         qDebug()<<sentCard;
+
+
+//     }else if(handCounter%2 == 0)
+//     {
+//         QPair<int, int> LastOpponentChose;
+
+//         if (_socket->objectName() == allsockets[0]->objectName()) {
+//             LastOpponentChose = GamerHands[allsockets[1]->objectName()].back();
+//         } else {
+//             LastOpponentChose = GamerHands[allsockets[0]->objectName()].back();
+//         }
+
+//         QString sentCard = "\\CHOOSENCARD\\";
+//         for (const auto& card : CardsInOneHand) {
+//             if (card != LastOpponentChose) {
+//                 sentCard += "/" + QString::number(card.first) + ":" + QString::number(card.second);
+//             }
+//         }
+//         qDebug()<<sentCard;
+//         _socket->write(sentCard.toUtf8());
+
+//         CardsInOneHand.clear();
+//     }
+
+//     qDebug()<<"handCounter"+QString::number(handCounter);
+//     ++handCounter;
+//     if (handCounter>10)
+//     {
+//         handCounter = 1;
+//     }
+// }
+
+
+void GameManagement::ShuffelingAndSendCard(QList<QTcpSocket*> allsockets)
 {
-    if (handCounter%2 == 1)
-    {
-        unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-        std::mt19937 rng(seed);
-        std::shuffle(CardsInARound.begin(), CardsInARound.end(), rng);
-        CardsInOneHand = CardsInARound.mid(0, 7);
-        CardsInARound.erase(CardsInARound.begin(), CardsInARound.begin() + 7);
-        QString sentCard = "\\CHOOSENCARD\\";
-        for (int i=0; i<7; i++)
-        {
-            sentCard += "/"+ QString::number(CardsInOneHand[i].first)+":"+QString::number(CardsInOneHand[i].second);
-        }
+    if (allsockets.size() < 2) return;
 
-        _socket->write(sentCard.toUtf8());
-        _socket->flush();
-        qDebug()<<sentCard;
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::mt19937 rng(seed);
+    std::shuffle(CardsInARound.begin(), CardsInARound.end(), rng);
 
+    QList<QPair<int, int>> selectedCards = CardsInARound.mid(0, 7);
 
-    }else if(handCounter%2 == 0)
-    {
-        QPair<int, int> LastOpponentChose;
-
-        if (_socket->objectName() == allsockets[0]->objectName()) {
-            LastOpponentChose = GamerHands[allsockets[1]->objectName()].back();
-        } else {
-            LastOpponentChose = GamerHands[allsockets[0]->objectName()].back();
-        }
-
-        QString sentCard = "\\CHOOSENCARD\\";
-        for (const auto& card : CardsInOneHand) {
-            if (card != LastOpponentChose) {
-                sentCard += "/" + QString::number(card.first) + ":" + QString::number(card.second);
-            }
-        }
-        qDebug()<<sentCard;
-        _socket->write(sentCard.toUtf8());
-
-        CardsInOneHand.clear();
+    QString sentCard = "\\CHOOSENCARD\\";
+    for (const auto& card : selectedCards) {
+        sentCard += "/" + QString::number(card.first) + ":" + QString::number(card.second);
     }
 
-    qDebug()<<"handCounter"+QString::number(handCounter);
-    ++handCounter;
-    if (handCounter>10)
-    {
-        handCounter = 1;
+    for (QTcpSocket* socket : allsockets) {
+        socket->write(sentCard.toUtf8());
+        socket->flush();
+        qDebug() << "Sent to " << socket->objectName() << ":" << sentCard;
     }
+
+    CardsInARound.erase(CardsInARound.begin(), CardsInARound.begin() + 7);
+    handCounter++;
 }
 
 
-void GameManagement::Communicate(QTcpSocket* _socket, QList<QTcpSocket*> allsockets)
-{
-    //this function should be used after stringhandling
-    if (_socket->objectName() == allsockets[0]->objectName())
-    {
-        qDebug()<<"Message: "<<userInfo["Message"];
-        allsockets[1]->write(userInfo["Message"].toUtf8());
-    }else
-    {
-        allsockets[0]->write(userInfo["Message"].toUtf8());
+void GameManagement::Communicate(QTcpSocket* _socket, const QList<QTcpSocket*>& allsockets) {
+    if (allsockets.size() < 2) {
+        qWarning() << "Not enough sockets to communicate.";
+        return;
+    }
+
+    QString message = userInfo["Message"];
+    if (message.isEmpty()) {
+        qWarning() << "Empty message, nothing to send.";
+        return;
+    }
+
+    if (_socket == allsockets[0]) {
+        qDebug() << "Message from socket 0: " << message;
+        allsockets[1]->write(message.toUtf8());
+    } else {
+        allsockets[0]->write(message.toUtf8());
+        qDebug() << "Message from other socket: " << message;
     }
 }
+
 
 void GameManagement::choosingStarter(QList<QTcpSocket*> allsockets)
-
 {
-    int cardValue_1 = QRandomGenerator::global()->bounded(1, 14);//related to socket1
-    int cardValue_2 = QRandomGenerator::global()->bounded(1, 14);//related to socket2
-    if (cardValue_1>cardValue_2)
-    {
-        allsockets[0]->write("\\START\\");
-        allsockets[0]->flush();
-        allsockets[0]->waitForBytesWritten();
-    }else{
-        allsockets[1]->write("\\START\\");
-        allsockets[1]->flush();
-        allsockets[1]->waitForBytesWritten();
-    }
+    int cardValue_1 = QRandomGenerator::global()->bounded(1, 14);
+    int cardValue_2 = QRandomGenerator::global()->bounded(1, 14);
+
+    int starterIndex = (cardValue_1 > cardValue_2) ? 0 : 1;
+    int secondIndex = 1 - starterIndex;
+
+    allsockets[starterIndex]->write("\\STARTER\\");
+    allsockets[starterIndex]->flush();
+
+    allsockets[secondIndex]->write("\\SECOND_PLAYER\\");
+    allsockets[secondIndex]->flush();
 }
+
+
 void GameManagement::EndOfTimeOut(QTcpSocket* _socket, QList<QTcpSocket*> allsockets)
 {
     //it should be used after messagehandling function.

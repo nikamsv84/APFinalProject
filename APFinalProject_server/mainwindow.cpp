@@ -55,6 +55,8 @@ void MainWindow::socket_readyRead(QTcpSocket *_socket)
     // _socket->waitForBytesWritten(3000);
 }
 
+
+
 void MainWindow::socket_bytesWritten(QTcpSocket *_socket)
 {
     ui->output->append("Data was written!");
@@ -155,7 +157,6 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
 
 
 
-
     if (specifier_SIGNUP)
     {
         QString stringData = QString::fromUtf8(data);
@@ -233,8 +234,12 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
     }else if (specifier_CARDREQUEST)
     {
         gameManager.ChargingCards();
-        gameManager.ShuffelingAndSendCard(_socket, clients);
+        gameManager.ShuffelingAndSendCard(clients);
     }
+
+
 }
+
+
 
 

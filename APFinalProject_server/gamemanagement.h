@@ -33,8 +33,9 @@ public:
     GameManagement(QString ReceivedData);
     void InPlacingToLocalAttributes() override;
     void ChargingCards();
-    void ShuffelingAndSendCard(QTcpSocket* _socket, QList<QTcpSocket*> allsockets);
-    void Communicate(QTcpSocket* _socket, QList<QTcpSocket*> allsockets);
+    // void ShuffelingAndSendCard(QTcpSocket* _socket, QList<QTcpSocket*> allsockets);
+    void ShuffelingAndSendCard(QList<QTcpSocket*> allsockets);
+    void Communicate(QTcpSocket* _socket, const QList<QTcpSocket*>& allsockets);
     void choosingStarter(QList<QTcpSocket*> allsockets);
     void EndOfTimeOut(QTcpSocket* _socket, QList<QTcpSocket*> allsockets);
     void ChooseAndRankMatching(QTcpSocket* _socket, QList<QTcpSocket*> allsockets);
