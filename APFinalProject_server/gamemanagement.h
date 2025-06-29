@@ -16,6 +16,8 @@ class GameManagement:public DatabaseManager
 {
     QString Message;
     int GameRound = 0;
+    int handCounter = 1;
+
     QVector<QPair<int, int>> AllCards;
     QVector<QPair<int, int>> CardsInARound;
     QVector<QPair<int, int>> CardsInOneHand;

@@ -143,7 +143,6 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
     char* specifier_STARTGAME = strstr(data, "\\STARTGAME\\");
     char* specifier_EDITINFO = strstr(data, "\\EDITINFO\\");
     char* specifier_FORGOTPASSWORD = strstr(data, "\\FORGOTPASSWORD\\");
-    char* specifier_STARTER = strstr(data, "\\STARTER\\");
     char* specifier_LOGIN = strstr(data, "\\LOGIN\\");
     char* specifier_COMMUNICATE = strstr(data, "\\COMMUNICATE\\");
     char* specifier_ENDOFTIMEOUT = strstr(data, "\\ENDOFTIMEOUT\\");
@@ -172,7 +171,10 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
         if (clients.size() == 2)
         {
             qDebug() <<"starting the game";
-            sendDatatoAll("\\OKSTARTGAME\\");
+            sendDatatoAll("\\START\\");
+            qDebug()<<"the datas are related to starter";
+            GameManagement gameprocess_starter;
+            gameprocess_starter.choosingStarter(clients);
             qDebug()<<"Data was sent";
 
         }else{
@@ -196,12 +198,6 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
         forgotpasswordprocess.Messagehandeler("\\FORGOTPASSWORD\\");
         forgotpasswordprocess.InPlacingToLocalAttributes();
         forgotpasswordprocess.EditForgetPassword(_socket);
-    }else if (specifier_STARTER)
-    {
-        qDebug()<<"the datas are related to starter";
-        GameManagement gameprocess_starter;
-        gameprocess_starter.choosingStarter(clients);
-
     }else if(specifier_LOGIN)
     {
         qDebug()<<"the datas are related to login";
