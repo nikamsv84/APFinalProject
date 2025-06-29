@@ -13,6 +13,9 @@ class game_page : public QWidget
     Q_OBJECT
 
 public:
+    static bool is_stop_clicked;
+    static int stop_count;
+    static QVector<QString> player_cards;//player cards in each round
     static QVector<QPair<int,int>>Cards;
     explicit game_page(QWidget *parent = nullptr);
     ~game_page();
@@ -36,6 +39,10 @@ private slots:
     void on_card_4_clicked();
 
     void on_card_1_clicked();
+
+    void on_exit_clicked();
+
+    void on_stop_resume_clicked();
 
 private:
     Ui::game_page *ui;

@@ -4,7 +4,6 @@
 #include <QCryptographicHash>
 #include <QDebug>
 
-// مقداردهی استاتیک‌ها
 MainWindow*     MainWindow::instance              = nullptr;
 QTcpSocket*     MainWindow::socket                = nullptr;
 QString         MainWindow::lastReceivedMessage   = QString();

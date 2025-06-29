@@ -1,8 +1,13 @@
 #include "game_page.h"
 #include "ui_game_page.h"
 #include "mainwindow.h"
+#include "resume_stop.h"
+#include <QPair>
 
+bool game_page::is_stop_clicked = false;
+int game_page::stop_count = 0;
 
+QVector<QString> game_page::player_cards;//player cards in each round
 QVector<QPair<int,int>> game_page::Cards;
 
 game_page::game_page(QWidget *parent)
@@ -108,6 +113,11 @@ void game_page::onServerMessage(const QString& msg){
         ui->mine_status->setText("second player");
         ui->competitor_status->setText("first player");
     }
+    else if(msg == "STOP"){
+        qDebug() << "communicate : " << msg ;
+        resume_stop* resume_stop_pg = new resume_stop();
+        resume_stop_pg->show();
+    }
     else{
                 QVector<QPair<int, int>> parsedCards;
 
@@ -136,7 +146,7 @@ void game_page::onServerMessage(const QString& msg){
 
                     QString path_c3 = manging_card_show(parsedCards[2].first, parsedCards[2].second);
                     // ui->card_3->setStyleSheet(QString("background-image: url(%1); background-repeat: no-repeat; background-position: center;").arg(path_c3));
-                    ui->card_3->setText(path_c3);
+                    ui->card_1->setText(path_c3);
 
                     QString path_c4 = manging_card_show(parsedCards[3].first, parsedCards[3].second);
                     // ui->card_4->setStyleSheet(QString("background-image: url(%1); background-repeat: no-repeat; background-position: center;").arg(path_c4));
@@ -144,11 +154,11 @@ void game_page::onServerMessage(const QString& msg){
 
                     QString path_c5 = manging_card_show(parsedCards[4].first, parsedCards[4].second);
                     // ui->card_5->setStyleSheet(QString("background-image: url(%1); background-repeat: no-repeat; background-position: center;").arg(path_c5));
-                    ui->card_5->setText(path_c5);
+                    ui->card_3->setText(path_c5);
 
                     QString path_c6 = manging_card_show(parsedCards[5].first, parsedCards[5].second);
                     // ui->card_6->setStyleSheet(QString("background-image: url(%1); background-repeat: no-repeat; background-position: center;").arg(path_c6));
-                    ui->card_6->setText(path_c6);
+                    ui->card_2->setText(path_c6);
 
                     QString path_c7 = manging_card_show(parsedCards[6].first, parsedCards[6].second);
                     // ui->card_7->setStyleSheet(QString("background-image: url(%1); background-repeat: no-repeat; background-position: center;").arg(path_c7));
@@ -166,7 +176,7 @@ void game_page::onServerMessage(const QString& msg){
 
                     QString path_c3 = manging_card_show(parsedCards[2].first, parsedCards[2].second);
                     // ui->card_3->setStyleSheet(QString("background-image: url(%1); background-repeat: no-repeat; background-position: center;").arg(path_c3));
-                    ui->card_3->setText(path_c3);
+                    ui->card_1->setText(path_c3);
 
                     QString path_c4 = manging_card_show(parsedCards[3].first, parsedCards[3].second);
                     // ui->card_4->setStyleSheet(QString("background-image: url(%1); background-repeat: no-repeat; background-position: center;").arg(path_c4));
@@ -174,11 +184,11 @@ void game_page::onServerMessage(const QString& msg){
 
                     QString path_c5 = manging_card_show(parsedCards[4].first, parsedCards[4].second);
                     // ui->card_5->setStyleSheet(QString("background-image: url(%1); background-repeat: no-repeat; background-position: center;").arg(path_c5));
-                    ui->card_5->setText(path_c5);
+                    ui->card_3->setText(path_c5);
 
                     QString path_c6 = manging_card_show(parsedCards[5].first, parsedCards[5].second);
                     // ui->card_6->setStyleSheet(QString("background-image: url(%1); background-repeat: no-repeat; background-position: center;").arg(path_c6));
-                    ui->card_6->setText(path_c6);
+                    ui->card_2->setText(path_c6);
                 }
 
             }
@@ -196,6 +206,20 @@ void game_page::on_Card_request_clicked()
 void game_page::on_card_1_clicked()
 {
     QString card_data = ui->card_1->text();
+    player_cards.append(card_data);
+
+    //setting chosen card to mine_cards
+    if(ui->mine_card1->text() == ""){
+        ui->mine_card1->setText(card_data);
+    }else if(ui->mine_card2->text() == ""){
+        ui->mine_card2->setText(card_data);
+    }else if(ui->mine_card3->text() == ""){
+        ui->mine_card3->setText(card_data);
+    }else if(ui->mine_card4->text() == ""){
+        ui->mine_card4->setText(card_data);
+    }else if(ui->mine_card5->text() == ""){
+        ui->mine_card5->setText(card_data);
+    }
     MainWindow::sendData("\\CHOOSE\\"+card_data);
 }
 
@@ -203,13 +227,41 @@ void game_page::on_card_1_clicked()
 void game_page::on_card_2_clicked()
 {
     QString card_data = ui->card_2->text();
+    player_cards.append(card_data);
+
+    //setting chosen card to mine_cards
+    if(ui->mine_card1->text() == ""){
+        ui->mine_card1->setText(card_data);
+    }else if(ui->mine_card2->text() == ""){
+        ui->mine_card2->setText(card_data);
+    }else if(ui->mine_card3->text() == ""){
+        ui->mine_card3->setText(card_data);
+    }else if(ui->mine_card4->text() == ""){
+        ui->mine_card4->setText(card_data);
+    }else if(ui->mine_card5->text() == ""){
+        ui->mine_card5->setText(card_data);
+    }
     MainWindow::sendData("\\CHOOSE\\"+card_data);
 }
 
 
 void game_page::on_card_3_clicked()
 {
-    QString card_data = ui->card_3->text();
+    QString card_data = ui->card_1->text();
+    player_cards.append(card_data);
+
+    //setting chosen card to mine_cards
+    if(ui->mine_card1->text() == ""){
+        ui->mine_card1->setText(card_data);
+    }else if(ui->mine_card2->text() == ""){
+        ui->mine_card2->setText(card_data);
+    }else if(ui->mine_card3->text() == ""){
+        ui->mine_card3->setText(card_data);
+    }else if(ui->mine_card4->text() == ""){
+        ui->mine_card4->setText(card_data);
+    }else if(ui->mine_card5->text() == ""){
+        ui->mine_card5->setText(card_data);
+    }
     MainWindow::sendData("\\CHOOSE\\"+card_data);
 }
 
@@ -217,20 +269,62 @@ void game_page::on_card_3_clicked()
 void game_page::on_card_4_clicked()
 {
     QString card_data = ui->card_4->text();
+    player_cards.append(card_data);
+
+    //setting chosen card to mine_cards
+    if(ui->mine_card1->text() == ""){
+        ui->mine_card1->setText(card_data);
+    }else if(ui->mine_card2->text() == ""){
+        ui->mine_card2->setText(card_data);
+    }else if(ui->mine_card3->text() == ""){
+        ui->mine_card3->setText(card_data);
+    }else if(ui->mine_card4->text() == ""){
+        ui->mine_card4->setText(card_data);
+    }else if(ui->mine_card5->text() == ""){
+        ui->mine_card5->setText(card_data);
+    }
     MainWindow::sendData("\\CHOOSE\\"+card_data);
 }
 
 
 void game_page::on_card_5_clicked()
 {
-    QString card_data = ui->card_5->text();
+    QString card_data = ui->card_3->text();
+    player_cards.append(card_data);
+
+    //setting chosen card to mine_cards
+    if(ui->mine_card1->text() == ""){
+        ui->mine_card1->setText(card_data);
+    }else if(ui->mine_card2->text() == ""){
+        ui->mine_card2->setText(card_data);
+    }else if(ui->mine_card3->text() == ""){
+        ui->mine_card3->setText(card_data);
+    }else if(ui->mine_card4->text() == ""){
+        ui->mine_card4->setText(card_data);
+    }else if(ui->mine_card5->text() == ""){
+        ui->mine_card5->setText(card_data);
+    }
     MainWindow::sendData("\\CHOOSE\\"+card_data);
 }
 
 
 void game_page::on_card_6_clicked()
 {
-    QString card_data = ui->card_6->text();
+    QString card_data = ui->card_2->text();
+    player_cards.append(card_data);
+
+    //setting chosen card to mine_cards
+    if(ui->mine_card1->text() == ""){
+        ui->mine_card1->setText(card_data);
+    }else if(ui->mine_card2->text() == ""){
+        ui->mine_card2->setText(card_data);
+    }else if(ui->mine_card3->text() == ""){
+        ui->mine_card3->setText(card_data);
+    }else if(ui->mine_card4->text() == ""){
+        ui->mine_card4->setText(card_data);
+    }else if(ui->mine_card5->text() == ""){
+        ui->mine_card5->setText(card_data);
+    }
     MainWindow::sendData("\\CHOOSE\\"+card_data);
 }
 
@@ -238,6 +332,44 @@ void game_page::on_card_6_clicked()
 void game_page::on_card_7_clicked()
 {
     QString card_data = ui->card_7->text();
+    player_cards.append(card_data);
+
+    //setting chosen card to mine_cards
+    if(ui->mine_card1->text() == ""){
+        ui->mine_card1->setText(card_data);
+    }else if(ui->mine_card2->text() == ""){
+        ui->mine_card2->setText(card_data);
+    }else if(ui->mine_card3->text() == ""){
+        ui->mine_card3->setText(card_data);
+    }else if(ui->mine_card4->text() == ""){
+        ui->mine_card4->setText(card_data);
+    }else if(ui->mine_card5->text() == ""){
+        ui->mine_card5->setText(card_data);
+    }
     MainWindow::sendData("\\CHOOSE\\"+card_data);
+}
+
+
+
+
+
+void game_page::on_exit_clicked()
+{
+
+}
+
+
+void game_page::on_stop_resume_clicked()
+{
+    if(stop_count == 2){
+        ui->stop_resume->setEnabled(false);
+    }
+    else{
+        MainWindow::sendData("\\COMMUNICATE\\,Message:STOP");
+        stop_count++;
+        is_stop_clicked  = true;
+    resume_stop* resume_stop_pg = new resume_stop();
+    resume_stop_pg->show();
+    }
 }
 
