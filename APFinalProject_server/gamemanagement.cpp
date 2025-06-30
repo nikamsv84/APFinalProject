@@ -242,19 +242,19 @@ void GameManagement::RankMatching(QList<QTcpSocket*> allsockets)
         Is3Plus2Hand,     // 4
         DoublePairHand,   // 3
         IsSinglePairHand  // 2
-        // IsMessyHand->if ranknumbers remain 1.
+        // IsMessyHand->if ranknumbers remain 0.
     };
 
 
     QVector<QPair<int, int>> hand1 = GamerHands[allsockets[0]->objectName()];
     QVector<QPair<int, int>> hand2 = GamerHands[allsockets[1]->objectName()];
 
-    int ranknumber_gamer1 = 1;
-    int ranknumber_gamer2 = 1;
+    int ranknumber_gamer1 = 0;
+    int ranknumber_gamer2 = 0;
 
     for (int i = 0; i < rankCheckers.size(); ++i) {
         int result = rankCheckers[i](hand1);
-        if (result > 1) {
+        if (result > 0) {
             ranknumber_gamer1 = result;
             break;
         }
@@ -262,7 +262,7 @@ void GameManagement::RankMatching(QList<QTcpSocket*> allsockets)
 
     for (int i = 0; i < rankCheckers.size(); ++i) {
         int result = rankCheckers[i](hand2);
-        if (result > 1) {
+        if (result > 0) {
             ranknumber_gamer2 = result;
             break;
         }
@@ -301,6 +301,59 @@ void GameManagement::RankMatching(QList<QTcpSocket*> allsockets)
         // AllCards.clear();
     }
 
+}
+
+void GameManagement::RanksAreTheSame(QList<QTcpSocket*> allsockets, int Rank)
+{
+    switch (Rank) {
+    case 10:
+        qDebug()<<"same 10";
+        SameGoldenHand(allsockets);
+        break;
+    case 9:
+        qDebug()<<"same 9";
+        SameOrderHand(allsockets);
+
+        break;
+    case 8:
+        qDebug()<<"same 8";
+        Same4Plus1Hand(allsockets);
+
+        break;
+    case 7:
+        qDebug()<<"same 7";
+        SamePenthouseHand(allsockets);
+
+        break;
+    case 6:
+        qDebug()<<"same 6";
+        SameMSCHand(allsockets);
+
+        break;
+    case 5:
+        qDebug()<<"same 5";
+        SameSeries(allsockets);
+
+        break;
+    case 4:
+        qDebug()<<"same 4";
+        Same3Plus2Hand(allsockets);
+
+        break;
+    case 3:
+        qDebug()<<"same 3";
+        SameDoublePairHand(allsockets);
+        break;
+    case 2:
+        qDebug()<<"same 2";
+        SameSinglePairHand(allsockets);
+        break;
+
+    default:
+        qDebug()<<"same 0 (Messy hand)";
+        SameMessyHand(allsockets);
+        break;
+    }
 }
 
 
@@ -521,6 +574,497 @@ int GameManagement::IsSinglePairHand(QVector<QPair<int, int>> hand) // 2
 
     return 0;
 }
+
+
+
+//same checker functions:
+void GameManagement::SameGoldenHand(QList<QTcpSocket*> allsockets)
+{
+    if(GamerHands[allsockets[0]->objectName()][0].first > GamerHands[allsockets[1]->objectName()][0].first)
+    {
+        qDebug()<<"gamer 1 with username: "+allsockets[0]->objectName()+"won";
+        sendLooserWinner(0, 1, allsockets);
+
+    }else if (GamerHands[allsockets[0]->objectName()][0].first < GamerHands[allsockets[1]->objectName()][0].first){
+        qDebug()<<"gamer 2 with username: "+allsockets[1]->objectName()+"won";
+        sendLooserWinner(1, 0, allsockets);
+    }else{
+        IfAllWasTheSame(allsockets);
+    }
+}
+
+void GameManagement::SameOrderHand(QList<QTcpSocket*> allsockets)
+{
+    if(GamerHands[allsockets[0]->objectName()][0].second > GamerHands[allsockets[1]->objectName()][0].second)
+    {
+        qDebug()<<"gamer 1 with username: "+allsockets[0]->objectName()+"won";
+        sendLooserWinner(0, 1, allsockets);
+
+    }else if (GamerHands[allsockets[0]->objectName()][0].second < GamerHands[allsockets[1]->objectName()][0].second){
+        qDebug()<<"gamer 2 with username: "+allsockets[1]->objectName()+"won";
+        sendLooserWinner(1, 0, allsockets);
+
+    }else{
+        if(GamerHands[allsockets[0]->objectName()][0].first > GamerHands[allsockets[1]->objectName()][0].first)
+        {
+            qDebug()<<"gamer 1 with username: "+allsockets[0]->objectName()+"won";
+            sendLooserWinner(0, 1, allsockets);
+        }else if (GamerHands[allsockets[0]->objectName()][0].first< GamerHands[allsockets[1]->objectName()][0].first){
+            qDebug()<<"gamer 2 with username: "+allsockets[1]->objectName()+"won";
+            sendLooserWinner(1, 0, allsockets);
+        }else{
+            IfAllWasTheSame(allsockets);
+        }
+    }
+
+}
+
+void GameManagement::Same4Plus1Hand(QList<QTcpSocket*> allsockets)
+{
+    QVector<int> seconds_player1;
+    for (const auto& pair : GamerHands[allsockets[0]->objectName()]) {
+        seconds_player1.append(pair.second);
+    }
+
+    QMap<int, int> frequency_player1;
+    int cardsValue_player1 = -1;
+    for (int val : seconds_player1) {
+        frequency_player1[val]++;
+        if (frequency_player1[val] == 4) {
+            cardsValue_player1 = val;
+        }
+    }
+
+    QVector<int> seconds_player2;
+    for (const auto& pair : GamerHands[allsockets[1]->objectName()]) {
+        seconds_player2.append(pair.second);
+    }
+
+    QMap<int, int> frequency_player2;
+    int cardsValue_player2 = -1;
+    for (int val : seconds_player2) {
+        frequency_player2[val]++;
+        if (frequency_player2[val] == 4) {
+            cardsValue_player2 = val;
+        }
+    }
+
+    if (cardsValue_player1 > cardsValue_player2) {
+        qDebug()<<"gamer 1 with username: "+allsockets[0]->objectName()+"won";
+        sendLooserWinner(0, 1, allsockets);
+
+    } else if (cardsValue_player2 > cardsValue_player1) {
+        qDebug()<<"gamer 2 with username: "+allsockets[1]->objectName()+"won";
+        sendLooserWinner(1, 0, allsockets);
+
+    } else {
+        qDebug()<<"the 4 card\'s value were the same.";
+        IfAllWasTheSame(allsockets);
+    }
+}
+
+
+void GameManagement::SamePenthouseHand(QList<QTcpSocket*> allsockets)
+{
+    QMap<int, QSet<int>> numberToTypes_player1;
+
+    for (const auto& card : GamerHands[allsockets[0]->objectName()]) {
+        numberToTypes_player1[card.second].insert(card.first);
+    }
+
+    int tripleNumber_player1 = -1;
+
+    for (auto it = numberToTypes_player1.begin(); it != numberToTypes_player1.end(); ++it) {
+        int typeCount = it.value().size();
+
+        if (typeCount == 3) {
+            tripleNumber_player1 = it.key();
+            break;
+        }
+    }
+
+    QMap<int, QSet<int>> numberToTypes_player2;
+
+    for (const auto& card : GamerHands[allsockets[1]->objectName()]) {
+        numberToTypes_player2[card.second].insert(card.first);
+    }
+
+    int tripleNumber_player2 = -1;
+
+    for (auto it = numberToTypes_player2.begin(); it != numberToTypes_player2.end(); ++it) {
+        int typeCount = it.value().size();
+
+        if (typeCount == 3) {
+            tripleNumber_player2 = it.key();
+            break;
+        }
+    }
+
+    if(tripleNumber_player1>tripleNumber_player2)
+    {
+        qDebug()<<"gamer 1 with username: "+allsockets[0]->objectName()+"won";
+        sendLooserWinner(0, 1, allsockets);
+    }else if (tripleNumber_player1<tripleNumber_player2){
+        qDebug()<<"gamer 2 with username: "+allsockets[1]->objectName()+"won";
+        sendLooserWinner(1, 0, allsockets);
+    }else{
+        IfAllWasTheSame(allsockets);
+    }
+
+
+}
+
+void GameManagement::SameMSCHand(QList<QTcpSocket*> allsockets)
+{
+    QVector<int> numbers_player1;
+    QVector<int> numbers_player2;
+
+    for(auto card: GamerHands[allsockets[0]->objectName()])
+    {
+        numbers_player1.append(card.second);
+    }
+
+    for(auto card: GamerHands[allsockets[1]->objectName()])
+    {
+        numbers_player1.append(card.second);
+    }
+
+    while (!numbers_player1.isEmpty() && !numbers_player2.isEmpty()) {
+        int maxnum_player1 = *std::max_element(numbers_player1.begin(), numbers_player1.end());
+        int maxnum_player2 = *std::max_element(numbers_player2.begin(), numbers_player2.end());
+
+        if(maxnum_player1>maxnum_player2)
+        {
+            qDebug()<<"gamer 1 with username: "+allsockets[0]->objectName()+"won";
+            sendLooserWinner(0, 1, allsockets);
+        }else if (maxnum_player1<maxnum_player2)
+        {
+            qDebug()<<"gamer 2 with username: "+allsockets[1]->objectName()+"won";
+            sendLooserWinner(1, 0, allsockets);
+        }
+        else if (maxnum_player1 == maxnum_player2) {
+            numbers_player1.removeOne(maxnum_player1);
+            numbers_player2.removeOne(maxnum_player2);
+        }
+    }
+
+    IfAllWasTheSame(allsockets);
+
+}
+
+void GameManagement::SameSeries(QList<QTcpSocket*> allsockets)
+{
+    if (GamerHands[allsockets[0]->objectName()][0].second> GamerHands[allsockets[1]->objectName()][0].second)
+    {
+        qDebug()<<"gamer 1 with username: "+allsockets[0]->objectName()+"won";
+        sendLooserWinner(0, 1, allsockets);
+    }else if (GamerHands[allsockets[1]->objectName()][1].second>GamerHands[allsockets[1]->objectName()][0].second)
+    {
+        qDebug()<<"gamer 2 with username: "+allsockets[1]->objectName()+"won";
+        sendLooserWinner(1, 0, allsockets);
+    }else if (GamerHands[allsockets[0]->objectName()][0].second ==  GamerHands[allsockets[1]->objectName()][0].second)
+    {
+        if (GamerHands[allsockets[0]->objectName()][0].first >  GamerHands[allsockets[1]->objectName()][0].first)
+        {
+            qDebug()<<"gamer 1 with username: "+allsockets[0]->objectName()+"won";
+            sendLooserWinner(0, 1, allsockets);
+        }else if (GamerHands[allsockets[0]->objectName()][0].first <  GamerHands[allsockets[1]->objectName()][0].first)
+        {
+            qDebug()<<"gamer 2 with username: "+allsockets[1]->objectName()+"won";
+            sendLooserWinner(1, 0, allsockets);
+        }else
+        {
+            qDebug()<<"the Degree and number of cards were the same";
+            IfAllWasTheSame(allsockets);
+        }
+    }
+}
+
+void GameManagement::Same3Plus2Hand(QList<QTcpSocket*> allsockets)
+{
+    QMap<int, QSet<int>> numberToTypes_player1;
+
+    for (const auto& card : GamerHands[allsockets[0]->objectName()]) {
+        numberToTypes_player1[card.second].insert(card.first);
+    }
+
+    int tripleNumber_player1 = -1;
+
+    for (auto it = numberToTypes_player1.begin(); it != numberToTypes_player1.end(); ++it) {
+        int typeCount = it.value().size();
+
+        if (typeCount == 3) {
+            tripleNumber_player1 = it.key();
+            break;
+        }
+    }
+
+    QMap<int, QSet<int>> numberToTypes_player2;
+
+    for (const auto& card : GamerHands[allsockets[1]->objectName()]) {
+        numberToTypes_player2[card.second].insert(card.first);
+    }
+
+    int tripleNumber_player2 = -1;
+
+    for (auto it = numberToTypes_player2.begin(); it != numberToTypes_player2.end(); ++it) {
+        int typeCount = it.value().size();
+
+        if (typeCount == 3) {
+            tripleNumber_player2 = it.key();
+            break;
+        }
+    }
+
+    if(tripleNumber_player1>tripleNumber_player2)
+    {
+        qDebug()<<"gamer 1 with username: "+allsockets[0]->objectName()+"won";
+        sendLooserWinner(0, 1, allsockets);
+    }else if (tripleNumber_player1<tripleNumber_player2){
+        qDebug()<<"gamer 2 with username: "+allsockets[1]->objectName()+"won";
+        sendLooserWinner(1, 0, allsockets);
+    }else{
+        IfAllWasTheSame(allsockets);
+    }
+}
+
+void GameManagement::SameDoublePairHand(QList<QTcpSocket*> allsockets)
+{
+    // --- Player 1 ---
+    QMap<int, QSet<int>> numberToTypes_player1;
+    QMap<int, int> numberCount_player1;
+
+    for (const auto& card : GamerHands[allsockets[0]->objectName()]) {
+        numberToTypes_player1[card.second].insert(card.first);
+        numberCount_player1[card.second]++;
+    }
+
+    QVector<int> validPairs_player1;
+    for (auto it = numberToTypes_player1.begin(); it != numberToTypes_player1.end(); ++it) {
+        int number = it.key();
+        int typeCount = it.value().size();
+        int totalCount = numberCount_player1[number];
+
+        if (typeCount == 2 && totalCount == 2) {
+            validPairs_player1.append(number);
+        }
+    }
+    std::sort(validPairs_player1.begin(), validPairs_player1.end(), std::greater<int>());
+
+    // --- Player 2 ---
+    QMap<int, QSet<int>> numberToTypes_player2;
+    QMap<int, int> numberCount_player2;
+
+    for (const auto& card : GamerHands[allsockets[1]->objectName()]) {
+        numberToTypes_player2[card.second].insert(card.first);
+        numberCount_player2[card.second]++;
+    }
+
+    QVector<int> validPairs_player2;
+    for (auto it = numberToTypes_player2.begin(); it != numberToTypes_player2.end(); ++it) {
+        int number = it.key();
+        int typeCount = it.value().size();
+        int totalCount = numberCount_player2[number];
+
+        if (typeCount == 2 && totalCount == 2) {
+            validPairs_player2.append(number);
+        }
+    }
+    std::sort(validPairs_player2.begin(), validPairs_player2.end(), std::greater<int>());
+
+    // --- Compare pairs ---
+    if (validPairs_player1[0] > validPairs_player2[0]) {
+        qDebug() << "Player 1 wins with higher first pair";
+        sendLooserWinner(0, 1, allsockets);
+        return;
+    } else if (validPairs_player1[0] < validPairs_player2[0]) {
+        qDebug() << "Player 2 wins with higher first pair";
+        sendLooserWinner(1, 0, allsockets);
+        return;
+    }
+
+    // First pairs are equal, compare second pairs
+    if (validPairs_player1[1] > validPairs_player2[1]) {
+        qDebug() << "Player 1 wins with higher second pair";
+        sendLooserWinner(0, 1, allsockets);
+        return;
+    } else if (validPairs_player1[1] < validPairs_player2[1]) {
+        qDebug() << "Player 2 wins with higher second pair";
+        sendLooserWinner(1, 0, allsockets);
+        return;
+    }
+
+    // Both pairs are equal, compare kicker
+    int kicker1 = -1;
+    int kicker2 = -1;
+
+    for (const auto& card : GamerHands[allsockets[0]->objectName()]) {
+        if (!validPairs_player1.contains(card.second)) {
+            kicker1 = card.second;
+            break;
+        }
+    }
+
+    for (const auto& card : GamerHands[allsockets[1]->objectName()]) {
+        if (!validPairs_player2.contains(card.second)) {
+            kicker2 = card.second;
+            break;
+        }
+    }
+
+    if (kicker1 > kicker2) {
+        qDebug() << "Player 1 wins with higher kicker";
+        sendLooserWinner(0, 1, allsockets);
+    } else if (kicker1 < kicker2) {
+        qDebug() << "Player 2 wins with higher kicker";
+        sendLooserWinner(1, 0, allsockets);
+    } else {
+        qDebug() << "It's a tie!";
+        IfAllWasTheSame(allsockets);
+    }
+}
+
+
+void GameManagement::SameSinglePairHand(QList<QTcpSocket*> allsockets)
+{
+    // --- Player 1 ---
+    QMap<int, int> numberCount_player1;
+    QVector<int> kickers1;
+    int pair1 = -1;
+
+    for (const auto& card : GamerHands[allsockets[0]->objectName()]) {
+        numberCount_player1[card.second]++;
+    }
+
+    for (auto it = numberCount_player1.begin(); it != numberCount_player1.end(); ++it) {
+        if (it.value() == 2)
+            pair1 = it.key();
+        else {
+            for (int i = 0; i < it.value(); ++i)
+                kickers1.append(it.key());
+        }
+    }
+
+    // --- Player 2 ---
+    QMap<int, int> numberCount_player2;
+    QVector<int> kickers2;
+    int pair2 = -1;
+
+    for (const auto& card : GamerHands[allsockets[1]->objectName()]) {
+        numberCount_player2[card.second]++;
+    }
+
+    for (auto it = numberCount_player2.begin(); it != numberCount_player2.end(); ++it) {
+        if (it.value() == 2)
+            pair2 = it.key();
+        else {
+            for (int i = 0; i < it.value(); ++i)
+                kickers2.append(it.key());
+        }
+    }
+
+    // --- Compare pairs ---
+    if (pair1 > pair2) {
+        qDebug() << "Player 1 wins with higher pair";
+        sendLooserWinner(0, 1, allsockets);
+        return;
+    } else if (pair1 < pair2) {
+        qDebug() << "Player 2 wins with higher pair";
+        sendLooserWinner(1, 0, allsockets);
+        return;
+    }
+
+    // --- Compare kickers without sorting ---
+    for (int i = 0; i < 3; ++i) {
+        int max1 = *std::max_element(kickers1.begin(), kickers1.end());
+        int max2 = *std::max_element(kickers2.begin(), kickers2.end());
+
+        if (max1 > max2) {
+            qDebug() << "Player 1 wins with higher kicker";
+            sendLooserWinner(0, 1, allsockets);
+            return;
+        } else if (max1 < max2) {
+            qDebug() << "Player 2 wins with higher kicker";
+            sendLooserWinner(1, 0, allsockets);
+            return;
+        }
+
+        // Remove used max to compare next highest
+        kickers1.removeOne(max1);
+        kickers2.removeOne(max2);
+    }
+
+    qDebug() << "It's a tie!";
+    IfAllWasTheSame(allsockets);
+}
+
+void GameManagement::SameMessyHand(QList<QTcpSocket*> allsockets)
+{
+    QVector<QPair<int, int>> player1_cards = GamerHands[allsockets[0]->objectName()];
+    QVector<QPair<int, int>> player2_cards = GamerHands[allsockets[1]->objectName()];
+
+    for (int i=0; i<=5; ++i)
+    {
+        if (player1_cards[i].second>player2_cards[i].second)
+        {
+            sendLooserWinner(0, 1, allsockets);
+            return;
+
+        }else if (player1_cards[i].second<player2_cards[i].second)
+        {
+            sendLooserWinner(1, 0, allsockets);
+            return;
+        }else{
+            for (int i=0; i<=5; ++i)
+            {
+                if (player1_cards[i].first>player2_cards[i].first)
+                {
+                    sendLooserWinner(0, 1, allsockets);
+                    return;
+                }else if (player1_cards[i].first<player2_cards[i].first)
+                {
+                    sendLooserWinner(1, 0, allsockets);
+                    return;
+                }else{
+                    qDebug()<<"the hands are exactly the same.";
+                }
+            }
+        }
+    }
+}
+
+
+void GameManagement::sendLooserWinner(int WinnerIndex, int LooserIndex, QList<QTcpSocket*> allsockets)
+{
+    allsockets[WinnerIndex]->write("\\WINNER\\");
+    allsockets[LooserIndex]->write("\\LOOSER\\");
+    allsockets[WinnerIndex]->flush();
+    allsockets[LooserIndex]->flush();
+
+
+}
+
+void GameManagement::IfAllWasTheSame(QList<QTcpSocket*> allsockets)
+{
+    QVector<QPair<int, int>> player1_cards = GamerHands[allsockets[0]->objectName()];
+    QVector<QPair<int, int>> player2_cards = GamerHands[allsockets[1]->objectName()];
+
+    for (int i=0; i<=5; ++i)
+    {
+        if (player1_cards[i].first>player2_cards[i].first)
+        {
+            sendLooserWinner(0, 1, allsockets);
+            return;
+
+        }else if (player1_cards[i].first<player2_cards[i].first)
+        {
+            sendLooserWinner(1, 0, allsockets);
+            return;
+        }
+    }
+}
+
+
 
 
 

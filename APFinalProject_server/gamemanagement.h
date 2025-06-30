@@ -33,6 +33,8 @@ public:
     GameManagement(QString ReceivedData);
     void InPlacingToLocalAttributes() override;
     void ChargingCards();
+    void sendLooserWinner(int WinnerIndex, int LooserIndex, QList<QTcpSocket*> allsockets);
+
     // void ShuffelingAndSendCard(QTcpSocket* _socket, QList<QTcpSocket*> allsockets);
     void ShuffelingAndSendCard(QList<QTcpSocket*> allsockets);
     void Communicate(QTcpSocket* _socket, const QList<QTcpSocket*>& allsockets);
@@ -40,6 +42,7 @@ public:
     void EndOfTimeOut(QTcpSocket* _socket, QList<QTcpSocket*> allsockets);
     void StoringChooses(QTcpSocket* _socket, QList<QTcpSocket*> allsockets);
     void RankMatching(QList<QTcpSocket*> allsockets);
+    void RanksAreTheSame(QList<QTcpSocket*> allsockets, int Rank);
     void ShowOpponent(QList<QTcpSocket*> allsockets);
 
     //we assigned a number to every hand , the below methodes return the number of hand if the hand is golden or ... otherwise they return 0.
@@ -52,6 +55,20 @@ public:
     static int Is3Plus2Hand(QVector<QPair<int, int>> hand);     // 4
     static int DoublePairHand(QVector<QPair<int, int>> hand);   // 3
     static int IsSinglePairHand(QVector<QPair<int, int>> hand); // 2
+
+    //if the ranks are the same:
+    void IfAllWasTheSame(QList<QTcpSocket*> allsockets);
+    void SameGoldenHand(QList<QTcpSocket*> allsockets);
+    void SameOrderHand(QList<QTcpSocket*> allsockets);
+    void Same4Plus1Hand(QList<QTcpSocket*> allsockets);
+    void SamePenthouseHand(QList<QTcpSocket*> allsockets);
+    void SameMSCHand(QList<QTcpSocket*> allsockets);
+    void SameSeries(QList<QTcpSocket*> allsockets);
+    void Same3Plus2Hand(QList<QTcpSocket*> allsockets);
+    void SameDoublePairHand(QList<QTcpSocket*> allsockets);
+    void SameSinglePairHand(QList<QTcpSocket*> allsockets);
+    void SameMessyHand(QList<QTcpSocket*> allsockets);
+
 
 
 
