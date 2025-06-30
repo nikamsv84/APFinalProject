@@ -17,7 +17,7 @@ class GameManagement:public DatabaseManager
 {
     QString Message;
     int GameRound = 0;
-    int handCounter = 1;
+    int handCounter = 0;
 
     QVector<QPair<int, int>> AllCards;
     QVector<QPair<int, int>> CardsInARound;
@@ -38,8 +38,8 @@ public:
     void Communicate(QTcpSocket* _socket, const QList<QTcpSocket*>& allsockets);
     void choosingStarter(QList<QTcpSocket*> allsockets);
     void EndOfTimeOut(QTcpSocket* _socket, QList<QTcpSocket*> allsockets);
-    void ChooseAndRankMatching(QTcpSocket* _socket, QList<QTcpSocket*> allsockets);
-    void RankMatching(QMap<QString, QVector<QPair<int, int>>> hands, QTcpSocket* _socket, QList<QTcpSocket*> allsockets);
+    void StoringChooses(QTcpSocket* _socket, QList<QTcpSocket*> allsockets);
+    void RankMatching(QList<QTcpSocket*> allsockets);
     void ShowOpponent(QList<QTcpSocket*> allsockets);
 
     //we assigned a number to every hand , the below methodes return the number of hand if the hand is golden or ... otherwise they return 0.

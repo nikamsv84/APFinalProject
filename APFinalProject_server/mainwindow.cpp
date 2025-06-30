@@ -151,6 +151,8 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
     char* specifier_CHOOSE = strstr(data, "\\CHOOSE\\");
     char* specifier_SHOWOPPONENT = strstr(data, "\\SHOWOPPONENT\\");
     char* specifier_CARDREQUEST = strstr(data, "\\CARDREQUEST\\");
+    char* specifier_SHOWROUNDWINNER = strstr(data, "\\SHOWROUNDWINNER\\");
+
 
 
 
@@ -226,7 +228,7 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
         QString stringData = QString::fromUtf8(data);
         GameManagement choosecardprocess(stringData);
         choosecardprocess.Messagehandeler("\\CHOOSE\\");
-        choosecardprocess.ChooseAndRankMatching(_socket, clients);
+        choosecardprocess.StoringChooses(_socket, clients);
     }else if (specifier_SHOWOPPONENT)
     {
         GameManagement showopponentprocess;
@@ -235,6 +237,9 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
     {
         gameManager.ChargingCards();
         gameManager.ShuffelingAndSendCard(clients);
+    }else if (specifier_SHOWROUNDWINNER)
+    {
+        gameManager.RankMatching(clients);
     }
 
 
