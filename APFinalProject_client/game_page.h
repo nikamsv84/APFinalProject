@@ -13,6 +13,10 @@ class game_page : public QWidget
     Q_OBJECT
 
 public:
+    static int win_counts;
+    static int lose_counts;
+    static QString player_turn_status;
+    static int choose_card_each_hand; //shows if two players have chosen 2 cards in each hand
     static int hand;
     static int round;
     static bool is_stop_clicked;
@@ -21,6 +25,7 @@ public:
     static QVector<QPair<int,int>>Cards;
     explicit game_page(QWidget *parent = nullptr);
     ~game_page();
+    void changing_turn_in_hand();
     QString manging_card_show(int degree,int name);
     static  bool is_card1_clicked;
     static  bool is_card2_clicked;
@@ -54,6 +59,8 @@ private slots:
     void on_stop_resume_clicked();
 
     void on_send_changes_clicked();
+
+    void on_show_result_of_round_clicked();
 
 private:
     Ui::game_page *ui;

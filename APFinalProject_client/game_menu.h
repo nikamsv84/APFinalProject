@@ -21,6 +21,10 @@ private slots:
     void onServerMessage(const QString& msg);
 
 
+    void on_exit_clicked();
+
+    void on_recent_games_clicked();
+
 private:
     Ui::game_menu *ui;
 };

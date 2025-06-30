@@ -31,21 +31,6 @@ void game_menu::on_start_game_clicked()
     ui->status->setText("Waiting for another player...");
 }
 
-// void game_menu::onServerMessage(const QString& msg)
-// {
-//     qDebug() << "Received in start_game :" << msg;
-
-//     if (msg == "\\OKSTARTGAME\\")
-//     {
-//         game_page* game_page_main = new game_page();
-//         game_page_main->show();
-//         this->close();
-//     }
-//     else
-//     {
-//         ui->status->setText("There isn't another user to join game!");
-//     }
-// }
 
 void game_menu::onServerMessage(const QString& msg)
 {
@@ -70,3 +55,15 @@ void game_menu::on_edit_info_clicked()
     edit_info* edit_info_pg = new edit_info();
     edit_info_pg->show();
 }
+
+void game_menu::on_exit_clicked()
+{
+
+}
+
+
+void game_menu::on_recent_games_clicked()
+{
+
+}
+

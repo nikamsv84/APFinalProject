@@ -729,6 +729,26 @@ font: 700 15pt &quot;Script MT&quot;;
     <string>send changes</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="show_result_of_round">
+   <property name="geometry">
+    <rect>
+     <x>520</x>
+     <y>770</y>
+     <width>361</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+	background-color: rgb(170, 0, 127);
+	color: rgb(0, 0, 0);
+	font: 700 18pt &quot;Script MT&quot;;
+}</string>
+   </property>
+   <property name="text">
+    <string>show  result of game till now</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>
