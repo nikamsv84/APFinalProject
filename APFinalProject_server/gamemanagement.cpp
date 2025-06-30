@@ -8,6 +8,14 @@
 
 using namespace std;
 
+QVector<QPair<int, int>> GameManagement::AllCards;
+QVector<QPair<int, int>> GameManagement::CardsInARound;
+QVector<QPair<int, int>> GameManagement::CardsInOneHand;
+
+QMap<QString,UserHistory> GameManagement::GameResults;
+QMap<QString, QVector<QPair<int, int>>> GameManagement::GamerHands;
+
+
 GameManagement::GameManagement():DatabaseManager(""){
     for (int degree = 1; degree<=4; degree++)
     {
@@ -154,23 +162,6 @@ void GameManagement::choosingStarter(QList<QTcpSocket*> allsockets)
     allsockets[secondIndex]->flush();
 }
 
-
-void GameManagement::EndOfTimeOut(QTcpSocket* _socket, QList<QTcpSocket*> allsockets)
-{
-    //it should be used after messagehandling function.
-    if(_socket->objectName() == allsockets[0]->objectName())
-    {
-        MainWindow::sendDatatoAll("\\WINNER\\,Winner: "+allsockets[1]->objectName());
-        CardsInARound.clear();
-        CardsInARound.clear();
-        AllCards.clear();
-    }else{
-        MainWindow::sendDatatoAll("\\WINNER\\,Winner:"+allsockets[0]->objectName());
-        CardsInARound.clear();
-        CardsInARound.clear();
-        AllCards.clear();
-    }
-}
 
 void GameManagement::ShowOpponent(QList<QTcpSocket*> allsockets)
 {
@@ -1036,10 +1027,75 @@ void GameManagement::SameMessyHand(QList<QTcpSocket*> allsockets)
 
 void GameManagement::sendLooserWinner(int WinnerIndex, int LooserIndex, QList<QTcpSocket*> allsockets)
 {
+    QString todayString = QDate::currentDate().toString("yyyy-MM-dd");
     allsockets[WinnerIndex]->write("\\WINNER\\");
     allsockets[LooserIndex]->write("\\LOOSER\\");
     allsockets[WinnerIndex]->flush();
     allsockets[LooserIndex]->flush();
+    //setting opponent name:
+    GameResults[allsockets[WinnerIndex]->objectName()].OpponentName = allsockets[LooserIndex]->objectName();
+    GameResults[allsockets[LooserIndex]->objectName()].OpponentName = allsockets[WinnerIndex]->objectName();
+
+    //setting date:
+    GameResults[allsockets[WinnerIndex]->objectName()].Date = todayString;
+    GameResults[allsockets[LooserIndex]->objectName()].Date = todayString;
+
+    if (GameResults[allsockets[WinnerIndex]->objectName()].result1.isEmpty()  && GameResults[allsockets[LooserIndex]->objectName()].result1.isEmpty())
+    {
+        GameResults[allsockets[WinnerIndex]->objectName()].result1 = "Winner";
+        GameResults[allsockets[LooserIndex]->objectName()].result1 = "Looser";
+
+    }else if (GameResults[allsockets[WinnerIndex]->objectName()].result2.isEmpty()  && GameResults[allsockets[LooserIndex]->objectName()].result2.isEmpty())
+    {
+        GameResults[allsockets[WinnerIndex]->objectName()].result2 = "Winner";
+        GameResults[allsockets[LooserIndex]->objectName()].result2 = "Looser";
+
+    }else if (GameResults[allsockets[WinnerIndex]->objectName()].result3.isEmpty()  && GameResults[allsockets[LooserIndex]->objectName()].result3.isEmpty())
+    {
+        GameResults[allsockets[WinnerIndex]->objectName()].result3 = "Winner";
+        GameResults[allsockets[LooserIndex]->objectName()].result3 = "Looser";
+    }
+
+}
+
+void GameManagement::ShowFinalWinner(QList<QTcpSocket*> allsockets)
+{
+    QVector<QString> client1Results = {GameResults[allsockets[0]->objectName()].result1, GameResults[allsockets[0]->objectName()].result2, GameResults[allsockets[0]->objectName()].result3};
+    QVector<QString> client2LooserResults = {GameResults[allsockets[1]->objectName()].result1, GameResults[allsockets[1]->objectName()].result2, GameResults[allsockets[1]->objectName()].result3};
+    int client1totalCount = 0;
+    int client2totalCount = 0;
+    for (const QString& result : client1Results) {
+        if (result == "Winner") {
+            client1totalCount++;
+        }
+    }
+
+    for (const QString& result : client2LooserResults) {
+        if (result == "Winner") {
+            client2totalCount++;
+        }
+    }
+
+    if(client1totalCount>=2)
+    {
+        GameResults[allsockets[0]->objectName()].FinalResult="Winner";
+        GameResults[allsockets[1]->objectName()].FinalResult="Looser";
+        allsockets[0]->write("\\FINALWINNER\\");
+        allsockets[1]->write("\\FINALLOOSER\\");
+        allsockets[0]->flush();
+        allsockets[1]->flush();
+    }else if (client2totalCount >= 2)
+    {
+        GameResults[allsockets[1]->objectName()].FinalResult="Winner";
+        GameResults[allsockets[0]->objectName()].FinalResult="Looser";
+
+        allsockets[0]->write("\\FINALLOOSER\\");
+        allsockets[1]->write("\\FINALWINNER\\");
+        allsockets[0]->flush();
+        allsockets[1]->flush();
+    }else{
+        qDebug()<<"no final result";
+    }
 
 
 }

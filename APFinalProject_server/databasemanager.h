@@ -8,9 +8,9 @@ class DatabaseManager
 protected:
     QString ReceivedData;
     QString Specifier;
-    QMap<QString , QString>userInfo;
 
 public:
+    static QMap<QString , QString>userInfo;
     DatabaseManager(QString ReceivedData);
     virtual void Messagehandeler(QString Specifier);
     virtual void InPlacingToLocalAttributes()=0;

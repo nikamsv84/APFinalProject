@@ -1,5 +1,8 @@
 #include "databasemanager.h"
 
+
+QMap<QString , QString> DatabaseManager::userInfo;
+
 DatabaseManager::DatabaseManager(QString ReceivedData) : ReceivedData(ReceivedData) {}
 
 void DatabaseManager::Messagehandeler(QString Specifier)

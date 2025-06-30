@@ -2,6 +2,7 @@
 #define GAMEMANAGEMENT_H
 #include <QString>
 #include <QTcpSocket>
+#include <QDate>
 #include "databasemanager.h"
 struct UserHistory
 {
@@ -19,16 +20,14 @@ class GameManagement:public DatabaseManager
     int GameRound = 0;
     int handCounter = 0;
 
-    QVector<QPair<int, int>> AllCards;
-    QVector<QPair<int, int>> CardsInARound;
-    QVector<QPair<int, int>> CardsInOneHand;
-
-    QMap<QString,UserHistory> GameResults;
-    QMap<QString, QVector<QPair<int, int>>> GamerHands;
-
-
-
 public:
+    static QVector<QPair<int, int>> AllCards;
+    static QVector<QPair<int, int>> CardsInARound;
+    static QVector<QPair<int, int>> CardsInOneHand;
+
+    static QMap<QString,UserHistory> GameResults;
+    static QMap<QString, QVector<QPair<int, int>>> GamerHands;
+
     GameManagement();
     GameManagement(QString ReceivedData);
     void InPlacingToLocalAttributes() override;
@@ -39,7 +38,6 @@ public:
     void ShuffelingAndSendCard(QList<QTcpSocket*> allsockets);
     void Communicate(QTcpSocket* _socket, const QList<QTcpSocket*>& allsockets);
     void choosingStarter(QList<QTcpSocket*> allsockets);
-    void EndOfTimeOut(QTcpSocket* _socket, QList<QTcpSocket*> allsockets);
     void StoringChooses(QTcpSocket* _socket, QList<QTcpSocket*> allsockets);
     void RankMatching(QList<QTcpSocket*> allsockets);
     void RanksAreTheSame(QList<QTcpSocket*> allsockets, int Rank);
@@ -68,6 +66,8 @@ public:
     void SameDoublePairHand(QList<QTcpSocket*> allsockets);
     void SameSinglePairHand(QList<QTcpSocket*> allsockets);
     void SameMessyHand(QList<QTcpSocket*> allsockets);
+
+    void ShowFinalWinner(QList<QTcpSocket*> allsockets);
 
 
 

@@ -147,11 +147,11 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
     char* specifier_FORGOTPASSWORD = strstr(data, "\\FORGOTPASSWORD\\");
     char* specifier_LOGIN = strstr(data, "\\LOGIN\\");
     char* specifier_COMMUNICATE = strstr(data, "\\COMMUNICATE\\");
-    char* specifier_ENDOFTIMEOUT = strstr(data, "\\ENDOFTIMEOUT\\");
     char* specifier_CHOOSE = strstr(data, "\\CHOOSE\\");
     char* specifier_SHOWOPPONENT = strstr(data, "\\SHOWOPPONENT\\");
     char* specifier_CARDREQUEST = strstr(data, "\\CARDREQUEST\\");
     char* specifier_SHOWROUNDWINNER = strstr(data, "\\SHOWROUNDWINNER\\");
+    char* specifier_SHOWFINALRESULT = strstr(data, "\\SHOWFINALRESULT\\");
 
 
 
@@ -214,32 +214,31 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
     }else if(specifier_COMMUNICATE)
     {
         QString stringData = QString::fromUtf8(data);
-        GameManagement gameprocess_communicate(stringData);
-        gameprocess_communicate.Messagehandeler("\\COMMUNICATE\\");
-        gameprocess_communicate.Communicate(_socket, clients);
-    }else if(specifier_ENDOFTIMEOUT)
-    {
-        QString stringData = QString::fromUtf8(data);
-        GameManagement endoftimeoutpprocess(stringData);
-        endoftimeoutpprocess.Messagehandeler("\\ENDOFTIMEOUT\\");
-        endoftimeoutpprocess.EndOfTimeOut(_socket,clients);
+        // GameManagement gameprocess_communicate(stringData);
+        gameManager.Messagehandeler("\\COMMUNICATE\\");
+        gameManager.Communicate(_socket, clients);
+
     }else if (specifier_CHOOSE)
     {
         QString stringData = QString::fromUtf8(data);
-        GameManagement choosecardprocess(stringData);
-        choosecardprocess.Messagehandeler("\\CHOOSE\\");
-        choosecardprocess.StoringChooses(_socket, clients);
+        GameManagement receivemessage(data);
+        receivemessage.Messagehandeler("\\CHOOSE\\");
+        gameManager.StoringChooses(_socket, clients);
     }else if (specifier_SHOWOPPONENT)
     {
-        GameManagement showopponentprocess;
-        showopponentprocess.ShowOpponent(clients);
+        gameManager.ShowOpponent(clients);
     }else if (specifier_CARDREQUEST)
     {
         gameManager.ChargingCards();
         gameManager.ShuffelingAndSendCard(clients);
+
     }else if (specifier_SHOWROUNDWINNER)
     {
         gameManager.RankMatching(clients);
+
+    }else if (specifier_SHOWFINALRESULT)
+    {
+        gameManager.ShowFinalWinner(clients);
     }
 
 
