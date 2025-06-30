@@ -62,6 +62,10 @@ private slots:
 
     void on_show_result_of_round_clicked();
 
+    void on_change_card_request_clicked();
+
+    void on_change_cards_clicked();
+
 private:
     Ui::game_page *ui;
 };

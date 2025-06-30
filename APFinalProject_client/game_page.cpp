@@ -178,6 +178,29 @@ void game_page::onServerMessage(const QString& msg){
         lose_counts++;
         ui->competitor_wins->setText(QString::number(lose_counts));
     }
+    else if(msg.contains("\\CHANGED_CARD\\")){
+
+        if (msg.startsWith("\\CHANGED_CARD\\")) {
+            QString content = msg.mid(QString("\\CHANGED_CARD\\").length());
+
+            QStringList parts = content.split(' ');
+
+            if (parts.size() == 2) {
+                QString partOne = parts[0];
+                QString partTwo = parts[1];
+
+                ui->competitor_change_card->setText(partOne + " " + partTwo); // Correct
+
+                qDebug() << "Part One:" << partOne;
+                qDebug() << "Part Two:" << partTwo;
+            } else {
+                qDebug() << "فرمت پیام نادرست است.";
+            }
+        } else {
+            qDebug() << "پیام با \\CHANGED\\ شروع نمی‌شود.";
+        }
+
+    }
     else if(msg == "card_1"){
             ui->card_1->hide();
             ui->card_1->setEnabled(false);
@@ -797,5 +820,126 @@ void game_page::on_stop_resume_clicked()
 void game_page::on_show_result_of_round_clicked()
 {
     MainWindow::sendData("\\SHOWROUNDWINNER\\");
+}
+
+
+void game_page::on_change_card_request_clicked()
+{
+    if(ui->your_changed_card->text() == "1")
+    {
+        MainWindow::sendData(QString("\\COMMUNICATE\\,Message:") + "\\CHANGED_CARD\\" + ui->mine_card1->text());
+    }
+    else if(ui->your_changed_card->text() == "2")
+    {
+        MainWindow::sendData(QString("\\COMMUNICATE\\,Message:") + "\\CHANGED_CARD\\" + ui->mine_card2->text());
+    }
+    else if(ui->your_changed_card->text() == "3")
+    {
+        MainWindow::sendData(QString("\\COMMUNICATE\\,Message:") + "\\CHANGED_CARD\\" + ui->mine_card3->text());
+    }
+    else if(ui->your_changed_card->text() == "4")
+    {
+        MainWindow::sendData(QString("\\COMMUNICATE\\,Message:") + "\\CHANGED_CARD\\" + ui->mine_card4->text());
+    }
+    else if(ui->your_changed_card->text() == "5")
+    {
+        MainWindow::sendData(QString("\\COMMUNICATE\\,Message:") + "\\CHANGED_CARD\\" + ui->mine_card5->text());
+    }
+}
+
+
+void game_page::on_change_cards_clicked()
+{
+    QString card_data1 = ui->your_changed_card->text();
+    int degree1 = 0;
+    int name1 = 0;
+
+    QStringList parts1 = card_data1.split(' ');
+    if (parts1.size() == 2) {
+        QString _degree1 = parts1[0];
+        QString _name1 = parts1[1];
+
+        if (_degree1 == "diamond") degree1 = 4;
+        else if (_degree1 == "gold") degree1 = 3;
+        else if (_degree1 == "dollar") degree1 = 2;
+        else if (_degree1 == "coin") degree1 = 1;
+
+        if(_name1 == "queen"){
+            name1 = 12;
+        }
+        else if(_name1 == "king"){
+            name1 = 13;
+        }else if(_name1 == "soldier"){
+            name1 = 11;
+        }else if(_name1 == "bitcoin"){
+            name1 = 14;
+        }
+        else{
+            name1 = _name1.toInt();
+        }
+    }
+
+    QString card_data2 = ui->competitor_change_card->text();
+    int degree2 = 0;
+    int name2 = 0;
+
+    QStringList parts2 = card_data2.split(' ');
+    if (parts2.size() == 2) {
+        QString _degree2 = parts2[0];
+        QString _name2 = parts2[1];
+
+        if (_degree2 == "diamond") degree2 = 4;
+        else if (_degree2 == "gold") degree2 = 3;
+        else if (_degree2 == "dollar") degree2 = 2;
+        else if (_degree2 == "coin") degree2 = 1;
+
+        if(_name2 == "queen"){
+            name2 = 12;
+        }
+        else if(_name2 == "king"){
+            name2 = 13;
+        }else if(_name2 == "soldier"){
+            name2 = 11;
+        }else if(_name2 == "bitcoin"){
+            name2 = 14;
+        }
+        else{
+            name2 = _name2.toInt();
+        }
+    }
+
+    MainWindow::sendData(QString("\\CHANGE_CARD\\,") + "Degree1:" + QString::number(degree1) + "," + "Name1:" + QString::number(name1)+"Degree2:" + QString::number(degree2) + "," + "Name2:" + QString::number(name2));
+
+    if(ui->your_changed_card->text() == "1"){
+        QString text = ui->competitor_change_card->text();
+        ui->mine_card1->setText(text);
+        ui->your_changed_card->setText("");
+        ui->competitor_change_card->setText("");
+    }
+    else if(ui->your_changed_card->text() == "2"){
+        QString text = ui->competitor_change_card->text();
+        ui->mine_card2->setText(text);
+        ui->your_changed_card->setText("");
+        ui->competitor_change_card->setText("");
+    }
+    else if(ui->your_changed_card->text() == "3"){
+        QString text = ui->competitor_change_card->text();
+        ui->mine_card3->setText(text);
+        ui->your_changed_card->setText("");
+        ui->competitor_change_card->setText("");
+    }
+    else if(ui->your_changed_card->text() == "4"){
+        QString text = ui->competitor_change_card->text();
+        ui->mine_card4->setText(text);
+        ui->your_changed_card->setText("");
+        ui->competitor_change_card->setText("");
+    }
+    else if(ui->your_changed_card->text() == "5"){
+        QString text = ui->competitor_change_card->text();
+        ui->mine_card5->setText(text);
+        ui->your_changed_card->setText("");
+        ui->competitor_change_card->setText("");
+    }
+
 }
 
