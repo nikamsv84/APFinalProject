@@ -267,31 +267,16 @@ void GameManagement::RankMatching(QList<QTcpSocket*> allsockets)
     if (ranknumber_gamer1>ranknumber_gamer2)
     {
         qDebug()<<"gamer 1 with username: "+allsockets[0]->objectName()+"won";
-        MainWindow::sendDatatoAll("\\WINNER\\,Winner:"+allsockets[0]->objectName());
-        GamerHands[allsockets[0]->objectName()].clear();
-        GamerHands[allsockets[1]->objectName()].clear();
-        CardsInARound.clear();
-        CardsInARound.clear();
-        AllCards.clear();
+        sendLooserWinner(0, 1, allsockets);
         qDebug()<<GamerHands[allsockets[0]->objectName()].size();
 
     }else if (ranknumber_gamer1<ranknumber_gamer2){
         qDebug()<<"gamer 2 with username: "+allsockets[1]->objectName()+"won";
-        MainWindow::sendDatatoAll("\\WINNER\\,Winner:"+allsockets[1]->objectName());
-        GamerHands[allsockets[0]->objectName()].clear();
-        GamerHands[allsockets[1]->objectName()].clear();
-        CardsInARound.clear();
-        CardsInARound.clear();
-        AllCards.clear();
+        sendLooserWinner(1, 0, allsockets);
 
     }else if(ranknumber_gamer1==ranknumber_gamer2){
         qDebug()<<"function RanksAreTheSame() should be called";
-        //after that these two lines should be called:
-        // GamerHands[allsockets[0]->objectName()].clear();
-        // GamerHands[allsockets[1]->objectName()].clear();
-        // CardsInARound.clear();
-        // CardsInARound.clear();
-        // AllCards.clear();
+        RanksAreTheSame(allsockets, ranknumber_gamer1);
     }
 
 }
@@ -1058,6 +1043,10 @@ void GameManagement::sendLooserWinner(int WinnerIndex, int LooserIndex, QList<QT
         GameResults[allsockets[LooserIndex]->objectName()].result3 = "Looser";
     }
 
+    GamerHands[allsockets[0]->objectName()].clear();
+    GamerHands[allsockets[1]->objectName()].clear();
+    CardsInARound.clear();
+    CardsInOneHand.clear();
 }
 
 void GameManagement::ShowFinalWinner(QList<QTcpSocket*> allsockets)
