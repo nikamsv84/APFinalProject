@@ -61,14 +61,34 @@ void recent_games::onServerMessage(const QString& msg){
                 }
             }
 
-            qDebug() << "Match #" << matchNumber;
-            qDebug() << "Opponent:" << opponent;
-            qDebug() << "Date:" << date;
-            qDebug() << "Round1:" << round1;
-            qDebug() << "Round2:" << round2;
-            qDebug() << "Round3:" << round3;
-            qDebug() << "Final Result:" << finalResult;
-            qDebug() << "---------------------------";
+            if(matchNumber == "1"){
+                ui->match_number1->setText(matchNumber);
+                ui->opponent_1->setText(opponent);
+                ui->date_1->setText(date);
+                ui->round1_1->setText(round1);
+                ui->round2_1->setText(round2);
+                ui->round3_1->setText(round3);
+                ui->final_result_1->setText(finalResult);
+            }else if(matchNumber == "2"){
+
+                ui->match_number1_2->setText(matchNumber);
+                ui->opponent_2->setText(opponent);
+                ui->date_2->setText(date);
+                ui->round1_2->setText(round1);
+                ui->round2_2->setText(round2);
+                ui->round3_2->setText(round3);
+                ui->final_result_2->setText(finalResult);
+
+            }else if(matchNumber == "3"){
+                ui->match_number1_3->setText(matchNumber);
+                ui->opponent_3->setText(opponent);
+                ui->date_3->setText(date);
+                ui->round1_3->setText(round1);
+                ui->round2_3->setText(round2);
+                ui->round3_3->setText(round3);
+                ui->final_result_3->setText(finalResult);
+            }
+
         }
 
     }
