@@ -15,6 +15,7 @@ SOURCES += \
     game_page.cpp \
     main.cpp \
     mainwindow.cpp \
+    recent_games.cpp \
     resume_stop.cpp \
     signin.cpp \
     signup.cpp \
@@ -26,6 +27,7 @@ HEADERS += \
     game_menu.h \
     game_page.h \
     mainwindow.h \
+    recent_games.h \
     resume_stop.h \
     signin.h \
     signup.h \
@@ -37,6 +39,7 @@ FORMS += \
     game_menu.ui \
     game_page.ui \
     mainwindow.ui \
+    recent_games.ui \
     resume_stop.ui \
     signin.ui \
     signup.ui \

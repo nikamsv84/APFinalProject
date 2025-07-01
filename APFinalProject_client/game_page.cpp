@@ -4,6 +4,7 @@
 #include "resume_stop.h"
 #include <QPair>
 
+int game_page::count_of_lates = 0;
 int game_page::win_counts = 0;
 int game_page::lose_counts = 0;
 
@@ -47,6 +48,7 @@ game_page::game_page(QWidget *parent)
     }
 
     ui->round->setText(QString::number(round));
+    ui->player_status_1->setText(MainWindow::username);
 
 }
 
@@ -59,7 +61,7 @@ void game_page::changing_turn_in_hand(){
 
     if(player_turn_status == "first"){
 
-        player_turn_status = "second player";
+        player_turn_status = "second";
         ui->mine_status->setText("second player");
         ui->competitor_status->setText("first player");
         ui->Card_request->setEnabled(false);
@@ -67,7 +69,7 @@ void game_page::changing_turn_in_hand(){
     }
     else if(player_turn_status == "second"){
 
-        player_turn_status = "first player";
+        player_turn_status = "first";
         ui->mine_status->setText("first player");
         ui->competitor_status->setText("second player");
         ui->Card_request->setEnabled(true);
@@ -178,6 +180,48 @@ void game_page::onServerMessage(const QString& msg){
         lose_counts++;
         ui->competitor_wins->setText(QString::number(lose_counts));
     }
+    else if(msg == "\\NO_CHANGING\\"){
+        ui->your_changed_card->setText("NO CHANGING!");
+        ui->change_cards->setEnabled(true);
+        ui->ok_changing->setEnabled(true);
+    }
+    else if(msg == "\\OK_CHANGING\\"){
+
+        ui->change_cards->setEnabled(true);
+        ui->ok_changing->setEnabled(true);
+
+        if(ui->your_changed_card->text() == "1"){
+            QString text = ui->competitor_change_card->text();
+            ui->mine_card1->setText(text);
+            ui->your_changed_card->setText("");
+            ui->competitor_change_card->setText("");
+        }
+        else if(ui->your_changed_card->text() == "2"){
+            QString text = ui->competitor_change_card->text();
+            ui->mine_card2->setText(text);
+            ui->your_changed_card->setText("");
+            ui->competitor_change_card->setText("");
+        }
+        else if(ui->your_changed_card->text() == "3"){
+            QString text = ui->competitor_change_card->text();
+            ui->mine_card3->setText(text);
+            ui->your_changed_card->setText("");
+            ui->competitor_change_card->setText("");
+        }
+        else if(ui->your_changed_card->text() == "4"){
+            QString text = ui->competitor_change_card->text();
+            ui->mine_card4->setText(text);
+            ui->your_changed_card->setText("");
+            ui->competitor_change_card->setText("");
+        }
+        else if(ui->your_changed_card->text() == "5"){
+            QString text = ui->competitor_change_card->text();
+            ui->mine_card5->setText(text);
+            ui->your_changed_card->setText("");
+            ui->competitor_change_card->setText("");
+        }
+
+    }
     else if(msg.contains("\\CHANGED_CARD\\")){
 
         if (msg.startsWith("\\CHANGED_CARD\\")) {
@@ -194,10 +238,10 @@ void game_page::onServerMessage(const QString& msg){
                 qDebug() << "Part One:" << partOne;
                 qDebug() << "Part Two:" << partTwo;
             } else {
-                qDebug() << "فرمت پیام نادرست است.";
+                qDebug() << "The format is not correct!";
             }
         } else {
-            qDebug() << "پیام با \\CHANGED\\ شروع نمی‌شود.";
+            qDebug() << "It's not started with \\CHANGED\\!";
         }
 
     }
@@ -209,13 +253,16 @@ void game_page::onServerMessage(const QString& msg){
             ui->card_2->hide();
             ui->card_2->setEnabled(false);
 
+
         }else if(msg== "card_3"){
             ui->card_3->hide();
             ui->card_3->setEnabled(false);
 
+
         }else if(msg == "card_4"){
             ui->card_4->hide();
             ui->card_4->setEnabled(false);
+
         }else if(msg == "card_5"){
             ui->card_5->hide();
             ui->card_5->setEnabled(false);
@@ -227,6 +274,7 @@ void game_page::onServerMessage(const QString& msg){
         }else if(msg == "card_7"){
             ui->card_7->hide();
             ui->card_7->setEnabled(false);
+
                    }
 
     else{
@@ -248,50 +296,49 @@ void game_page::onServerMessage(const QString& msg){
 
                 if(parsedCards.size() == 7){
                     QString path_c1 = manging_card_show(parsedCards[0].first, parsedCards[0].second);
-                    // ui->card_1->setStyleSheet(QString("background-image: url(%1); background-repeat: no-repeat; background-position: center;").arg(path_c1));
                     ui->card_1->setText(path_c1);
                     ui->card_1->setEnabled(true);
+                    is_card1_clicked = false;
                     ui->card_1->show();
 
                     QString path_c2 = manging_card_show(parsedCards[1].first, parsedCards[1].second);
-                    // ui->card_2->setStyleSheet(QString("background-image: url(%1); background-repeat: no-repeat; background-position: center;").arg(path_c2));
                     ui->card_2->setText(path_c2);
                     ui->card_2->setEnabled(true);
+                    is_card2_clicked = false;
                     ui->card_2->show();
 
                     QString path_c3 = manging_card_show(parsedCards[2].first, parsedCards[2].second);
-                    // ui->card_3->setStyleSheet(QString("background-image: url(%1); background-repeat: no-repeat; background-position: center;").arg(path_c3));
                     ui->card_3->setText(path_c3);
                     ui->card_3->setEnabled(true);
+                    is_card3_clicked = false;
                     ui->card_3->show();
 
                     QString path_c4 = manging_card_show(parsedCards[3].first, parsedCards[3].second);
-                    // ui->card_4->setStyleSheet(QString("background-image: url(%1); background-repeat: no-repeat; background-position: center;").arg(path_c4));
                     ui->card_4->setText(path_c4);
                     ui->card_4->setEnabled(true);
+                    is_card4_clicked = false;
                     ui->card_4->show();
 
                     QString path_c5 = manging_card_show(parsedCards[4].first, parsedCards[4].second);
-                    // ui->card_5->setStyleSheet(QString("background-image: url(%1); background-repeat: no-repeat; background-position: center;").arg(path_c5));
                     ui->card_5->setText(path_c5);
                     ui->card_5->setEnabled(true);
+                    is_card5_clicked = false;
                     ui->card_5->show();
 
                     QString path_c6 = manging_card_show(parsedCards[5].first, parsedCards[5].second);
-                    // ui->card_6->setStyleSheet(QString("background-image: url(%1); background-repeat: no-repeat; background-position: center;").arg(path_c6));
                     ui->card_6->setText(path_c6);
                     ui->card_6->setEnabled(true);
+                    is_card6_clicked = false;
                     ui->card_6->show();
 
                     QString path_c7 = manging_card_show(parsedCards[6].first, parsedCards[6].second);
-                    // ui->card_7->setStyleSheet(QString("background-image: url(%1); background-repeat: no-repeat; background-position: center;").arg(path_c7));
                     ui->card_7->setText(path_c7);
                     ui->card_7->setEnabled(true);
+                    is_card7_clicked = false;
                     ui->card_7->show();
 
                 }
-
-            }
+                   }
 }
 
 
@@ -300,11 +347,13 @@ void game_page::onServerMessage(const QString& msg){
 void game_page::on_Card_request_clicked()
 {
     MainWindow::sendData("\\CARDREQUEST\\");
+
 }
 
 
 void game_page::on_card_1_clicked()
 {
+
     is_card1_clicked = true;
     QString card_data = ui->card_1->text();
     player_cards.append(card_data);
@@ -315,6 +364,11 @@ void game_page::on_card_1_clicked()
         player_cards.clear();
         round++;
         ui->round->setText(QString::number(round));
+        ui->mine_card1->setText("");
+        ui->mine_card2->setText("");
+        ui->mine_card3->setText("");
+        ui->mine_card4->setText("");
+        ui->mine_card5->setText("");
         hand = 0;
     }
 
@@ -365,6 +419,7 @@ void game_page::on_card_1_clicked()
 
     MainWindow::sendData(QString("\\CHOOSE\\,") + "Degree:" + QString::number(degree) + "," + "Name:" + QString::number(name));
     ui->card_1->hide();
+    ui->card_1->setEnabled(false);
 }
 
 
@@ -379,6 +434,12 @@ void game_page::on_card_2_clicked()
     if(player_cards.size() == 5){
         player_cards.clear();
         round++;
+        ui->round->setText(QString::number(round));
+        ui->mine_card1->setText("");
+        ui->mine_card2->setText("");
+        ui->mine_card3->setText("");
+        ui->mine_card4->setText("");
+        ui->mine_card5->setText("");
         hand = 0;
     }
 
@@ -428,6 +489,8 @@ void game_page::on_card_2_clicked()
 
     MainWindow::sendData(QString("\\CHOOSE\\,") + "Degree:" + QString::number(degree) + "," + "Name:" + QString::number(name));
     ui->card_2->hide();
+    ui->card_2->setEnabled(false);
+
 }
 
 
@@ -443,6 +506,11 @@ void game_page::on_card_3_clicked()
         player_cards.clear();
         round++;
         ui->round->setText(QString::number(round));
+        ui->mine_card1->setText("");
+        ui->mine_card2->setText("");
+        ui->mine_card3->setText("");
+        ui->mine_card4->setText("");
+        ui->mine_card5->setText("");
         hand = 0;
     }
 
@@ -491,6 +559,8 @@ void game_page::on_card_3_clicked()
 
     MainWindow::sendData(QString("\\CHOOSE\\,") + "Degree:" + QString::number(degree) + "," + "Name:" + QString::number(name));
     ui->card_3->hide();
+    ui->card_3->setEnabled(false);
+
 }
 
 
@@ -506,6 +576,11 @@ void game_page::on_card_4_clicked()
         player_cards.clear();
         round++;
         ui->round->setText(QString::number(round));
+        ui->mine_card1->setText("");
+        ui->mine_card2->setText("");
+        ui->mine_card3->setText("");
+        ui->mine_card4->setText("");
+        ui->mine_card5->setText("");
         hand = 0;
     }
 
@@ -556,6 +631,8 @@ void game_page::on_card_4_clicked()
 
     MainWindow::sendData(QString("\\CHOOSE\\,") + "Degree:" + QString::number(degree) + "," + "Name:" + QString::number(name));
     ui->card_4->hide();
+    ui->card_4->setEnabled(false);
+
 }
 
 
@@ -571,6 +648,11 @@ void game_page::on_card_5_clicked()
         player_cards.clear();
         round++;
         ui->round->setText(QString::number(round));
+        ui->mine_card1->setText("");
+        ui->mine_card2->setText("");
+        ui->mine_card3->setText("");
+        ui->mine_card4->setText("");
+        ui->mine_card5->setText("");
         hand = 0;
     }
 
@@ -620,6 +702,8 @@ void game_page::on_card_5_clicked()
 
     MainWindow::sendData(QString("\\CHOOSE\\,") + "Degree:" + QString::number(degree) + "," + "Name:" + QString::number(name));
     ui->card_5->hide();
+    ui->card_5->setEnabled(false);
+
 }
 
 
@@ -635,6 +719,11 @@ void game_page::on_card_6_clicked()
         player_cards.clear();
         round++;
         ui->round->setText(QString::number(round));
+        ui->mine_card1->setText("");
+        ui->mine_card2->setText("");
+        ui->mine_card3->setText("");
+        ui->mine_card4->setText("");
+        ui->mine_card5->setText("");
         hand = 0;
     }
 
@@ -684,6 +773,8 @@ void game_page::on_card_6_clicked()
 
     MainWindow::sendData(QString("\\CHOOSE\\,") + "Degree:" + QString::number(degree) + "," + "Name:" + QString::number(name));
     ui->card_6->hide();
+    ui->card_6->setEnabled(false);
+
 }
 
 
@@ -699,6 +790,11 @@ void game_page::on_card_7_clicked()
         player_cards.clear();
         round++;
         ui->round->setText(QString::number(round));
+        ui->mine_card1->setText("");
+        ui->mine_card2->setText("");
+        ui->mine_card3->setText("");
+        ui->mine_card4->setText("");
+        ui->mine_card5->setText("");
         hand = 0;
     }
 
@@ -747,6 +843,8 @@ void game_page::on_card_7_clicked()
 
 MainWindow::sendData(QString("\\CHOOSE\\,") + "Degree:" + QString::number(degree) + "," + "Name:" + QString::number(name));
     ui->card_7->hide();
+    ui->card_7->setEnabled(false);
+
 }
 
 
@@ -845,6 +943,13 @@ void game_page::on_change_card_request_clicked()
     {
         MainWindow::sendData(QString("\\COMMUNICATE\\,Message:") + "\\CHANGED_CARD\\" + ui->mine_card5->text());
     }
+
+    if(ui->your_changed_card->text() != "" && ui->your_changed_card->text() != "NO CHANGING!"
+        && ui->competitor_change_card->text() != ""){
+        ui->change_cards->setEnabled(false);
+        ui->ok_changing->setEnabled(false);
+    }
+
 }
 
 
@@ -941,5 +1046,19 @@ void game_page::on_change_cards_clicked()
         ui->competitor_change_card->setText("");
     }
 
+}
+
+
+
+
+void game_page::on_donot_change_clicked()
+{
+    MainWindow::sendData(QString("\\COMMUNICATE\\,Message:") + "\\NO_CHANGING\\");
+}
+
+
+void game_page::on_ok_changing_clicked()
+{
+    MainWindow::sendData(QString("\\COMMUNICATE\\,Message:") + "\\OK_CHANGING\\");
 }
 

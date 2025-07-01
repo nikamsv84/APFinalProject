@@ -13,6 +13,7 @@ class game_page : public QWidget
     Q_OBJECT
 
 public:
+    static int count_of_lates;
     static int win_counts;
     static int lose_counts;
     static QString player_turn_status;
@@ -26,6 +27,7 @@ public:
     explicit game_page(QWidget *parent = nullptr);
     ~game_page();
     void changing_turn_in_hand();
+    int check_button_is_enabled();
     QString manging_card_show(int degree,int name);
     static  bool is_card1_clicked;
     static  bool is_card2_clicked;
@@ -65,6 +67,11 @@ private slots:
     void on_change_card_request_clicked();
 
     void on_change_cards_clicked();
+
+
+    void on_donot_change_clicked();
+
+    void on_ok_changing_clicked();
 
 private:
     Ui::game_page *ui;

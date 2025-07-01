@@ -4,6 +4,7 @@
 #include <QCryptographicHash>
 #include <QDebug>
 
+QString MainWindow::username;
 MainWindow*     MainWindow::instance              = nullptr;
 QTcpSocket*     MainWindow::socket                = nullptr;
 QString         MainWindow::lastReceivedMessage   = QString();
@@ -14,7 +15,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    // رجیستر کردن این نمونه به عنوان instance
     MainWindow::instance = this;
 }
 
@@ -46,7 +46,6 @@ void MainWindow::socket_connected()
     qDebug() << "connected";
     ui->connecting_status->setText("connected");
 
-    // صفحه خوش‌آمدگویی
     welcome* welcomePage = new welcome();
     sendData("client added");
     welcomePage->show();
@@ -59,7 +58,6 @@ void MainWindow::socket_readyRead()
     lastReceivedMessage = QString::fromUtf8(data);
     qDebug() << "MainWindow received:" << lastReceivedMessage;
 
-    // انتشار سیگنال برای همه اسلات‌ها
     emit messageReceived(lastReceivedMessage);
 }
 

@@ -2,6 +2,7 @@
 #include "ui_game_menu.h"
 #include "mainwindow.h"
 #include "game_page.h"
+#include "recent_games.h"
 #include "edit_info.h"
 
 game_menu::game_menu(QWidget *parent)
@@ -58,12 +59,13 @@ void game_menu::on_edit_info_clicked()
 
 void game_menu::on_exit_clicked()
 {
-
+    this->close();
 }
 
 
 void game_menu::on_recent_games_clicked()
 {
-
+    recent_games* recent_games_page = new recent_games();
+    recent_games_page->show();
 }
 

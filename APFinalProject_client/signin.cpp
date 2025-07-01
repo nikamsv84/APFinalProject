@@ -29,6 +29,8 @@ void signin::on_signin_2_clicked()
 {
     QString hashed_password = MainWindow::hashPassword(ui->password->text());
 
+    MainWindow::username = ui->username->text();
+
     QString payload = QString("\\LOGIN\\,Username:%1,Password:%2")
                           .arg(ui->username->text())
                           .arg(hashed_password);
