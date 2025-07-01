@@ -152,6 +152,8 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
     char* specifier_CARDREQUEST = strstr(data, "\\CARDREQUEST\\");
     char* specifier_SHOWROUNDWINNER = strstr(data, "\\SHOWROUNDWINNER\\");
     char* specifier_SHOWFINALRESULT = strstr(data, "\\SHOWFINALRESULT\\");
+    char* specifier_SHOWHISTORY = strstr(data, "\\SHOWHISTORY\\");
+
 
 
 
@@ -241,6 +243,11 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
     }else if (specifier_SHOWFINALRESULT)
     {
         gameManager.ShowFinalWinner(clients);
+
+    }else if (specifier_SHOWHISTORY)
+    {
+        qDebug()<<"we are in gameHistory";
+        gameManager.ShowHistory(_socket);
     }
 
 

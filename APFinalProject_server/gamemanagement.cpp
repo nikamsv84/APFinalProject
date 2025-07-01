@@ -1084,8 +1084,11 @@ void GameManagement::ShowFinalWinner(QList<QTcpSocket*> allsockets)
         GameResults[allsockets[1]->objectName()].FinalResult="Looser";
         allsockets[0]->write("\\FINALWINNER\\");
         allsockets[1]->write("\\FINALLOOSER\\");
+        qDebug()<<"the final winner: "+allsockets[0]->objectName();
+        qDebug()<<"the final looser: "+allsockets[1]->objectName();
         allsockets[0]->flush();
         allsockets[1]->flush();
+        SavingFinalResultsToHistory();
     }else if (client2totalCount >= 2)
     {
         GameResults[allsockets[1]->objectName()].FinalResult="Winner";
@@ -1093,13 +1096,111 @@ void GameManagement::ShowFinalWinner(QList<QTcpSocket*> allsockets)
 
         allsockets[0]->write("\\FINALLOOSER\\");
         allsockets[1]->write("\\FINALWINNER\\");
+        qDebug()<<"the final winner: "+allsockets[1]->objectName();
+        qDebug()<<"the final looser: "+allsockets[0]->objectName();
         allsockets[0]->flush();
         allsockets[1]->flush();
+        SavingFinalResultsToHistory();
     }else{
         qDebug()<<"no final result";
     }
 
 
+}
+
+
+void GameManagement::SavingFinalResultsToHistory()
+{
+    QString filePath = "game_results.dat";
+    QFile file(filePath);
+    if (!file.open(QIODevice::WriteOnly)) {
+        qWarning() << " Cannot open file for writing:" << file.errorString();
+        return;
+    }
+
+    QDataStream out(&file);
+    out.setVersion(QDataStream::Qt_6_0);
+
+    out << GameResults.size();
+
+    for (auto it = GameResults.begin(); it != GameResults.end(); ++it) {
+        const QString& key = it.key();
+        const UserHistory& h = it.value();
+
+        out << key;
+        out << h.OpponentName;
+        out << h.Date;
+        out << h.result1;
+        out << h.result2;
+        out << h.result3;
+        out << h.FinalResult;
+    }
+
+    file.close();
+    qDebug() << " GameResults saved successfully to" << filePath;
+}
+
+
+void GameManagement::ShowHistory(QTcpSocket* _socket)
+{
+    QFile file("game_results.dat");
+    QString username = _socket->objectName();
+    QString allHistories = "\\HISTORY\\,";
+
+    if (!file.open(QIODevice::ReadOnly)) {
+        qWarning() << "Cannot open file for reading:" << file.errorString();
+        return;
+    }
+
+    QDataStream in(&file);
+    in.setVersion(QDataStream::Qt_6_0);
+
+    int count = 0;
+    in >> count;
+
+    int matchCount = 0;
+
+    for (int i = 0; i < count; ++i) {
+        QString currentKey;
+        UserHistory h;
+
+        in >> currentKey;
+        in >> h.OpponentName;
+        in >> h.Date;
+        in >> h.result1;
+        in >> h.result2;
+        in >> h.result3;
+        in >> h.FinalResult;
+
+
+        if (currentKey == username) {
+            ++matchCount;
+            qDebug() << "Record #" << matchCount;
+            allHistories+"#"+QString::number(matchCount);
+            qDebug() << "Opponent:" << h.OpponentName;
+            allHistories+",Opponent:"+h.OpponentName;
+            qDebug() << "Date:" << h.Date;
+            allHistories+",Date:"+h.Date;
+            qDebug() << "Results:" << h.result1 << h.result2 << h.result3;
+            allHistories+",Round1:"+h.result1;
+            allHistories+",Round2:"+h.result2;
+            allHistories+",Round3:"+h.result3;
+            qDebug() << "Final Result:" << h.FinalResult;
+            allHistories+",FinalResult:"+h.FinalResult;
+            qDebug() << "-----------------------------";
+            allHistories+"|";
+        }
+    }
+
+    file.close();
+
+    if (matchCount == 0) {
+        qWarning() << "No records found for key:" << username;
+    } else {
+        qDebug() << "Total records found for" << username << ":" << matchCount;
+        _socket->write(allHistories.toUtf8());
+        _socket->flush();
+    }
 }
 
 void GameManagement::IfAllWasTheSame(QList<QTcpSocket*> allsockets)

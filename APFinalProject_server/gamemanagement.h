@@ -68,8 +68,10 @@ public:
     void SameSinglePairHand(QList<QTcpSocket*> allsockets);
     void SameMessyHand(QList<QTcpSocket*> allsockets);
 
+    //displaying the results:
     void ShowFinalWinner(QList<QTcpSocket*> allsockets);
-
+    void SavingFinalResultsToHistory();
+    void ShowHistory(QTcpSocket* _socket);
 
 
 
