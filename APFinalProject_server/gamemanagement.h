@@ -44,6 +44,8 @@ public:
     void ShowOpponent(QList<QTcpSocket*> allsockets);
     void ChargingCardsForFirstTime();
 
+    void ChangeCardProcess(QTcpSocket* _socket,QList<QTcpSocket*> allsockets);
+
     //we assigned a number to every hand , the below methodes return the number of hand if the hand is golden or ... otherwise they return 0.
     static int IsGoldenHand(QVector<QPair<int, int>> hand);     // 10
     static int IsOrderHand(QVector<QPair<int, int>> hand);      // 9

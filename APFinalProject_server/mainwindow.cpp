@@ -153,6 +153,7 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
     char* specifier_SHOWROUNDWINNER = strstr(data, "\\SHOWROUNDWINNER\\");
     char* specifier_SHOWFINALRESULT = strstr(data, "\\SHOWFINALRESULT\\");
     char* specifier_SHOWHISTORY = strstr(data, "\\SHOWHISTORY\\");
+    char* specifier_CHANGE_CARD = strstr(data, "\\CHANGE_CARD\\");
 
 
 
@@ -248,6 +249,12 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
     {
         qDebug()<<"we are in gameHistory";
         gameManager.ShowHistory(_socket);
+    }else if (specifier_CHANGE_CARD)
+    {
+        QString stringData = QString::fromUtf8(data);
+        GameManagement change_card_process(stringData);
+        change_card_process.Messagehandeler("\\CHANGE_CARD\\");
+        change_card_process.ChangeCardProcess(_socket, clients);
     }
 
 

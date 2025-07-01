@@ -25,11 +25,14 @@ GameManagement::GameManagement(QString ReceivedData):DatabaseManager(ReceivedDat
 
 void GameManagement::ChargingCardsForFirstTime()
 {
-    for (int degree = 1; degree<=4; degree++)
+    if (AllCards.size() == 0)
     {
-        for(int name = 2; name<=14; name++)
+        for (int degree = 1; degree<=4; degree++)
         {
-            AllCards.append(qMakePair(degree, name));
+            for(int name = 2; name<=14; name++)
+            {
+                AllCards.append(qMakePair(degree, name));
+            }
         }
     }
     qDebug()<<"the number of cards at first:"+QString::number(AllCards.size());
@@ -50,55 +53,41 @@ void GameManagement::ChargingCards()
     }
 }
 
-// void GameManagement::ShuffelingAndSendCard(QTcpSocket* _socket, QList<QTcpSocket*> allsockets)//has errors.
-// {
-//     if (handCounter%2 == 1)
-//     {
-//         unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-//         std::mt19937 rng(seed);
-//         std::shuffle(CardsInARound.begin(), CardsInARound.end(), rng);
-//         CardsInOneHand = CardsInARound.mid(0, 7);
-//         CardsInARound.erase(CardsInARound.begin(), CardsInARound.begin() + 7);
-//         QString sentCard = "\\CHOOSENCARD\\";
-//         for (int i=0; i<7; i++)
-//         {
-//             sentCard += "/"+ QString::number(CardsInOneHand[i].first)+":"+QString::number(CardsInOneHand[i].second);
-//         }
-
-//         _socket->write(sentCard.toUtf8());
-//         _socket->flush();
-//         qDebug()<<sentCard;
+void GameManagement::ChangeCardProcess(QTcpSocket* _socket, QList<QTcpSocket*> allsockets)
+{
+    qDebug()<<"we are in the changeCard process";
+    QPair<int , int> cardtochange_1 = QPair<int , int> (userInfo["Degree1"].toInt(), userInfo["Name1"].toInt());
+    QPair<int, int> cardtochange_2 = QPair<int , int> (userInfo["Degree2"].toInt(), userInfo["Name2"].toInt());
+    qDebug()<<"card1"+QString::number(cardtochange_1.first)+QString::number(cardtochange_1.second);
+    qDebug()<<"card2"+QString::number(cardtochange_2.first)+QString::number(cardtochange_2.second);
 
 
-//     }else if(handCounter%2 == 0)
-//     {
-//         QPair<int, int> LastOpponentChose;
+    if (_socket == allsockets[0])
+    {
+        int index1 = GamerHands[allsockets[0]->objectName()].indexOf(cardtochange_1);
+        int index2 = GamerHands[allsockets[1]->objectName()].indexOf(cardtochange_2);
+        if (index1 != -1 && index2 != -1) {
+            GamerHands[allsockets[0]->objectName()][index1] = cardtochange_2;
+            GamerHands[allsockets[1]->objectName()][index2] = cardtochange_1;
+            qDebug()<<"card1 after changing"+QString::number(GamerHands[allsockets[0]->objectName()][index1].first)+QString::number(GamerHands[allsockets[0]->objectName()][index1].second);
+            qDebug()<<"card2 after changing"+QString::number(GamerHands[allsockets[1]->objectName()][index1].first)+QString::number(GamerHands[allsockets[1]->objectName()][index1].second);
 
-//         if (_socket->objectName() == allsockets[0]->objectName()) {
-//             LastOpponentChose = GamerHands[allsockets[1]->objectName()].back();
-//         } else {
-//             LastOpponentChose = GamerHands[allsockets[0]->objectName()].back();
-//         }
+        }
 
-//         QString sentCard = "\\CHOOSENCARD\\";
-//         for (const auto& card : CardsInOneHand) {
-//             if (card != LastOpponentChose) {
-//                 sentCard += "/" + QString::number(card.first) + ":" + QString::number(card.second);
-//             }
-//         }
-//         qDebug()<<sentCard;
-//         _socket->write(sentCard.toUtf8());
+    }else if (_socket == allsockets[1])
+    {
+        int index1 = GamerHands[allsockets[1]->objectName()].indexOf(cardtochange_1);
+        int index2 = GamerHands[allsockets[0]->objectName()].indexOf(cardtochange_2);
+        if (index1 != -1 && index2 != -1) {
+            GamerHands[allsockets[1]->objectName()][index1] = cardtochange_2;
+            GamerHands[allsockets[0]->objectName()][index2] = cardtochange_1;
 
-//         CardsInOneHand.clear();
-//     }
+            qDebug()<<"card1 after changing"+QString::number(GamerHands[allsockets[1]->objectName()][index1].first)+QString::number(GamerHands[allsockets[1]->objectName()][index1].second);
+            qDebug()<<"card2 after changing"+QString::number(GamerHands[allsockets[0]->objectName()][index1].first)+QString::number(GamerHands[allsockets[0]->objectName()][index1].second);
 
-//     qDebug()<<"handCounter"+QString::number(handCounter);
-//     ++handCounter;
-//     if (handCounter>10)
-//     {
-//         handCounter = 1;
-//     }
-// }
+        }
+    }
+}
 
 
 void GameManagement::ShuffelingAndSendCard(QList<QTcpSocket*> allsockets)
@@ -268,6 +257,7 @@ void GameManagement::RankMatching(QList<QTcpSocket*> allsockets)
     {
         qDebug()<<"gamer 1 with username: "+allsockets[0]->objectName()+"won";
         sendLooserWinner(0, 1, allsockets);
+
         qDebug()<<GamerHands[allsockets[0]->objectName()].size();
 
     }else if (ranknumber_gamer1<ranknumber_gamer2){
