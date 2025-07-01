@@ -178,6 +178,7 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
             qDebug()<<"the datas are related to starter";
             GameManagement gameprocess_starter;
             gameprocess_starter.choosingStarter(clients);
+            gameprocess_starter.ChargingCardsForFirstTime();
             qDebug()<<"Data was sent";
 
         }else{
@@ -214,21 +215,22 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
     }else if(specifier_COMMUNICATE)
     {
         QString stringData = QString::fromUtf8(data);
-        // GameManagement gameprocess_communicate(stringData);
-        gameManager.Messagehandeler("\\COMMUNICATE\\");
-        gameManager.Communicate(_socket, clients);
+        GameManagement gameprocess_communicate(stringData);
+        gameprocess_communicate.Messagehandeler("\\COMMUNICATE\\");
+        gameprocess_communicate.Communicate(_socket, clients);
 
     }else if (specifier_CHOOSE)
     {
         QString stringData = QString::fromUtf8(data);
         GameManagement receivemessage(data);
         receivemessage.Messagehandeler("\\CHOOSE\\");
-        gameManager.StoringChooses(_socket, clients);
+        receivemessage.StoringChooses(_socket, clients);
     }else if (specifier_SHOWOPPONENT)
     {
         gameManager.ShowOpponent(clients);
     }else if (specifier_CARDREQUEST)
     {
+        qDebug()<<"we are in CardRequest";
         gameManager.ChargingCards();
         gameManager.ShuffelingAndSendCard(clients);
 

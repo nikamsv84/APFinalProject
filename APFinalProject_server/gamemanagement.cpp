@@ -17,15 +17,13 @@ QMap<QString, QVector<QPair<int, int>>> GameManagement::GamerHands;
 
 
 GameManagement::GameManagement():DatabaseManager(""){
-    for (int degree = 1; degree<=4; degree++)
-    {
-        for(int name = 2; name<=14; name++)
-        {
-            AllCards.append(qMakePair(degree, name));
-        }
-    }
+
 }
 GameManagement::GameManagement(QString ReceivedData):DatabaseManager(ReceivedData)
+{
+}
+
+void GameManagement::ChargingCardsForFirstTime()
 {
     for (int degree = 1; degree<=4; degree++)
     {
@@ -34,7 +32,9 @@ GameManagement::GameManagement(QString ReceivedData):DatabaseManager(ReceivedDat
             AllCards.append(qMakePair(degree, name));
         }
     }
+    qDebug()<<"the number of cards at first:"+QString::number(AllCards.size());
 }
+
 void GameManagement::InPlacingToLocalAttributes()
 {
     Message = userInfo["Message"];
@@ -45,6 +45,7 @@ void GameManagement::ChargingCards()
     if (CardsInARound.size() == 17 || CardsInARound.size() == 0)//52-35 35 cards are used in every round.
     {
         CardsInARound = AllCards;
+        qDebug()<<"cards in round at first or in the begining of a round: "+QString::number(CardsInARound.size());
         ++GameRound;
     }
 }
@@ -122,6 +123,7 @@ void GameManagement::ShuffelingAndSendCard(QList<QTcpSocket*> allsockets)
     }
 
     CardsInARound.erase(CardsInARound.begin(), CardsInARound.begin() + 7);
+    qDebug()<<"remaining cards: Cards in a round "+QString::number(CardsInARound.size());
 }
 
 

@@ -42,6 +42,7 @@ public:
     void RankMatching(QList<QTcpSocket*> allsockets);
     void RanksAreTheSame(QList<QTcpSocket*> allsockets, int Rank);
     void ShowOpponent(QList<QTcpSocket*> allsockets);
+    void ChargingCardsForFirstTime();
 
     //we assigned a number to every hand , the below methodes return the number of hand if the hand is golden or ... otherwise they return 0.
     static int IsGoldenHand(QVector<QPair<int, int>> hand);     // 10
