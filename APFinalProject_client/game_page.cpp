@@ -361,15 +361,16 @@ void game_page::on_card_1_clicked()
     changing_turn_in_hand();
 
     if(player_cards.size() == 5){
-        player_cards.clear();
         round++;
         ui->round->setText(QString::number(round));
+    }
+    else if(player_cards.size() == 6){
         ui->mine_card1->setText("");
         ui->mine_card2->setText("");
         ui->mine_card3->setText("");
         ui->mine_card4->setText("");
         ui->mine_card5->setText("");
-        hand = 0;
+        player_cards.clear();
     }
 
     QList<QPushButton*> cards = {
@@ -432,15 +433,16 @@ void game_page::on_card_2_clicked()
     changing_turn_in_hand();
 
     if(player_cards.size() == 5){
-        player_cards.clear();
         round++;
         ui->round->setText(QString::number(round));
+    }
+    else if(player_cards.size() == 6){
         ui->mine_card1->setText("");
         ui->mine_card2->setText("");
         ui->mine_card3->setText("");
         ui->mine_card4->setText("");
         ui->mine_card5->setText("");
-        hand = 0;
+        player_cards.clear();
     }
 
     QList<QPushButton*> cards = {
@@ -503,15 +505,16 @@ void game_page::on_card_3_clicked()
     changing_turn_in_hand();
 
     if(player_cards.size() == 5){
-        player_cards.clear();
         round++;
         ui->round->setText(QString::number(round));
+    }
+    else if(player_cards.size() == 6){
         ui->mine_card1->setText("");
         ui->mine_card2->setText("");
         ui->mine_card3->setText("");
         ui->mine_card4->setText("");
         ui->mine_card5->setText("");
-        hand = 0;
+        player_cards.clear();
     }
 
     QList<QPushButton*> cards = {
@@ -573,15 +576,16 @@ void game_page::on_card_4_clicked()
     changing_turn_in_hand();
 
     if(player_cards.size() == 5){
-        player_cards.clear();
         round++;
         ui->round->setText(QString::number(round));
+    }
+    else if(player_cards.size() == 6){
         ui->mine_card1->setText("");
         ui->mine_card2->setText("");
         ui->mine_card3->setText("");
         ui->mine_card4->setText("");
         ui->mine_card5->setText("");
-        hand = 0;
+        player_cards.clear();
     }
 
     QList<QPushButton*> cards = {
@@ -645,15 +649,16 @@ void game_page::on_card_5_clicked()
     changing_turn_in_hand();
 
     if(player_cards.size() == 5){
-        player_cards.clear();
         round++;
         ui->round->setText(QString::number(round));
+    }
+    else if(player_cards.size() == 6){
         ui->mine_card1->setText("");
         ui->mine_card2->setText("");
         ui->mine_card3->setText("");
         ui->mine_card4->setText("");
         ui->mine_card5->setText("");
-        hand = 0;
+        player_cards.clear();
     }
 
     QList<QPushButton*> cards = {
@@ -716,15 +721,16 @@ void game_page::on_card_6_clicked()
     changing_turn_in_hand();
 
     if(player_cards.size() == 5){
-        player_cards.clear();
         round++;
         ui->round->setText(QString::number(round));
+    }
+    else if(player_cards.size() == 6){
         ui->mine_card1->setText("");
         ui->mine_card2->setText("");
         ui->mine_card3->setText("");
         ui->mine_card4->setText("");
         ui->mine_card5->setText("");
-        hand = 0;
+        player_cards.clear();
     }
 
     QList<QPushButton*> cards = {
@@ -787,15 +793,16 @@ void game_page::on_card_7_clicked()
     changing_turn_in_hand();
 
     if(player_cards.size() == 5){
-        player_cards.clear();
         round++;
         ui->round->setText(QString::number(round));
+    }
+    else if(player_cards.size() == 6){
         ui->mine_card1->setText("");
         ui->mine_card2->setText("");
         ui->mine_card3->setText("");
         ui->mine_card4->setText("");
         ui->mine_card5->setText("");
-        hand = 0;
+        player_cards.clear();
     }
 
     QList<QPushButton*> cards = {
