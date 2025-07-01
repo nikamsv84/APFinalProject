@@ -21,8 +21,8 @@ public:
     void startCountdown();
 
 private slots:
-    void on_resume_clicked();
     void onServerMessage(const QString& msg);
+    void on_resume_clicked();
 
 private:
     Ui::resume_stop *ui;

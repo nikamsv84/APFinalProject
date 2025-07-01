@@ -15,6 +15,8 @@ public:
     explicit recent_games(QWidget *parent = nullptr);
     ~recent_games();
 
+private slots :
+    void onServerMessage(const QString& msg);
 private:
     Ui::recent_games *ui;
 };

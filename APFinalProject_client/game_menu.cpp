@@ -65,6 +65,7 @@ void game_menu::on_exit_clicked()
 
 void game_menu::on_recent_games_clicked()
 {
+    MainWindow::sendData("\\SHOWHISTORY\\");
     recent_games* recent_games_page = new recent_games();
     recent_games_page->show();
 }

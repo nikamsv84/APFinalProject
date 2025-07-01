@@ -854,6 +854,26 @@ font: 700 15pt &quot;Script MT&quot;;
     <string>ok changing</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="show_final_winner">
+   <property name="geometry">
+    <rect>
+     <x>1200</x>
+     <y>260</y>
+     <width>201</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+	background-color: rgb(170, 0, 127);
+	color: rgb(0, 0, 0);
+	font: 700 18pt &quot;Script MT&quot;;
+}</string>
+   </property>
+   <property name="text">
+    <string>final winner</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

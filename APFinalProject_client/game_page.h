@@ -73,6 +73,8 @@ private slots:
 
     void on_ok_changing_clicked();
 
+    void on_show_final_winner_clicked();
+
 private:
     Ui::game_page *ui;
 };
