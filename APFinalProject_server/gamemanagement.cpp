@@ -1121,8 +1121,6 @@ void GameManagement::SavingFinalResultsToHistory()
     QDataStream out(&file);
     out.setVersion(QDataStream::Qt_6_0);
 
-    out << GameResults.size();
-
     for (auto it = GameResults.begin(); it != GameResults.end(); ++it) {
         const QString& key = it.key();
         const UserHistory& h = it.value();
@@ -1155,12 +1153,9 @@ void GameManagement::ShowHistory(QTcpSocket* _socket)
     QDataStream in(&file);
     in.setVersion(QDataStream::Qt_6_0);
 
-    int count = 0;
-    in >> count;
-
     int matchCount = 0;
 
-    for (int i = 0; i < count; ++i) {
+    while (!in.atEnd()) {
         QString currentKey;
         UserHistory h;
 
@@ -1172,23 +1167,21 @@ void GameManagement::ShowHistory(QTcpSocket* _socket)
         in >> h.result3;
         in >> h.FinalResult;
 
+        if (in.status() != QDataStream::Ok) {
+            qWarning() << "Data stream error while reading.";
+            break;
+        }
 
         if (currentKey == username) {
             ++matchCount;
-            qDebug() << "Record #" << matchCount;
-            allHistories+"#"+QString::number(matchCount);
-            qDebug() << "Opponent:" << h.OpponentName;
-            allHistories+",Opponent:"+h.OpponentName;
-            qDebug() << "Date:" << h.Date;
-            allHistories+",Date:"+h.Date;
-            qDebug() << "Results:" << h.result1 << h.result2 << h.result3;
-            allHistories+",Round1:"+h.result1;
-            allHistories+",Round2:"+h.result2;
-            allHistories+",Round3:"+h.result3;
-            qDebug() << "Final Result:" << h.FinalResult;
-            allHistories+",FinalResult:"+h.FinalResult;
-            qDebug() << "-----------------------------";
-            allHistories+"|";
+            allHistories += "#" + QString::number(matchCount);
+            allHistories += ",Opponent:" + h.OpponentName;
+            allHistories += ",Date:" + h.Date;
+            allHistories += ",Round1:" + h.result1;
+            allHistories += ",Round2:" + h.result2;
+            allHistories += ",Round3:" + h.result3;
+            allHistories += ",FinalResult:" + h.FinalResult;
+            allHistories += "|";
         }
     }
 
@@ -1201,6 +1194,7 @@ void GameManagement::ShowHistory(QTcpSocket* _socket)
         _socket->write(allHistories.toUtf8());
         _socket->flush();
     }
+
 }
 
 void GameManagement::IfAllWasTheSame(QList<QTcpSocket*> allsockets)
