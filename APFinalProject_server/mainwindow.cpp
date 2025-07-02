@@ -256,8 +256,6 @@ void MainWindow::ManagingData(QTcpSocket *_socket, const char* data)
         change_card_process.Messagehandeler("\\CHANGE_CARD\\");
         change_card_process.ChangeCardProcess(_socket, clients);
     }
-
-
 }
 
 

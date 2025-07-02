@@ -1041,6 +1041,7 @@ void GameManagement::sendLooserWinner(int WinnerIndex, int LooserIndex, QList<QT
 
 void GameManagement::ShowFinalWinner(QList<QTcpSocket*> allsockets)
 {
+    qDebug()<<"we are in showFinalWinner";
     QVector<QString> client1Results = {GameResults[allsockets[0]->objectName()].result1, GameResults[allsockets[0]->objectName()].result2, GameResults[allsockets[0]->objectName()].result3};
     QVector<QString> client2LooserResults = {GameResults[allsockets[1]->objectName()].result1, GameResults[allsockets[1]->objectName()].result2, GameResults[allsockets[1]->objectName()].result3};
     int client1totalCount = 0;
@@ -1092,7 +1093,7 @@ void GameManagement::SavingFinalResultsToHistory()
 {
     QString filePath = "game_results.dat";
     QFile file(filePath);
-    if (!file.open(QIODevice::WriteOnly)) {
+    if (!file.open(QIODevice::Append)) {
         qWarning() << " Cannot open file for writing:" << file.errorString();
         return;
     }
@@ -1163,6 +1164,8 @@ void GameManagement::ShowHistory(QTcpSocket* _socket)
             allHistories += "|";
         }
     }
+
+    qDebug()<<"all matches :"+allHistories;
 
     file.close();
 
