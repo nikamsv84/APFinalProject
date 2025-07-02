@@ -6,10 +6,10 @@
 ForgotPassword::ForgotPassword(QString ReceivedData):DatabaseManager(ReceivedData) {}
 void ForgotPassword::InPlacingToLocalAttributes()
 {
-    PhoneNumber = userInfo["PhoneNumber"];
-    NewPassword = userInfo["NewPassword"];
-    qDebug()<<"PhoneNumber: "<<PhoneNumber;
-    qDebug()<<"NewPassword: "<<NewPassword;
+    PhoneNumber = userInfo["phonenumber"];
+    NewPassword = userInfo["new_password"];
+    qDebug()<<"phonenumber: "<<PhoneNumber;
+    qDebug()<<"new_password: "<<NewPassword;
 }
 
 void ForgotPassword::EditForgetPassword( QTcpSocket* _socket)

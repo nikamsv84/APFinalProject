@@ -62,7 +62,7 @@ void GameManagement::ChangeCardProcess(QTcpSocket* _socket, QList<QTcpSocket*> a
     qDebug()<<"card2"+QString::number(cardtochange_2.first)+QString::number(cardtochange_2.second);
 
 
-    if (_socket == allsockets[0])
+    if (_socket->objectName() == allsockets[0]->objectName())
     {
         int index1 = GamerHands[allsockets[0]->objectName()].indexOf(cardtochange_1);
         int index2 = GamerHands[allsockets[1]->objectName()].indexOf(cardtochange_2);
@@ -74,7 +74,7 @@ void GameManagement::ChangeCardProcess(QTcpSocket* _socket, QList<QTcpSocket*> a
 
         }
 
-    }else if (_socket == allsockets[1])
+    }else if (_socket->objectName() == allsockets[1]->objectName())
     {
         int index1 = GamerHands[allsockets[1]->objectName()].indexOf(cardtochange_1);
         int index2 = GamerHands[allsockets[0]->objectName()].indexOf(cardtochange_2);

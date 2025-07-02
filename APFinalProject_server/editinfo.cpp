@@ -4,7 +4,7 @@
 #include <QFile>
 EditInfo::EditInfo(QString ReceivedData):DatabaseManager(ReceivedData){}
 void EditInfo::InPlacingToLocalAttributes(){
-    DataType = userInfo["DataType"];
+    DataType = userInfo["Datatype"];
     PreviousData= userInfo["PreviousData"];
     NewData = userInfo["NewData"];
 
