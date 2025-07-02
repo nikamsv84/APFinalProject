@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>713</width>
-    <height>462</height>
+    <width>1520</width>
+    <height>861</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,10 +22,10 @@
   <widget class="QPushButton" name="forgot_password">
    <property name="geometry">
     <rect>
-     <x>310</x>
-     <y>320</y>
+     <x>790</x>
+     <y>400</y>
      <width>261</width>
-     <height>61</height>
+     <height>51</height>
     </rect>
    </property>
    <property name="font">
@@ -48,8 +48,8 @@
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>250</x>
-     <y>30</y>
+     <x>660</x>
+     <y>70</y>
      <width>261</width>
      <height>91</height>
     </rect>
@@ -67,10 +67,10 @@ color: rgb(255, 255, 255);
   <widget class="QWidget" name="horizontalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>310</y>
-     <width>160</width>
-     <height>80</height>
+     <x>480</x>
+     <y>370</y>
+     <width>291</width>
+     <height>111</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
@@ -99,13 +99,27 @@ color: rgb(255, 255, 255);
   <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>150</y>
-     <width>461</width>
-     <height>153</height>
+     <x>460</x>
+     <y>200</y>
+     <width>641</width>
+     <height>162</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout_2">
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_2">
+      <property name="font">
+       <font>
+        <family>Script MT</family>
+        <pointsize>30</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>password :</string>
+      </property>
+     </widget>
+    </item>
     <item row="1" column="1">
      <widget class="QLineEdit" name="password">
       <property name="styleSheet">
@@ -118,34 +132,6 @@ font: 700 20pt &quot;Script MT&quot;;
       </property>
       <property name="echoMode">
        <enum>QLineEdit::EchoMode::Password</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="label">
-      <property name="font">
-       <font>
-        <family>Script MT</family>
-        <pointsize>30</pointsize>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>username :</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QLabel" name="label_2">
-      <property name="font">
-       <font>
-        <family>Script MT</family>
-        <pointsize>30</pointsize>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>password :</string>
       </property>
      </widget>
     </item>
@@ -171,6 +157,20 @@ font: 700 20pt &quot;Script MT&quot;;
       </property>
       <property name="text">
        <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label">
+      <property name="font">
+       <font>
+        <family>Script MT</family>
+        <pointsize>30</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>username :</string>
       </property>
      </widget>
     </item>
