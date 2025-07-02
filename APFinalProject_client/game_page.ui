@@ -1,0 +1,948 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>game_page</class>
+ <widget class="QWidget" name="game_page">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1669</width>
+    <height>855</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QPushButton{
+	background-color: rgb(170, 7, 132);
+	color: rgb(0, 0, 0);
+	font: 700 25pt &quot;Script MT&quot;;
+
+}</string>
+  </property>
+  <widget class="QLabel" name="mine_status">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>30</y>
+     <width>241</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel{
+	background-color: rgb(80, 0, 60);
+	color: rgb(255, 255, 255);
+	font: 700 20pt &quot;Script MT&quot;;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="competitor_status">
+   <property name="geometry">
+    <rect>
+     <x>1130</x>
+     <y>30</y>
+     <width>231</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel{
+	color: rgb(255, 255, 255);
+	background-color: rgb(0, 0, 127);
+	font: 700 20pt &quot;Script MT&quot;;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="player_status_1">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>30</y>
+     <width>171</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel{
+	background-color: rgb(80, 0, 60);
+	color: rgb(255, 255, 255);
+font: 700 18pt &quot;Script MT&quot;;
+}</string>
+   </property>
+   <property name="text">
+    <string>your status :</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="player_status_2">
+   <property name="geometry">
+    <rect>
+     <x>940</x>
+     <y>30</y>
+     <width>181</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel{
+	background-color: rgb(0, 0, 127);
+	color: rgb(255, 255, 255);
+font: 700 15pt &quot;Script MT&quot;;
+}</string>
+   </property>
+   <property name="text">
+    <string>competitor status :</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Card_request">
+   <property name="geometry">
+    <rect>
+     <x>640</x>
+     <y>80</y>
+     <width>151</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+	background-color: rgb(0, 0, 0);
+	color: rgb(255, 255, 255);
+	font: 700 15pt &quot;Script MT&quot;;
+}
+QPushButton:disabled {
+	background-color: rgb(48, 3, 6);
+}</string>
+   </property>
+   <property name="text">
+    <string>Card request</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="card_3">
+   <property name="geometry">
+    <rect>
+     <x>800</x>
+     <y>250</y>
+     <width>111</width>
+     <height>151</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+
+	background-color: rgb(48, 0, 72);
+	color: rgb(255, 255, 255);
+	font: 700 10pt &quot;Script MT&quot;;
+
+
+}
+
+QPushButton:pressed {
+background-color: rgb(0, 85, 0);
+	color: rgb(255, 255, 255);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="card_1">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>250</y>
+     <width>121</width>
+     <height>151</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+
+	color: rgb(255, 255, 255);
+	background-color: rgb(50, 0, 75);
+	font: 700 10pt &quot;Script MT&quot;;
+
+
+}
+QPushButton:pressed {
+background-color: rgb(0, 85, 0);
+	color: rgb(255, 255, 255);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="card_2">
+   <property name="geometry">
+    <rect>
+     <x>630</x>
+     <y>250</y>
+     <width>121</width>
+     <height>151</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+
+	background-color: rgb(48, 0, 72);
+	color: rgb(255, 255, 255);
+	font: 700 10pt &quot;Script MT&quot;;
+
+
+}
+
+QPushButton:pressed {
+background-color: rgb(0, 85, 0);
+	color: rgb(255, 255, 255);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="change_cards">
+   <property name="geometry">
+    <rect>
+     <x>1060</x>
+     <y>700</y>
+     <width>201</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+	color: rgb(255, 255, 255);
+	background-color: rgb(0, 85, 62);
+	font: 700 15pt &quot;Script MT&quot;;
+}
+QPushButton:disabled {
+	background-color: rgb(48, 3, 6);
+}</string>
+   </property>
+   <property name="text">
+    <string>change card</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="round">
+   <property name="geometry">
+    <rect>
+     <x>740</x>
+     <y>20</y>
+     <width>71</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel{
+	background-color: rgb(48, 0, 72);
+	color: rgb(255, 255, 255);
+	font: 700 20pt &quot;Script MT&quot;;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="round_label">
+   <property name="geometry">
+    <rect>
+     <x>610</x>
+     <y>20</y>
+     <width>121</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel{
+	color: rgb(255, 255, 255);
+	background-color: rgb(48, 0, 72);
+	font: 700 20pt &quot;Script MT&quot;;
+}</string>
+   </property>
+   <property name="text">
+    <string>Round :</string>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>90</y>
+     <width>301</width>
+     <height>691</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string/>
+   </property>
+   <widget class="QPushButton" name="mine_card1">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>80</y>
+      <width>121</width>
+      <height>151</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+
+	background-color: rgb(0, 0, 0);
+	color: rgb(255, 255, 255);
+	font: 700 10pt &quot;Script MT&quot;;
+
+
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="mine_card2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>300</y>
+      <width>121</width>
+      <height>151</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+
+	background-color: rgb(0, 0, 0);
+	color: rgb(255, 255, 255);
+	font: 700 10pt &quot;Script MT&quot;;
+
+
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="mine_card3">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>520</y>
+      <width>121</width>
+      <height>151</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+
+	background-color: rgb(0, 0, 0);
+	color: rgb(255, 255, 255);
+	font: 700 10pt &quot;Script MT&quot;;
+
+
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="mine_card4">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>300</y>
+      <width>121</width>
+      <height>151</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+
+	background-color: rgb(0, 0, 0);
+	color: rgb(255, 255, 255);
+	font: 700 10pt &quot;Script MT&quot;;
+
+
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="mine_card5">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>520</y>
+      <width>121</width>
+      <height>151</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+
+	background-color: rgb(0, 0, 0);
+	color: rgb(255, 255, 255);
+	font: 700 10pt &quot;Script MT&quot;;
+
+
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="round_label_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+	background-color: rgb(170, 85, 0);
+	color: rgb(255, 255, 255);
+font: 700 20pt &quot;Script MT&quot;;
+}</string>
+    </property>
+    <property name="text">
+     <string>       1</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="round_label_3">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>250</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+	color: rgb(255, 255, 255);
+	background-color: rgb(0, 119, 179);
+	font: 700 20pt &quot;Script MT&quot;;
+}</string>
+    </property>
+    <property name="text">
+     <string>      4</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="round_label_4">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>250</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+	color: rgb(255, 255, 255);
+	background-color: rgb(0, 0, 127);
+	font: 700 20pt &quot;Script MT&quot;;
+}</string>
+    </property>
+    <property name="text">
+     <string>      2</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="round_label_6">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>470</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+	color: rgb(255, 255, 255);
+	background-color: rgb(43, 0, 65);
+	font: 700 20pt &quot;Script MT&quot;;
+}</string>
+    </property>
+    <property name="text">
+     <string>      5</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="round_label_5">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>470</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+	color: rgb(255, 255, 255);
+	font: 700 20pt &quot;Script MT&quot;;
+background-color: rgb(47, 118, 73);
+}</string>
+    </property>
+    <property name="text">
+     <string>       3</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>20</y>
+      <width>121</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+	background-color: rgb(80, 0, 60);
+	color: rgb(255, 255, 255);
+font: 700 15pt &quot;Script MT&quot;;
+}</string>
+    </property>
+    <property name="text">
+     <string>your wins :</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QPushButton" name="card_4">
+   <property name="geometry">
+    <rect>
+     <x>940</x>
+     <y>250</y>
+     <width>121</width>
+     <height>151</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+
+	background-color: rgb(48, 0, 72);
+	color: rgb(255, 255, 255);
+	font: 700 10pt &quot;Script MT&quot;;
+
+
+}
+QPushButton:pressed {
+background-color: rgb(0, 85, 0);
+	color: rgb(255, 255, 255);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="card_5">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>430</y>
+     <width>121</width>
+     <height>151</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+
+	background-color: rgb(48, 0, 72);
+	color: rgb(255, 255, 255);
+	font: 700 10pt &quot;Script MT&quot;;
+
+
+}
+
+QPushButton:pressed {
+background-color: rgb(0, 85, 0);
+	color: rgb(255, 255, 255);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="card_6">
+   <property name="geometry">
+    <rect>
+     <x>630</x>
+     <y>430</y>
+     <width>121</width>
+     <height>151</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+
+	background-color: rgb(48, 0, 72);
+	color: rgb(255, 255, 255);
+	font: 700 10pt &quot;Script MT&quot;;
+
+
+}
+QPushButton:pressed {
+background-color: rgb(0, 85, 0);
+	color: rgb(255, 255, 255);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="card_7">
+   <property name="geometry">
+    <rect>
+     <x>800</x>
+     <y>430</y>
+     <width>121</width>
+     <height>151</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+
+	background-color: rgb(48, 0, 72);
+	color: rgb(255, 255, 255);
+	font: 700 10pt &quot;Script MT&quot;;
+
+
+}
+QPushButton:pressed {
+background-color: rgb(0, 85, 0);
+	color: rgb(255, 255, 255);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="exit">
+   <property name="geometry">
+    <rect>
+     <x>1202</x>
+     <y>470</y>
+     <width>201</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+	background-color: rgb(0, 0, 0);
+	color: rgb(255, 255, 255);
+	font: 700 14pt &quot;Script MT&quot;;
+}</string>
+   </property>
+   <property name="text">
+    <string>exit</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="stop_resume">
+   <property name="geometry">
+    <rect>
+     <x>1200</x>
+     <y>400</y>
+     <width>201</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+	background-color: rgb(0, 0, 0);
+	color: rgb(255, 255, 255);
+	font: 700 14pt &quot;Script MT&quot;;
+
+}
+QPushButton:disabled {
+	background-color: rgb(48, 3, 6);
+}</string>
+   </property>
+   <property name="text">
+    <string>stop &amp; resume</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="send_changes">
+   <property name="geometry">
+    <rect>
+     <x>420</x>
+     <y>140</y>
+     <width>171</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+	background-color: rgb(170, 0, 127);
+	color: rgb(0, 0, 0);
+	font: 700 18pt &quot;Script MT&quot;;
+}</string>
+   </property>
+   <property name="text">
+    <string>send changes</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="show_result_of_round">
+   <property name="geometry">
+    <rect>
+     <x>1200</x>
+     <y>330</y>
+     <width>201</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+	color: rgb(0, 0, 0);
+	background-color: rgb(170, 170, 0);
+	font: 700 18pt &quot;Script MT&quot;;
+}</string>
+   </property>
+   <property name="text">
+    <string>show  result </string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="your_changed_card">
+   <property name="geometry">
+    <rect>
+     <x>750</x>
+     <y>640</y>
+     <width>281</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLineEdit{
+background-color: rgb(37, 20, 80);
+	color: rgb(255, 255, 255);
+font: 700 16pt &quot;Script MT&quot;;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="round_label_9">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>640</y>
+     <width>421</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel{
+	color: rgb(255, 255, 255);
+	font: 700 20pt &quot;Script MT&quot;;
+background-color: rgb(37, 20, 80);
+}</string>
+   </property>
+   <property name="text">
+    <string>enter card you want to change :</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="round_label_10">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>700</y>
+     <width>561</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel{
+	color: rgb(255, 255, 255);
+	background-color: rgb(25, 52, 2);
+	font: 700 20pt &quot;Script MT&quot;;
+}</string>
+   </property>
+   <property name="text">
+    <string>your competitor wants to give this card :</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="competitor_change_card">
+   <property name="geometry">
+    <rect>
+     <x>890</x>
+     <y>700</y>
+     <width>141</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel{
+	background-color: rgb(25, 52, 2);
+	color: rgb(255, 255, 255);
+font: 700 14pt &quot;Script MT&quot;;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="change_card_request">
+   <property name="geometry">
+    <rect>
+     <x>1060</x>
+     <y>640</y>
+     <width>201</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+	color: rgb(255, 255, 255);
+	background-color: rgb(52, 52, 0);
+	font: 700 15pt &quot;Script MT&quot;;
+}
+QPushButton:disabled {
+	background-color: rgb(48, 3, 6);
+}</string>
+   </property>
+   <property name="text">
+    <string>change request</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>940</x>
+     <y>110</y>
+     <width>171</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel{
+	background-color: rgb(0, 0, 127);
+	color: rgb(255, 255, 255);
+font: 700 15pt &quot;Script MT&quot;;
+}</string>
+   </property>
+   <property name="text">
+    <string>competitor wins :</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="competitor_wins">
+   <property name="geometry">
+    <rect>
+     <x>1120</x>
+     <y>110</y>
+     <width>71</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel{
+	background-color: rgb(0, 0, 127);
+	color: rgb(255, 255, 255);
+font: 700 15pt &quot;Script MT&quot;;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="your_wins">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>110</y>
+     <width>63</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel{
+	background-color: rgb(80, 0, 60);
+	color: rgb(255, 255, 255);
+font: 700 15pt &quot;Script MT&quot;;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="donot_change">
+   <property name="geometry">
+    <rect>
+     <x>1280</x>
+     <y>640</y>
+     <width>191</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+	background-color: rgb(106, 0, 0);
+	font: 700 18pt &quot;Script MT&quot;;
+	color: rgb(255, 255, 255);
+}
+QPushButton:disabled {
+	background-color: rgb(48, 3, 6);
+	color: rgb(255, 255, 255);
+}</string>
+   </property>
+   <property name="text">
+    <string>I don't change</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="ok_changing">
+   <property name="geometry">
+    <rect>
+     <x>1280</x>
+     <y>700</y>
+     <width>191</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+	background-color: rgb(0, 99, 0);
+	font: 700 18pt &quot;Script MT&quot;;
+	color: rgb(255, 255, 255);
+}
+QPushButton:disabled {
+	background-color: rgb(48, 3, 6);
+	color: rgb(255, 255, 255);
+}</string>
+   </property>
+   <property name="text">
+    <string>ok changing</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="show_final_winner">
+   <property name="geometry">
+    <rect>
+     <x>1200</x>
+     <y>260</y>
+     <width>201</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+	color: rgb(0, 0, 0);
+	background-color: rgb(0, 0, 255);
+	font: 700 18pt &quot;Script MT&quot;;
+}</string>
+   </property>
+   <property name="text">
+    <string>final winner</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
