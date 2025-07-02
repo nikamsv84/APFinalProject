@@ -24,7 +24,7 @@
   <widget class="QLabel" name="mine_status">
    <property name="geometry">
     <rect>
-     <x>180</x>
+     <x>210</x>
      <y>30</y>
      <width>241</width>
      <height>51</height>
@@ -66,7 +66,7 @@
     <rect>
      <x>20</x>
      <y>30</y>
-     <width>141</width>
+     <width>171</width>
      <height>51</height>
     </rect>
    </property>
@@ -74,7 +74,7 @@
     <string notr="true">QLabel{
 	background-color: rgb(80, 0, 60);
 	color: rgb(255, 255, 255);
-font: 700 15pt &quot;Script MT&quot;;
+font: 700 18pt &quot;Script MT&quot;;
 }</string>
    </property>
    <property name="text">
@@ -115,6 +115,9 @@ font: 700 15pt &quot;Script MT&quot;;
 	background-color: rgb(0, 0, 0);
 	color: rgb(255, 255, 255);
 	font: 700 15pt &quot;Script MT&quot;;
+}
+QPushButton:disabled {
+	background-color: rgb(48, 3, 6);
 }</string>
    </property>
    <property name="text">
@@ -138,6 +141,11 @@ font: 700 15pt &quot;Script MT&quot;;
 	font: 700 10pt &quot;Script MT&quot;;
 
 
+}
+
+QPushButton:pressed {
+background-color: rgb(0, 85, 0);
+	color: rgb(255, 255, 255);
 }</string>
    </property>
    <property name="text">
@@ -161,6 +169,10 @@ font: 700 15pt &quot;Script MT&quot;;
 	font: 700 10pt &quot;Script MT&quot;;
 
 
+}
+QPushButton:pressed {
+background-color: rgb(0, 85, 0);
+	color: rgb(255, 255, 255);
 }</string>
    </property>
    <property name="text">
@@ -184,6 +196,11 @@ font: 700 15pt &quot;Script MT&quot;;
 	font: 700 10pt &quot;Script MT&quot;;
 
 
+}
+
+QPushButton:pressed {
+background-color: rgb(0, 85, 0);
+	color: rgb(255, 255, 255);
 }</string>
    </property>
    <property name="text">
@@ -204,6 +221,9 @@ font: 700 15pt &quot;Script MT&quot;;
 	color: rgb(255, 255, 255);
 	background-color: rgb(0, 85, 62);
 	font: 700 15pt &quot;Script MT&quot;;
+}
+QPushButton:disabled {
+	background-color: rgb(48, 3, 6);
 }</string>
    </property>
    <property name="text">
@@ -515,6 +535,10 @@ font: 700 15pt &quot;Script MT&quot;;
 	font: 700 10pt &quot;Script MT&quot;;
 
 
+}
+QPushButton:pressed {
+background-color: rgb(0, 85, 0);
+	color: rgb(255, 255, 255);
 }</string>
    </property>
    <property name="text">
@@ -538,6 +562,11 @@ font: 700 15pt &quot;Script MT&quot;;
 	font: 700 10pt &quot;Script MT&quot;;
 
 
+}
+
+QPushButton:pressed {
+background-color: rgb(0, 85, 0);
+	color: rgb(255, 255, 255);
 }</string>
    </property>
    <property name="text">
@@ -561,6 +590,10 @@ font: 700 15pt &quot;Script MT&quot;;
 	font: 700 10pt &quot;Script MT&quot;;
 
 
+}
+QPushButton:pressed {
+background-color: rgb(0, 85, 0);
+	color: rgb(255, 255, 255);
 }</string>
    </property>
    <property name="text">
@@ -584,6 +617,10 @@ font: 700 15pt &quot;Script MT&quot;;
 	font: 700 10pt &quot;Script MT&quot;;
 
 
+}
+QPushButton:pressed {
+background-color: rgb(0, 85, 0);
+	color: rgb(255, 255, 255);
 }</string>
    </property>
    <property name="text">
@@ -625,6 +662,9 @@ font: 700 15pt &quot;Script MT&quot;;
 	color: rgb(255, 255, 255);
 	font: 700 14pt &quot;Script MT&quot;;
 
+}
+QPushButton:disabled {
+	background-color: rgb(48, 3, 6);
 }</string>
    </property>
    <property name="text">
@@ -684,7 +724,7 @@ font: 700 15pt &quot;Script MT&quot;;
     <string notr="true">QLineEdit{
 background-color: rgb(37, 20, 80);
 	color: rgb(255, 255, 255);
-font: 700 14pt &quot;Script MT&quot;;
+font: 700 16pt &quot;Script MT&quot;;
 }</string>
    </property>
    <property name="text">
@@ -765,6 +805,9 @@ font: 700 14pt &quot;Script MT&quot;;
 	color: rgb(255, 255, 255);
 	background-color: rgb(52, 52, 0);
 	font: 700 15pt &quot;Script MT&quot;;
+}
+QPushButton:disabled {
+	background-color: rgb(48, 3, 6);
 }</string>
    </property>
    <property name="text">
@@ -843,8 +886,12 @@ font: 700 15pt &quot;Script MT&quot;;
    <property name="styleSheet">
     <string notr="true">QPushButton{
 	background-color: rgb(106, 0, 0);
-	color: rgb(0, 0, 0);
 	font: 700 18pt &quot;Script MT&quot;;
+	color: rgb(255, 255, 255);
+}
+QPushButton:disabled {
+	background-color: rgb(48, 3, 6);
+	color: rgb(255, 255, 255);
 }</string>
    </property>
    <property name="text">
@@ -863,8 +910,12 @@ font: 700 15pt &quot;Script MT&quot;;
    <property name="styleSheet">
     <string notr="true">QPushButton{
 	background-color: rgb(0, 99, 0);
-	color: rgb(0, 0, 0);
 	font: 700 18pt &quot;Script MT&quot;;
+	color: rgb(255, 255, 255);
+}
+QPushButton:disabled {
+	background-color: rgb(48, 3, 6);
+	color: rgb(255, 255, 255);
 }</string>
    </property>
    <property name="text">

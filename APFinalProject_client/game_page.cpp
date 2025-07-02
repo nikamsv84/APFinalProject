@@ -995,7 +995,21 @@ void game_page::on_change_card_request_clicked()
 
 void game_page::on_change_cards_clicked()
 {
-    QString card_data1 = ui->your_changed_card->text();
+
+    QString card_data1;
+
+    if(ui->your_changed_card->text() == "1"){
+    card_data1 = ui->mine_card1->text();
+    }else if(ui->your_changed_card->text() == "2"){
+        card_data1 = ui->mine_card2->text();
+    }else if(ui->your_changed_card->text() == "3"){
+        card_data1 = ui->mine_card3->text();
+    }else if(ui->your_changed_card->text() == "4"){
+        card_data1 = ui->mine_card4->text();
+    }else if(ui->your_changed_card->text() == "5"){
+        card_data1 = ui->mine_card5->text();
+    }
+
     int degree1 = 0;
     int name1 = 0;
 
@@ -1053,7 +1067,7 @@ void game_page::on_change_cards_clicked()
         }
     }
 
-    MainWindow::sendData(QString("\\CHANGE_CARD\\,") + "Degree1:" + QString::number(degree1) + "," + "Name1:" + QString::number(name1)+"Degree2:" + QString::number(degree2) + "," + "Name2:" + QString::number(name2));
+    MainWindow::sendData(QString("\\CHANGE_CARD\\,") + "Degree1:" + QString::number(degree1) + "," + "Name1:" + QString::number(name1)+",Degree2:" + QString::number(degree2) + "," + "Name2:" + QString::number(name2));
 
     if(ui->your_changed_card->text() == "1"){
         QString text = ui->competitor_change_card->text();
